@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-name="sign.ThankYouDialog">
+        <Dialog t-props="dialogProps">
+            <t t-set-slot="header" t-slot-scope="scope">
+                <h4 class="modal-title text-break" t-att-class="{ 'me-auto': scope.isFullscreen }">
+                    All done!
+                </h4>
+            </t>
+            <h5 t-if="props.subtitle" id="thank-you-subtitle"><t t-esc="props.subtitle"/></h5>
+            <div t-attf-class="d-flex {{ isMobileOS ? 'flex-column' : 'flex-row' }}">
+                <div id="thank-you-message" class="o_thankyou_message" t-esc="message"/>
+                <button t-if="signRequestState === 'signed'" t-attf-class="btn p-2 btn-sm btn-primary {{ isMobileOS ? 'text-center mt-1' : 'ms-auto' }}" t-on-click="() => this.downloadDocument()">Download it</button>
+            </div>
+            <div t-if="suggestSignUp" class="o_thankyou_message alert alert-success py-4">
+                Sign up for Odoo Sign to manage your own documents and signature requests.
+            </div>
+            <t t-if="state.nextDocuments.find((doc) => !doc.canceled)">
+                <hr/>
+                <t t-if="isMobileOS">
+                    <br/>
+                </t>
+                <div class="o_thankyou_message">There are other documents waiting for your signature:</div>
+                <table class="table table-sm">
+                    <colgroup>
+                        <col span="1" class="o_thank_you_table_first_col"/>
+                        <col span="1" class="o_thank_you_table_second_col"/>
+                    </colgroup>
+                    <tbody>
+                        <t t-foreach="state.nextDocuments.filter((doc) => !doc.canceled)" t-as="doc" t-key="doc.id">
+                            <tr t-attf-class="next-document">
+                                <th>
+                                    <div><strong t-out="doc.name"></strong></div>
+                                    <span>Sent by <span t-out="doc.user"></span> on <span t-out="doc.date"></span></span>
+                                </th>
+                                <th>
+                                    <div t-attf-class="{{ isMobileOS ? 'd-flex flex-column' : 'text-end d-flex flex-row' }}">
+                                        <button class="btn btn-sm btn-primary o_thankyou_next_sign w-100" t-on-click="() => this.clickNextSign(doc.requestId, doc.accessToken)">Sign now</button>
+                                        <button class="btn btn-sm btn-secondary o_thankyou_next_cancel w-100" t-on-click="() => this.clickNextCancel(doc)">Refuse</button>
+                                    </div>
+                                </th>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </t>
+            <t t-set-slot="footer">
+                <t t-foreach="state.buttons" t-as="button" t-key="button.name">
+                    <button t-att-class="button.classes" t-on-click="button.click" t-att-disabled="button.disabled"><t t-out="button.name"/></button>
+                </t>
+            </t>
+        </Dialog>
+    </t>
+</templates>
