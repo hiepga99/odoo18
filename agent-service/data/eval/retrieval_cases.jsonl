@@ -1,0 +1,12 @@
+{"id":"return_01","question":"Khách hàng được đổi trả sản phẩm trong vòng bao nhiêu ngày?","expected_source":"01_coolmate_chinh_sach_doi_tra"}
+{"id":"return_02","question":"Sản phẩm Outlet hoặc Săn deal có được áp dụng chính sách đổi trả chung không?","expected_source":"01_coolmate_chinh_sach_doi_tra"}
+{"id":"return_03","question":"Sau khi yêu cầu trả hàng được xác nhận thì bao lâu khách nhận được tiền hoàn?","expected_source":"01_coolmate_chinh_sach_doi_tra"}
+{"id":"order_01","question":"Đơn giao tại nội thành Hà Nội thường mất bao lâu?","expected_source":"02_coolmate_faq_giao_hang"}
+{"id":"order_02","question":"Tôi muốn theo dõi đơn hàng thì cần cung cấp thông tin gì?","expected_source":"02_coolmate_faq_giao_hang"}
+{"id":"order_03","question":"Đơn đặt trước Pre-order áp dụng lịch giao hàng nào?","expected_source":"02_coolmate_faq_giao_hang"}
+{"id":"privacy_01","question":"Coolmate có thể thu thập những loại dữ liệu cá nhân nào?","expected_source":"03_coolmate_chinh_sach_bao_mat"}
+{"id":"privacy_02","question":"Website sử dụng cookie và local storage để làm gì?","expected_source":"03_coolmate_chinh_sach_bao_mat"}
+{"id":"privacy_03","question":"Thông tin thẻ thanh toán có được Coolmate lưu trực tiếp không?","expected_source":"03_coolmate_chinh_sach_bao_mat"}
+{"id":"limit_01","question":"Những khu vực nào có thể nằm ngoài phạm vi giao hàng?","expected_source":"04_coolmate_dieu_kien_han_che"}
+{"id":"limit_02","question":"Nếu tồn kho thực tế bị sai lệch sau khi khách đặt hàng thì xử lý thế nào?","expected_source":"04_coolmate_dieu_kien_han_che"}
+{"id":"limit_03","question":"Trong trường hợp nào đơn hàng có thể bị từ chối hoặc hủy?","expected_source":"04_coolmate_dieu_kien_han_che"}

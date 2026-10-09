@@ -1,0 +1,34 @@
+.env
+.cache/
+.venv/
+__pycache__/
+*.py[cod]
+chroma_data/
+.pytest_cache/
+tmp/
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Local secrets/configuration (keep the template)
+.env
+.env.*
+!.env.example
+
+# Downloaded models and generated vector data
+.cache/
+models/
+chroma_data/
+
+# Generated output
+output/
+tmp/
+
+# Local editor/OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
