@@ -1,0 +1,79 @@
+{
+  "invoice_number": "HD2026-0040",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2026-06-26",
+  "lookup_code": "VNP80389906",
+  "payment_method": "Tiền mặt / Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Công ty TNHH Công nghệ Alpha Việt Nam",
+    "tax_code": "0108923412",
+    "address": "Tầng 5, Tòa Keangnam Landmark 72, Nam Từ Liêm, Hà Nội",
+    "contact_person": "Nguyễn Văn Hùng"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0015",
+      "product_name": "Màn hình Dell P2422H 23.8 inch FHD IPS",
+      "unit": "Chiếc",
+      "quantity": 10,
+      "unit_price": 3990000,
+      "amount": 39900000,
+      "vat_rate_percent": 8,
+      "vat_amount": 3192000,
+      "total_line_amount": 43092000
+    },
+    {
+      "line_number": 2,
+      "product_code": "SP0030",
+      "product_name": "Ổ cứng di động SSD SanDisk Extreme E61 1TB Chống nước",
+      "unit": "Chiếc",
+      "quantity": 1,
+      "unit_price": 2950000,
+      "amount": 2950000,
+      "vat_rate_percent": 8,
+      "vat_amount": 236000,
+      "total_line_amount": 3186000
+    },
+    {
+      "line_number": 3,
+      "product_code": "SP0004",
+      "product_name": "Laptop Asus Zenbook 14 OLED UX3405 (Ultra 7/16GB/1TB)",
+      "unit": "Chiếc",
+      "quantity": 10,
+      "unit_price": 28900000,
+      "amount": 289000000,
+      "vat_rate_percent": 10,
+      "vat_amount": 28900000,
+      "total_line_amount": 317900000
+    },
+    {
+      "line_number": 4,
+      "product_code": "SP0107",
+      "product_name": "Máy in Laser đa năng HP LaserJet MFP M141w",
+      "unit": "Chiếc",
+      "quantity": 5,
+      "unit_price": 3950000,
+      "amount": 19750000,
+      "vat_rate_percent": 8,
+      "vat_amount": 1580000,
+      "total_line_amount": 21330000
+    }
+  ],
+  "subtotal_amount": 351600000,
+  "vat_amount": 33908000,
+  "total_amount": 385508000,
+  "total_amount_in_words": "385 triệu 508 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2026-06-26 17:30:00"
+}

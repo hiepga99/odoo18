@@ -1,0 +1,67 @@
+{
+  "invoice_number": "HD2026-0096",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2026-05-22",
+  "lookup_code": "VNP83640437",
+  "payment_method": "Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Công ty TNHH Giải pháp Phần mềm F-Tech",
+    "tax_code": "0107891234",
+    "address": "Tòa nhà FPT, Phố Duy Tân, Dịch Vọng Hậu, Cầu Giấy, Hà Nội",
+    "contact_person": "Lê Tuấn Anh"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0030",
+      "product_name": "Ổ cứng di động SSD SanDisk Extreme E61 1TB Chống nước",
+      "unit": "Chiếc",
+      "quantity": 3,
+      "unit_price": 2950000,
+      "amount": 8850000,
+      "vat_rate_percent": 8,
+      "vat_amount": 708000,
+      "total_line_amount": 9558000
+    },
+    {
+      "line_number": 2,
+      "product_code": "SP0101",
+      "product_name": "Ghế công thái học Ergonomic Sihoo M57 Lưới thoáng khí",
+      "unit": "Chiếc",
+      "quantity": 1,
+      "unit_price": 3850000,
+      "amount": 3850000,
+      "vat_rate_percent": 10,
+      "vat_amount": 385000,
+      "total_line_amount": 4235000
+    },
+    {
+      "line_number": 3,
+      "product_code": "SP0104",
+      "product_name": "Bàn nâng hạ thông minh tự động điều chỉnh độ cao 2 motor",
+      "unit": "Chiếc",
+      "quantity": 3,
+      "unit_price": 6900000,
+      "amount": 20700000,
+      "vat_rate_percent": 10,
+      "vat_amount": 2070000,
+      "total_line_amount": 22770000
+    }
+  ],
+  "subtotal_amount": 33400000,
+  "vat_amount": 3163000,
+  "total_amount": 36563000,
+  "total_amount_in_words": "36 triệu 563 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2026-05-22 17:30:00"
+}

@@ -1,0 +1,55 @@
+{
+  "invoice_number": "HD2026-0062",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2025-11-26",
+  "lookup_code": "VNP24000911",
+  "payment_method": "Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Công ty Cổ phần Thương mại & Dịch vụ Sao Mai",
+    "tax_code": "0314567890",
+    "address": "Số 45 Lê Duẩn, Bến Nghé, Quận 1, TP. Hồ Chí Minh",
+    "contact_person": "Trần Thị Mai"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0078",
+      "product_name": "Máy lọc không khí Xiaomi Smart Air Purifier 4 Pro",
+      "unit": "Chiếc",
+      "quantity": 2,
+      "unit_price": 4890000,
+      "amount": 9780000,
+      "vat_rate_percent": 8,
+      "vat_amount": 782400,
+      "total_line_amount": 10562400
+    },
+    {
+      "line_number": 2,
+      "product_code": "SP0027",
+      "product_name": "Ổ cứng SSD Samsung 990 Pro 1TB M.2 PCIe 4.0",
+      "unit": "Chiếc",
+      "quantity": 5,
+      "unit_price": 2850000,
+      "amount": 14250000,
+      "vat_rate_percent": 8,
+      "vat_amount": 1140000,
+      "total_line_amount": 15390000
+    }
+  ],
+  "subtotal_amount": 24030000,
+  "vat_amount": 1922400,
+  "total_amount": 25952400,
+  "total_amount_in_words": "25 triệu 952 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2025-11-26 17:30:00"
+}

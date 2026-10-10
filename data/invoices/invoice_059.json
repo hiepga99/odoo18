@@ -1,0 +1,43 @@
+{
+  "invoice_number": "HD2026-0059",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2025-12-06",
+  "lookup_code": "VNP11470324",
+  "payment_method": "Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Công ty TNHH Dịch vụ Truyền thông & Quảng cáo Sen Vàng",
+    "tax_code": "0318901234",
+    "address": "10 Mai Chí Thọ, An Phú, TP. Thủ Đức, TP. Hồ Chí Minh",
+    "contact_person": "Đinh Hoàng Yến"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0016",
+      "product_name": "Màn hình LG 27UP850N-W 27 inch 4K Type-C",
+      "unit": "Chiếc",
+      "quantity": 2,
+      "unit_price": 8900000,
+      "amount": 17800000,
+      "vat_rate_percent": 10,
+      "vat_amount": 1780000,
+      "total_line_amount": 19580000
+    }
+  ],
+  "subtotal_amount": 17800000,
+  "vat_amount": 1780000,
+  "total_amount": 19580000,
+  "total_amount_in_words": "19 triệu 580 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2025-12-06 17:30:00"
+}

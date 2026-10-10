@@ -1,0 +1,43 @@
+{
+  "invoice_number": "HD2026-0049",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2026-03-13",
+  "lookup_code": "VNP51294823",
+  "payment_method": "Tiền mặt / Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Công ty TNHH Thương mại Quốc tế Hòa Phát Tech",
+    "tax_code": "0106789234",
+    "address": "Số 88 Trần Hưng Đạo, Cửa Nam, Hoàn Kiếm, Hà Nội",
+    "contact_person": "Đỗ Quang Vinh"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0107",
+      "product_name": "Máy in Laser đa năng HP LaserJet MFP M141w",
+      "unit": "Chiếc",
+      "quantity": 10,
+      "unit_price": 3950000,
+      "amount": 39500000,
+      "vat_rate_percent": 8,
+      "vat_amount": 3160000,
+      "total_line_amount": 42660000
+    }
+  ],
+  "subtotal_amount": 39500000,
+  "vat_amount": 3160000,
+  "total_amount": 42660000,
+  "total_amount_in_words": "42 triệu 660 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2026-03-13 17:30:00"
+}

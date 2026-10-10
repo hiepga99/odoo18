@@ -1,0 +1,55 @@
+{
+  "invoice_number": "HD2026-0001",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2026-09-15",
+  "lookup_code": "VNP98518772",
+  "payment_method": "Tiền mặt / Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Công ty TNHH Dịch vụ Truyền thông & Quảng cáo Sen Vàng",
+    "tax_code": "0318901234",
+    "address": "10 Mai Chí Thọ, An Phú, TP. Thủ Đức, TP. Hồ Chí Minh",
+    "contact_person": "Đinh Hoàng Yến"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0048",
+      "product_name": "Webcam Logitech C920 Pro HD 1080p",
+      "unit": "Chiếc",
+      "quantity": 10,
+      "unit_price": 1650000,
+      "amount": 16500000,
+      "vat_rate_percent": 10,
+      "vat_amount": 1650000,
+      "total_line_amount": 18150000
+    },
+    {
+      "line_number": 2,
+      "product_code": "SP0027",
+      "product_name": "Ổ cứng SSD Samsung 990 Pro 1TB M.2 PCIe 4.0",
+      "unit": "Chiếc",
+      "quantity": 2,
+      "unit_price": 2850000,
+      "amount": 5700000,
+      "vat_rate_percent": 8,
+      "vat_amount": 456000,
+      "total_line_amount": 6156000
+    }
+  ],
+  "subtotal_amount": 22200000,
+  "vat_amount": 2106000,
+  "total_amount": 24306000,
+  "total_amount_in_words": "24 triệu 306 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2026-09-15 17:30:00"
+}

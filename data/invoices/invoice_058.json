@@ -1,0 +1,79 @@
+{
+  "invoice_number": "HD2026-0058",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2026-08-08",
+  "lookup_code": "VNP61887094",
+  "payment_method": "Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Trung tâm Đào tạo Tin học & Ngoại ngữ Tân Tiến",
+    "tax_code": "0402112233",
+    "address": "254 Nguyễn Văn Linh, Thạc Gián, Thanh Khê, Đà Nẵng",
+    "contact_person": "Nguyễn Hoàng Oanh"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0104",
+      "product_name": "Bàn nâng hạ thông minh tự động điều chỉnh độ cao 2 motor",
+      "unit": "Chiếc",
+      "quantity": 1,
+      "unit_price": 6900000,
+      "amount": 6900000,
+      "vat_rate_percent": 8,
+      "vat_amount": 552000,
+      "total_line_amount": 7452000
+    },
+    {
+      "line_number": 2,
+      "product_code": "SP0056",
+      "product_name": "Router Wifi 6 TP-Link Archer AX73 AX5400",
+      "unit": "Chiếc",
+      "quantity": 10,
+      "unit_price": 2250000,
+      "amount": 22500000,
+      "vat_rate_percent": 8,
+      "vat_amount": 1800000,
+      "total_line_amount": 24300000
+    },
+    {
+      "line_number": 3,
+      "product_code": "SP0031",
+      "product_name": "Chuột không dây Logitech MX Master 3S",
+      "unit": "Chiếc",
+      "quantity": 10,
+      "unit_price": 2350000,
+      "amount": 23500000,
+      "vat_rate_percent": 8,
+      "vat_amount": 1880000,
+      "total_line_amount": 25380000
+    },
+    {
+      "line_number": 4,
+      "product_code": "SP0011",
+      "product_name": "Laptop Apple MacBook Air 13 inch M2 (8GB/256GB)",
+      "unit": "Chiếc",
+      "quantity": 10,
+      "unit_price": 24900000,
+      "amount": 249000000,
+      "vat_rate_percent": 10,
+      "vat_amount": 24900000,
+      "total_line_amount": 273900000
+    }
+  ],
+  "subtotal_amount": 301900000,
+  "vat_amount": 29132000,
+  "total_amount": 331032000,
+  "total_amount_in_words": "331 triệu 32 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2026-08-08 17:30:00"
+}

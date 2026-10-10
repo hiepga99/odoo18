@@ -1,0 +1,43 @@
+{
+  "invoice_number": "HD2026-0100",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2025-12-24",
+  "lookup_code": "VNP20442960",
+  "payment_method": "Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Công ty CP Phân phối Thiết bị Thông minh SmartHome",
+    "tax_code": "0316789012",
+    "address": "Tòa nhà Landmark 81, Phường 22, Bình Thạnh, TP. Hồ Chí Minh",
+    "contact_person": "Vũ Thu Trang"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0080",
+      "product_name": "Nồi chiên không dầu Philips HD9650/91 dung tích XXL 1.4kg",
+      "unit": "Chiếc",
+      "quantity": 2,
+      "unit_price": 5490000,
+      "amount": 10980000,
+      "vat_rate_percent": 10,
+      "vat_amount": 1098000,
+      "total_line_amount": 12078000
+    }
+  ],
+  "subtotal_amount": 10980000,
+  "vat_amount": 1098000,
+  "total_amount": 12078000,
+  "total_amount_in_words": "12 triệu 78 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2025-12-24 17:30:00"
+}

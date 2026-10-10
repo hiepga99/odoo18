@@ -1,0 +1,55 @@
+{
+  "invoice_number": "HD2026-0032",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2026-06-09",
+  "lookup_code": "VNP25447724",
+  "payment_method": "Tiền mặt / Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Công ty CP Thiết bị Văn phòng Hiện Đại M-Office",
+    "tax_code": "0105678901",
+    "address": "Số 204 Hoàng Quốc Việt, Cổ Nhuế 1, Cầu Giấy, Hà Nội",
+    "contact_person": "Bùi Văn Nam"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0027",
+      "product_name": "Ổ cứng SSD Samsung 990 Pro 1TB M.2 PCIe 4.0",
+      "unit": "Chiếc",
+      "quantity": 10,
+      "unit_price": 2850000,
+      "amount": 28500000,
+      "vat_rate_percent": 8,
+      "vat_amount": 2280000,
+      "total_line_amount": 30780000
+    },
+    {
+      "line_number": 2,
+      "product_code": "SP0035",
+      "product_name": "Bàn phím cơ không dây Keychron K2 Pro QMK/VIA",
+      "unit": "Chiếc",
+      "quantity": 3,
+      "unit_price": 2190000,
+      "amount": 6570000,
+      "vat_rate_percent": 8,
+      "vat_amount": 525600,
+      "total_line_amount": 7095600
+    }
+  ],
+  "subtotal_amount": 35070000,
+  "vat_amount": 2805600,
+  "total_amount": 37875600,
+  "total_amount_in_words": "37 triệu 875 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2026-06-09 17:30:00"
+}

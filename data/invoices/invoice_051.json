@@ -1,0 +1,43 @@
+{
+  "invoice_number": "HD2026-0051",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2025-12-31",
+  "lookup_code": "VNP20619350",
+  "payment_method": "Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Công ty TNHH Chuỗi Cung ứng Toàn Cầu V-Logistics",
+    "tax_code": "3603456789",
+    "address": "Đường 2A, KCN Biên Hòa 2, Long Bình Tân, Đồng Nai",
+    "contact_person": "Lê Văn Thịnh"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0001",
+      "product_name": "Laptop Dell XPS 13 Plus 9320 (i7-1360P/16GB/512GB)",
+      "unit": "Chiếc",
+      "quantity": 5,
+      "unit_price": 34500000,
+      "amount": 172500000,
+      "vat_rate_percent": 10,
+      "vat_amount": 17250000,
+      "total_line_amount": 189750000
+    }
+  ],
+  "subtotal_amount": 172500000,
+  "vat_amount": 17250000,
+  "total_amount": 189750000,
+  "total_amount_in_words": "189 triệu 750 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2025-12-31 17:30:00"
+}

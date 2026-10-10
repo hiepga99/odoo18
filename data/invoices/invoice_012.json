@@ -1,0 +1,79 @@
+{
+  "invoice_number": "HD2026-0012",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2026-03-18",
+  "lookup_code": "VNP52642624",
+  "payment_method": "Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Công ty CP Đầu tư & Phát triển Bất động sản An Bình",
+    "tax_code": "0315678901",
+    "address": "120 Nguyễn Thị Minh Khai, Võ Thị Sáu, Quận 3, TP. Hồ Chí Minh",
+    "contact_person": "Phạm Quốc Bảo"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0107",
+      "product_name": "Máy in Laser đa năng HP LaserJet MFP M141w",
+      "unit": "Chiếc",
+      "quantity": 5,
+      "unit_price": 3950000,
+      "amount": 19750000,
+      "vat_rate_percent": 8,
+      "vat_amount": 1580000,
+      "total_line_amount": 21330000
+    },
+    {
+      "line_number": 2,
+      "product_code": "SP0002",
+      "product_name": "Laptop Dell Latitude 3440 (i5-1335U/8GB/256GB)",
+      "unit": "Chiếc",
+      "quantity": 1,
+      "unit_price": 15900000,
+      "amount": 15900000,
+      "vat_rate_percent": 10,
+      "vat_amount": 1590000,
+      "total_line_amount": 17490000
+    },
+    {
+      "line_number": 3,
+      "product_code": "SP0001",
+      "product_name": "Laptop Dell XPS 13 Plus 9320 (i7-1360P/16GB/512GB)",
+      "unit": "Chiếc",
+      "quantity": 1,
+      "unit_price": 34500000,
+      "amount": 34500000,
+      "vat_rate_percent": 8,
+      "vat_amount": 2760000,
+      "total_line_amount": 37260000
+    },
+    {
+      "line_number": 4,
+      "product_code": "SP0031",
+      "product_name": "Chuột không dây Logitech MX Master 3S",
+      "unit": "Chiếc",
+      "quantity": 1,
+      "unit_price": 2350000,
+      "amount": 2350000,
+      "vat_rate_percent": 8,
+      "vat_amount": 188000,
+      "total_line_amount": 2538000
+    }
+  ],
+  "subtotal_amount": 72500000,
+  "vat_amount": 6118000,
+  "total_amount": 78618000,
+  "total_amount_in_words": "78 triệu 618 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2026-03-18 17:30:00"
+}

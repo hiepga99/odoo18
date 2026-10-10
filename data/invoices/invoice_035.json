@@ -1,0 +1,55 @@
+{
+  "invoice_number": "HD2026-0035",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2026-07-06",
+  "lookup_code": "VNP73046003",
+  "payment_method": "Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Công ty CP Thiết bị Văn phòng Hiện Đại M-Office",
+    "tax_code": "0105678901",
+    "address": "Số 204 Hoàng Quốc Việt, Cổ Nhuế 1, Cầu Giấy, Hà Nội",
+    "contact_person": "Bùi Văn Nam"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0002",
+      "product_name": "Laptop Dell Latitude 3440 (i5-1335U/8GB/256GB)",
+      "unit": "Chiếc",
+      "quantity": 3,
+      "unit_price": 15900000,
+      "amount": 47700000,
+      "vat_rate_percent": 10,
+      "vat_amount": 4770000,
+      "total_line_amount": 52470000
+    },
+    {
+      "line_number": 2,
+      "product_code": "SP0080",
+      "product_name": "Nồi chiên không dầu Philips HD9650/91 dung tích XXL 1.4kg",
+      "unit": "Chiếc",
+      "quantity": 3,
+      "unit_price": 5490000,
+      "amount": 16470000,
+      "vat_rate_percent": 8,
+      "vat_amount": 1317600,
+      "total_line_amount": 17787600
+    }
+  ],
+  "subtotal_amount": 64170000,
+  "vat_amount": 6087600,
+  "total_amount": 70257600,
+  "total_amount_in_words": "70 triệu 257 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2026-07-06 17:30:00"
+}

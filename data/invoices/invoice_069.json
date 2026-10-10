@@ -1,0 +1,67 @@
+{
+  "invoice_number": "HD2026-0069",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2026-07-08",
+  "lookup_code": "VNP82978660",
+  "payment_method": "Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Viện Nghiên cứu & Ứng dụng Công nghệ Mới",
+    "tax_code": "0101234567",
+    "address": "1 Đại Cồ Việt, Bách Khoa, Hai Bà Trưng, Hà Nội",
+    "contact_person": "TS. Trần Văn Phong"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0104",
+      "product_name": "Bàn nâng hạ thông minh tự động điều chỉnh độ cao 2 motor",
+      "unit": "Chiếc",
+      "quantity": 5,
+      "unit_price": 6900000,
+      "amount": 34500000,
+      "vat_rate_percent": 10,
+      "vat_amount": 3450000,
+      "total_line_amount": 37950000
+    },
+    {
+      "line_number": 2,
+      "product_code": "SP0048",
+      "product_name": "Webcam Logitech C920 Pro HD 1080p",
+      "unit": "Chiếc",
+      "quantity": 2,
+      "unit_price": 1650000,
+      "amount": 3300000,
+      "vat_rate_percent": 8,
+      "vat_amount": 264000,
+      "total_line_amount": 3564000
+    },
+    {
+      "line_number": 3,
+      "product_code": "SP0001",
+      "product_name": "Laptop Dell XPS 13 Plus 9320 (i7-1360P/16GB/512GB)",
+      "unit": "Chiếc",
+      "quantity": 2,
+      "unit_price": 34500000,
+      "amount": 69000000,
+      "vat_rate_percent": 10,
+      "vat_amount": 6900000,
+      "total_line_amount": 75900000
+    }
+  ],
+  "subtotal_amount": 106800000,
+  "vat_amount": 10614000,
+  "total_amount": 117414000,
+  "total_amount_in_words": "117 triệu 414 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2026-07-08 17:30:00"
+}

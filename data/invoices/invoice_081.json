@@ -1,0 +1,55 @@
+{
+  "invoice_number": "HD2026-0081",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2026-04-21",
+  "lookup_code": "VNP24190995",
+  "payment_method": "Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Công ty CP Phân phối Thiết bị Thông minh SmartHome",
+    "tax_code": "0316789012",
+    "address": "Tòa nhà Landmark 81, Phường 22, Bình Thạnh, TP. Hồ Chí Minh",
+    "contact_person": "Vũ Thu Trang"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0015",
+      "product_name": "Màn hình Dell P2422H 23.8 inch FHD IPS",
+      "unit": "Chiếc",
+      "quantity": 5,
+      "unit_price": 3990000,
+      "amount": 19950000,
+      "vat_rate_percent": 8,
+      "vat_amount": 1596000,
+      "total_line_amount": 21546000
+    },
+    {
+      "line_number": 2,
+      "product_code": "SP0064",
+      "product_name": "Switch mạng quản trị Cisco CBS110-24T-EU 24 Port Gigabit",
+      "unit": "Chiếc",
+      "quantity": 10,
+      "unit_price": 3950000,
+      "amount": 39500000,
+      "vat_rate_percent": 8,
+      "vat_amount": 3160000,
+      "total_line_amount": 42660000
+    }
+  ],
+  "subtotal_amount": 59450000,
+  "vat_amount": 4756000,
+  "total_amount": 64206000,
+  "total_amount_in_words": "64 triệu 206 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2026-04-21 17:30:00"
+}

@@ -18,9 +18,6 @@ venv/
 # Odoo Enterprise addons (proprietary - do not push)
 enterprise/
 
-# Odoo data/filestore
-data/
-
 # Config with credentials
 config/odoo.conf
 
