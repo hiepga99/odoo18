@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.env
+.venv/
+venv/
+
+# Database dumps (quá nặng để đưa lên git)
+*.sql
+*.zip
+*.dump
+
+# Logs & temp
+*.log
+.system_generated/
+
+# Odoo Enterprise addons (proprietary - do not push)
+enterprise/
+
+# Odoo data/filestore
+data/
+
+# Config with credentials
+config/odoo.conf
+
+# IDE
+.vscode/
+.idea/
