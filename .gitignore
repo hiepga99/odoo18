@@ -14,6 +14,7 @@ venv/
 # Logs & temp
 *.log
 .system_generated/
+*.docx
 
 # Odoo Enterprise addons (proprietary - do not push)
 enterprise/

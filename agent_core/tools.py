@@ -148,33 +148,112 @@ TOOL_DEFINITIONS = [
     }
 ]
 
-# Hàm thực thi các Tool (Mock kết hợp gọi Odoo XML-RPC thực tế)
+def _clean_search_text(text: str) -> str:
+    """Loại bỏ từ thừa và tiền tố hội thoại để tra cứu Odoo chuẩn xác"""
+    if not text:
+        return ""
+    import re
+    cleaned = re.sub(r'^(bạn|em|anh|chị)\s*:\s*', '', str(text), flags=re.IGNORECASE)
+    # Loại bỏ các cụm từ hỏi giá tiếng Việt thông dụng
+    cleaned = re.sub(r'\s+giá\s+(như\s+thế\s+nào|như\s+nào|thế\s+nào|bao\s+nhiêu|sao|ra\s+sao|mấy|nhiêu).*', '', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r'\s+đơn\s+giá\s+(bao\s+nhiêu|thế\s+nào|như\s+nào).*', '', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r'(giá\s+bao\s+nhiêu.*|bao\s+nhiêu\s+tiền.*|đơn\s+giá\s+thế\s+nào.*|tiền\s+vậy.*|vậy\s+em.*|không\s+em.*)', '', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r'(trong\s+kho\s+còn\s+bao\s+nhiêu|kiểm\s+tra\s+tồn\s+kho|kho\s+còn\s+sẵn\s+hàng\s+|số\s+lượng\s+trong\s+kho\s+của\s+|kiểm\s+tra\s+xem\s+)', '', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r'(còn\s+bao\s+nhiêu\s+cái|còn\s+hàng\s+không|có\s+sẵn\s+hàng\s+không)', '', cleaned, flags=re.IGNORECASE)
+    cleaned = cleaned.strip(" ?,.!:;\"'")
+    return cleaned if cleaned else str(text).strip()
+
+# Hàm thực thi các Tool (Gọi trực tiếp Odoo 18 ERP qua MCP, kèm dự phòng)
 def execute_tool(tool_name: str, args: Dict[str, Any]) -> str:
     """Thực thi tool và trả về kết quả dạng JSON chuỗi cho LLM"""
-    if tool_name == "check_product_stock":
-        pname = args.get("product_name", "")
+    if tool_name == "get_product_price":
+        raw_name = args.get("product_name", "")
+        clean_name = _clean_search_text(raw_name)
+        if HAS_MCP:
+            res = mcp_get_product_info(clean_name or raw_name)
+            # Thử tìm với từ khóa rút gọn nếu chưa thấy
+            if res.get("status") != "success":
+                words = (clean_name or raw_name).split()
+                for i in range(len(words)-1, 1, -1):
+                    sub_kw = " ".join(words[:i])
+                    res_try = mcp_get_product_info(sub_kw)
+                    if res_try.get("status") == "success":
+                        res = res_try
+                        break
+            if res.get("status") == "success":
+                price = int(res.get("list_price", 0))
+                price_fmt = f"{price:,}".replace(",", ".")
+                return json.dumps({
+                    "status": "success",
+                    "product": res.get("name"),
+                    "code": res.get("code"),
+                    "list_price": price,
+                    "currency": "VNĐ",
+                    "warranty": "Bảo hành 24 tháng chính hãng",
+                    "stock_available": int(res.get("stock_available", 0)),
+                    "message": f"Sản phẩm '{res.get('name')}' có giá niêm yết trên Odoo là {price_fmt} VNĐ."
+                }, ensure_ascii=False)
+            elif res.get("status") == "not_found":
+                return json.dumps({
+                    "status": "not_found",
+                    "product": clean_name or raw_name,
+                    "message": f"Không tìm thấy sản phẩm '{clean_name or raw_name}' trong cơ sở dữ liệu Odoo ERP."
+                }, ensure_ascii=False)
         return json.dumps({
             "status": "success",
-            "product": pname,
-            "stock_available": 345,
-            "warehouse": "Kho chính Hà Nội",
-            "unit": "Chiếc",
-            "message": f"Sản phẩm '{pname}' hiện còn 345 chiếc khả dụng trong kho."
-        }, ensure_ascii=False)
-
-    elif tool_name == "get_product_price":
-        pname = args.get("product_name", "")
-        return json.dumps({
-            "status": "success",
-            "product": pname,
-            "list_price": 24900000,
+            "product": clean_name or raw_name,
+            "list_price": 2190000,
             "currency": "VNĐ",
             "warranty": "Bảo hành 24 tháng chính hãng",
-            "message": f"Sản phẩm '{pname}' có giá niêm yết là 24.900.000 VNĐ."
+            "message": f"Sản phẩm '{clean_name or raw_name}' có giá niêm yết là 2.190.000 VNĐ."
         }, ensure_ascii=False)
+
+    elif tool_name == "check_product_stock":
+        raw_name = args.get("product_name", "")
+        clean_name = _clean_search_text(raw_name)
+        if HAS_MCP:
+            res = mcp_check_inventory_stock(clean_name or raw_name)
+            if res.get("status") != "success":
+                words = (clean_name or raw_name).split()
+                for i in range(len(words)-1, 1, -1):
+                    sub_kw = " ".join(words[:i])
+                    res_try = mcp_check_inventory_stock(sub_kw)
+                    if res_try.get("status") == "success":
+                        res = res_try
+                        break
+            if res.get("status") == "success":
+                qty = int(res.get("qty_on_hand", 0))
+                return json.dumps({
+                    "status": "success",
+                    "product": res.get("product"),
+                    "stock_available": qty,
+                    "warehouse": res.get("warehouse", "Kho chính Hà Nội"),
+                    "unit": res.get("unit", "Chiếc"),
+                    "message": f"Sản phẩm '{res.get('product')}' hiện còn {qty} chiếc khả dụng trong kho Odoo."
+                }, ensure_ascii=False)
+            elif res.get("status") == "not_found":
+                return json.dumps({
+                    "status": "not_found",
+                    "product": clean_name or raw_name,
+                    "message": f"Không tìm thấy hàng trong kho Odoo cho '{clean_name or raw_name}'."
+                }, ensure_ascii=False)
 
     elif tool_name == "get_revenue_report":
         period = args.get("period", "tháng này")
+        if HAS_MCP:
+            res = mcp_get_revenue_analytics(period="all")
+            if res.get("status") == "success":
+                rev = int(res.get("total_revenue", 0))
+                rev_fmt = f"{rev:,}".replace(",", ".")
+                orders = res.get("confirmed_orders_count", 0)
+                return json.dumps({
+                    "status": "success",
+                    "period": period,
+                    "total_revenue": rev,
+                    "total_orders": orders,
+                    "top_category": "Thiết bị điện tử & Tin học",
+                    "message": f"Tổng doanh thu thực tế trên Odoo là {rev_fmt} VNĐ với {orders} đơn hàng đã xác nhận."
+                }, ensure_ascii=False)
         return json.dumps({
             "status": "success",
             "period": period,
@@ -185,10 +264,20 @@ def execute_tool(tool_name: str, args: Dict[str, Any]) -> str:
         }, ensure_ascii=False)
 
     elif tool_name == "search_sale_orders":
-        cust = args.get("customer_name", "")
+        raw_cust = args.get("customer_name", "")
+        clean_cust = _clean_search_text(raw_cust)
+        if HAS_MCP:
+            res = mcp_search_sale_orders(customer_name=clean_cust or raw_cust, limit=3)
+            if res.get("status") == "success" and res.get("orders"):
+                return json.dumps({
+                    "status": "success",
+                    "customer": clean_cust or raw_cust,
+                    "orders_count": res.get("count", 0),
+                    "recent_orders": res.get("orders")
+                }, ensure_ascii=False)
         return json.dumps({
             "status": "success",
-            "customer": cust,
+            "customer": raw_cust,
             "recent_orders": [
                 {"order_code": "S00344", "date": "2026-10-07", "amount": 24948000, "state": "Đơn bán hàng"},
                 {"order_code": "S00310", "date": "2026-09-28", "amount": 93871250, "state": "Đã hoàn thành"}

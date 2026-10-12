@@ -9,7 +9,9 @@ class HermesAgent:
     Agent Core điều phối xử lý hội thoại và gọi Tool (Function Calling).
     Thiết kế theo chuẩn kiến trúc Hermes Agent / ReAct Loop.
     """
-    def __init__(self, provider: str = "groq", api_key: Optional[str] = None):
+    def __init__(self, provider: Optional[str] = None, api_key: Optional[str] = None):
+        import os
+        provider = provider or os.getenv("LLM_PROVIDER", "ollama")
         self.llm_client = LLMClient(provider=provider, api_key=api_key)
         self.history: List[Dict[str, str]] = [
             {"role": "system", "content": SYSTEM_PROMPT}
