@@ -36,7 +36,8 @@ This guide helps you run Odoo 18 Enterprise Edition locally on port 1818 with fu
 Main configuration file with settings:
 - **Port**: 1818 (HTTP) / 1819 (Gevent)
 - **Database**: PostgreSQL with user `odoo18`
-- **Addons**: Both community (`odoo/addons`) and enterprise (`enterprise/enterprise`) modules
+- **Addons**: Community (`odoo/odoo/addons`, `odoo/addons`), Enterprise
+  (`enterprise`) and team modules (`custom_addons`)
 - **Admin password**: `admin`
 - **Enterprise**: Full access to all enterprise modules
 
@@ -51,7 +52,10 @@ Main configuration file with settings:
 Odoo18/
 ├── odoo/                      # Community edition
 ├── enterprise/                # Enterprise modules
-│   └── enterprise/            # Actual enterprise modules directory
+├── custom_addons/             # Team-owned Odoo modules
+│   ├── ai_document_upload/    # Document upload and storage
+│   └── ai_rag_document/       # RAG processing integration
+├── agent-service/             # Embedding, ChromaDB, MCP and LLM
 ├── venv/                      # Virtual environment
 ├── odoo18.conf               # Configuration file (Enterprise enabled)
 ├── start_odoo18.sh           # Startup script
@@ -136,4 +140,4 @@ The setup includes development mode (`--dev=all`) which provides:
 For issues, check the Odoo documentation or community forums.
 
 ---
-*Happy Coding! 🎉* 
+*Happy Coding! 🎉*

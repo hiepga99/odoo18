@@ -1,15 +1,17 @@
 from __future__ import annotations
 
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from io import BytesIO
 from pathlib import Path
-from typing import Iterable
+from typing import Iterable, TypeAlias
 
 import pymupdf
 from docx import Document
 
 
 SUPPORTED_EXTENSIONS = {".pdf", ".docx", ".txt", ".md"}
+MetadataValue: TypeAlias = str | int | float | bool
 
 
 @dataclass(frozen=True)
@@ -21,6 +23,7 @@ class TextUnit:
     file_type: str
     text: str
     page: int
+    metadata: dict[str, MetadataValue] = field(default_factory=dict)
 
 
 def clean_text(text: str) -> str:
@@ -61,45 +64,84 @@ def _relative_source(path: Path, data_root: Path) -> str:
         return path.name
 
 
-def _load_pdf(path: Path, data_root: Path) -> Iterable[TextUnit]:
-    source_path = _relative_source(path, data_root)
-    with pymupdf.open(path) as pdf:
+def _load_pdf_bytes(
+    content: bytes,
+    source_path: str,
+    source_name: str,
+    metadata: dict[str, MetadataValue],
+) -> Iterable[TextUnit]:
+    with pymupdf.open(stream=content, filetype="pdf") as pdf:
         for page_index, page in enumerate(pdf, start=1):
             text = clean_text(page.get_text("text", sort=True))
             if text:
-                yield TextUnit(source_path, path.name, "pdf", text, page_index)
+                yield TextUnit(source_path, source_name, "pdf", text, page_index, metadata.copy())
 
 
-def _load_docx(path: Path, data_root: Path) -> Iterable[TextUnit]:
-    document = Document(path)
+def _load_docx_bytes(
+    content: bytes,
+    source_path: str,
+    source_name: str,
+    metadata: dict[str, MetadataValue],
+) -> Iterable[TextUnit]:
+    document = Document(BytesIO(content))
     paragraphs = [paragraph.text for paragraph in document.paragraphs if paragraph.text.strip()]
     text = clean_text("\n\n".join(paragraphs))
     if text:
-        yield TextUnit(_relative_source(path, data_root), path.name, "docx", text, 0)
+        yield TextUnit(source_path, source_name, "docx", text, 0, metadata.copy())
 
 
-def _load_text(path: Path, data_root: Path) -> Iterable[TextUnit]:
+def _load_text_bytes(
+    content: bytes,
+    source_path: str,
+    source_name: str,
+    file_type: str,
+    metadata: dict[str, MetadataValue],
+) -> Iterable[TextUnit]:
     try:
-        raw = path.read_text(encoding="utf-8-sig")
+        raw = content.decode("utf-8-sig")
     except UnicodeDecodeError:
-        raw = path.read_text(encoding="utf-8", errors="replace")
+        raw = content.decode("utf-8", errors="replace")
     text = clean_text(raw)
     if text:
-        yield TextUnit(
-            _relative_source(path, data_root),
-            path.name,
-            path.suffix.lower().lstrip("."),
-            text,
-            0,
+        yield TextUnit(source_path, source_name, file_type, text, 0, metadata.copy())
+
+
+def load_document_bytes(
+    content: bytes,
+    filename: str,
+    *,
+    source_path: str | None = None,
+    metadata: dict[str, MetadataValue] | None = None,
+) -> list[TextUnit]:
+    """Load an Odoo attachment or other in-memory document without a temp file."""
+
+    if not content:
+        raise ValueError("Nội dung tài liệu đang rỗng")
+    safe_name = Path(filename).name
+    suffix = Path(safe_name).suffix.lower()
+    if suffix not in SUPPORTED_EXTENSIONS:
+        raise ValueError(f"Định dạng chưa được hỗ trợ: {suffix or safe_name}")
+
+    resolved_source = source_path or safe_name
+    extra_metadata = dict(metadata or {})
+    if suffix == ".pdf":
+        return list(_load_pdf_bytes(content, resolved_source, safe_name, extra_metadata))
+    if suffix == ".docx":
+        return list(_load_docx_bytes(content, resolved_source, safe_name, extra_metadata))
+    return list(
+        _load_text_bytes(
+            content,
+            resolved_source,
+            safe_name,
+            suffix.lstrip("."),
+            extra_metadata,
         )
+    )
 
 
 def load_document(path: Path, data_root: Path) -> list[TextUnit]:
-    suffix = path.suffix.lower()
-    if suffix == ".pdf":
-        return list(_load_pdf(path, data_root))
-    if suffix == ".docx":
-        return list(_load_docx(path, data_root))
-    if suffix in {".txt", ".md"}:
-        return list(_load_text(path, data_root))
-    raise ValueError(f"Định dạng chưa được hỗ trợ: {path}")
+    return load_document_bytes(
+        path.read_bytes(),
+        path.name,
+        source_path=_relative_source(path, data_root),
+    )

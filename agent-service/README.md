@@ -2,6 +2,15 @@
 
 Hướng dẫn dựng môi trường trên máy mới: [SETUP.md](SETUP.md).
 
+Hợp đồng tích hợp upload Odoo, MCP và ChromaDB online:
+[ODOO_RAG_INTEGRATION.md](ODOO_RAG_INTEGRATION.md).
+
+Hướng dẫn backend chatbot gọi câu trả lời qua MCP:
+[CHATBOT_MCP_INTEGRATION.md](CHATBOT_MCP_INTEGRATION.md).
+
+Ma trận đối chiếu toàn bộ yêu cầu kỹ thuật và phần việc còn thiếu:
+[TECHNICAL_REQUIREMENTS_GAP.md](TECHNICAL_REQUIREMENTS_GAP.md).
+
 Pipeline này xây dựng phần trợ lý tra cứu tài liệu nội bộ:
 
 ```text
@@ -77,11 +86,20 @@ Lần chạy đầu tiên sẽ tải `BAAI/bge-m3`. Mặc định model được
 .\.venv\Scripts\python.exe -m rag.ingest
 ```
 
-ChromaDB được lưu mặc định tại:
+Ở luồng standalone/embedded, ChromaDB được lưu tại:
 
 ```text
 agent-service/chroma_data/
 ```
+
+Luồng tích hợp Odoo dùng `RAG_CHROMA_MODE=http`. Không có Docker vẫn chạy được
+Chroma server và worker bằng một lệnh:
+
+```powershell
+.\scripts\start_rag_local.ps1
+```
+
+Lệnh này duy trì Chroma tại `chroma_server_data/` và tự xử lý job upload mới.
 
 Trên Windows, project mặc định đặt `HF_HUB_DISABLE_XET=1` để tải model qua HTTP thông thường. Nếu lần tải đầu bị gián đoạn, chạy lại cùng lệnh; Hugging Face sẽ tiếp tục từ cache `.incomplete`.
 
@@ -168,6 +186,31 @@ Chương trình luôn in danh sách nguồn retrieval sau câu trả lời, kể
 
 Nếu đã xóa hoặc đổi tên tài liệu, nên dùng `--reset` để loại bỏ chunk cũ.
 
+### Upload từ Odoo Community
+
+Addon `custom_addons/ai_rag_document` cung cấp menu **AI Agent → Knowledge
+Documents**. File upload được lưu trong `ir.attachment` và chuyển sang
+`pending`. Khi `rag.mcp_worker` đang chạy, worker tự claim job qua MCP, trích
+text/chunk/embed, lưu vector vào Chroma HTTP rồi cập nhật `indexed` hoặc
+`error`. Không phải chạy ingest lại bằng tay sau mỗi lần upload.
+
+Kiểm tra trực quan trong Odoo tại **AI Agent → Indexed Chunks** hoặc nút
+**Indexed Chunks** trên form tài liệu. Màn hình hiển thị trang nguồn, mã vector,
+preview, collection và vị trí storage; embedding thật vẫn chỉ nằm ở Chroma.
+
+```powershell
+.\.venv\Scripts\python.exe -m rag.inspect_store
+.\.venv\Scripts\python.exe -m rag.odoo_mcp_server --transport streamable-http
+```
+
+Lệnh thứ hai mở MCP endpoint cho backend. Hai tool hỏi đáp là
+`search_internal_documents` và `answer_internal_documents`; phạm vi tài liệu
+được lấy từ quyền của user gắn với `ODOO_API_KEY`.
+
+Luồng hỏi đáp tích hợp Odoo phải dùng
+`rag.generate.answer_from_odoo_documents`; hàm yêu cầu danh sách document Odoo
+đã kiểm tra quyền và từ chối gọi LLM khi không có nguồn đủ liên quan.
+
 ## 10. Cấu hình quan trọng
 
 Có thể chỉnh trong `.env`:
@@ -178,6 +221,10 @@ Có thể chỉnh trong `.env`:
 | `RAG_CHUNK_SIZE` | `1000` | Kích thước chunk theo ký tự |
 | `RAG_CHUNK_OVERLAP` | `150` | Phần nội dung chồng lặp |
 | `RAG_TOP_K` | `5` | Số chunk retrieval mặc định |
+| `RAG_MIN_SIMILARITY` | `0.45` | Ngưỡng tối thiểu trước khi cho phép LLM trả lời |
+| `RAG_CHROMA_MODE` | `http` khi tích hợp | Chroma server dùng chung giữa các process |
+| `ODOO_API_KEY` | trống | API key của Odoo user mà MCP đại diện |
+| `RAG_WORKER_INTERVAL` | `3` | Số giây giữa hai lần kiểm tra upload |
 | `LLM_PROVIDER` | `ollama` | Backend sinh câu trả lời (`ollama`, `nvidia`, `openai-compatible`) |
 | `LLM_BASE_URL` | `http://localhost:11434/v1` | Endpoint tương thích OpenAI |
 | `LLM_MODEL` | `qwen2.5:3b` | Model sinh câu trả lời |

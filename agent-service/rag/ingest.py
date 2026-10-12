@@ -74,7 +74,7 @@ def ingest(
     total = store.count()
     print("\nINGEST THÀNH CÔNG")
     print(f"Collection: {settings.collection_name}")
-    print(f"ChromaDB: {settings.chroma_dir}")
+    print(f"ChromaDB: {store.location}")
     print(f"Tổng số chunk trong collection: {total}")
     return total
 

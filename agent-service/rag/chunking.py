@@ -2,9 +2,9 @@ from __future__ import annotations
 
 import hashlib
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
-from .loaders import TextUnit
+from .loaders import MetadataValue, TextUnit
 
 
 @dataclass(frozen=True)
@@ -17,9 +17,12 @@ class Chunk:
     page: int
     chunk_index: int
     document_hash: str
+    extra_metadata: dict[str, MetadataValue] = field(default_factory=dict)
 
-    def metadata(self) -> dict[str, str | int]:
+    def metadata(self) -> dict[str, MetadataValue]:
+        # Core values win over caller metadata so citations cannot be corrupted.
         return {
+            **self.extra_metadata,
             "source_path": self.source_path,
             "source_name": self.source_name,
             "file_type": self.file_type,
@@ -104,6 +107,7 @@ def chunk_units(
                     page=unit.page,
                     chunk_index=chunk_index,
                     document_hash=document_hash,
+                    extra_metadata=unit.metadata.copy(),
                 )
             )
             per_source_index[unit.source_path] = chunk_index + 1

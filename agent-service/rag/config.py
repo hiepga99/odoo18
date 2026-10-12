@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 import os
-from dataclasses import dataclass
+import json
+from dataclasses import dataclass, field
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -33,6 +34,10 @@ def _env_bool(name: str, default: bool) -> bool:
     return raw.strip().lower() in {"1", "true", "yes", "on"}
 
 
+def _env_float(name: str, default: float) -> float:
+    return float(os.getenv(name, str(default)))
+
+
 def _env_with_legacy(name: str, legacy_name: str, default: str) -> str:
     """Read the new generic setting, falling back to the former NVIDIA name."""
     return os.getenv(name, os.getenv(legacy_name, default)).strip()
@@ -50,11 +55,31 @@ def _llm_provider() -> str:
     return "ollama"
 
 
+def _env_json_dict(name: str) -> dict[str, str]:
+    raw = os.getenv(name, "").strip()
+    if not raw:
+        return {}
+    parsed = json.loads(raw)
+    if not isinstance(parsed, dict) or not all(
+        isinstance(key, str) and isinstance(value, str)
+        for key, value in parsed.items()
+    ):
+        raise ValueError(f"{name} phải là JSON object chỉ chứa key/value dạng chuỗi")
+    return parsed
+
+
 @dataclass(frozen=True)
 class Settings:
     base_dir: Path = BASE_DIR
     raw_data_dir: Path = _env_path("RAG_DATA_DIR", BASE_DIR / "data" / "raw")
     chroma_dir: Path = _env_path("RAG_CHROMA_DIR", BASE_DIR / "chroma_data")
+    chroma_mode: str = os.getenv("RAG_CHROMA_MODE", "embedded").strip().lower()
+    chroma_host: str = os.getenv("RAG_CHROMA_HOST", "localhost").strip()
+    chroma_port: int = int(os.getenv("RAG_CHROMA_PORT", "8000"))
+    chroma_ssl: bool = _env_bool("RAG_CHROMA_SSL", False)
+    chroma_headers: dict[str, str] = field(
+        default_factory=lambda: _env_json_dict("RAG_CHROMA_HEADERS_JSON")
+    )
     model_cache_dir: Path = _env_path(
         "RAG_MODEL_CACHE_DIR",
         Path(os.environ["HF_HOME"]),
@@ -66,6 +91,16 @@ class Settings:
     chunk_overlap: int = int(os.getenv("RAG_CHUNK_OVERLAP", "150"))
     embedding_batch_size: int = int(os.getenv("RAG_EMBED_BATCH_SIZE", "8"))
     default_top_k: int = int(os.getenv("RAG_TOP_K", "5"))
+    min_similarity: float = _env_float("RAG_MIN_SIMILARITY", 0.45)
+
+    odoo_url: str = os.getenv("ODOO_URL", "http://127.0.0.1:1818").rstrip("/")
+    odoo_database: str = os.getenv("ODOO_DATABASE", "odoo18_ai_demo").strip()
+    odoo_login: str = os.getenv("ODOO_LOGIN", "admin").strip()
+    odoo_api_key: str = os.getenv("ODOO_API_KEY", "").strip()
+    rag_worker_interval: float = _env_float("RAG_WORKER_INTERVAL", 3.0)
+    rag_worker_batch_size: int = int(os.getenv("RAG_WORKER_BATCH_SIZE", "10"))
+    mcp_host: str = os.getenv("MCP_HOST", "127.0.0.1").strip()
+    mcp_port: int = int(os.getenv("MCP_PORT", "8010"))
 
     llm_provider: str = _llm_provider()
     llm_api_key: str = _env_with_legacy("LLM_API_KEY", "NVIDIA_API_KEY", "")

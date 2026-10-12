@@ -1,11 +1,8 @@
+# Secrets and machine-specific configuration
 .env
-.cache/
-.venv/
-__pycache__/
-*.py[cod]
-chroma_data/
-.pytest_cache/
-tmp/
+.env.*
+!.env.example
+
 # Python environments and caches
 .venv/
 venv/
@@ -13,21 +10,19 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 
-# Local secrets/configuration (keep the template)
-.env
-.env.*
-!.env.example
-
-# Downloaded models and generated vector data
+# Downloaded models and generated runtime storage
 .cache/
 models/
 chroma_data/
+chroma_server_data/
+logs/
 
 # Generated output
 output/
 tmp/
+*.log
 
-# Local editor/OS files
+# Local editor and operating-system files
 .vscode/
 .idea/
 .DS_Store

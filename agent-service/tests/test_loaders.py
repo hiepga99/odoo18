@@ -3,7 +3,7 @@ from __future__ import annotations
 import unittest
 from pathlib import Path
 
-from rag.loaders import discover_documents, load_document
+from rag.loaders import discover_documents, load_document, load_document_bytes
 
 
 class LoaderTests(unittest.TestCase):
@@ -23,6 +23,18 @@ class LoaderTests(unittest.TestCase):
         self.assertEqual(len(units), 2)
         self.assertEqual(units[0].page, 1)
         self.assertIn("Chính sách đổi trả", units[0].text)
+
+    def test_loads_odoo_attachment_bytes_with_metadata(self) -> None:
+        units = load_document_bytes(
+            "Quy trình kiểm kê kho".encode("utf-8"),
+            "quy_trinh.md",
+            source_path="odoo://documents.document/42",
+            metadata={"odoo_document_id": 42, "company_id": 1},
+        )
+        self.assertEqual(len(units), 1)
+        self.assertEqual(units[0].source_path, "odoo://documents.document/42")
+        self.assertEqual(units[0].metadata["odoo_document_id"], 42)
+        self.assertEqual(units[0].metadata["company_id"], 1)
 
 
 if __name__ == "__main__":

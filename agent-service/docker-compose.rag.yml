@@ -1,0 +1,25 @@
+name: odoo-ai-rag
+
+services:
+  chromadb:
+    image: chromadb/chroma:${CHROMA_VERSION:-1.5.9}
+    restart: unless-stopped
+    environment:
+      IS_PERSISTENT: "TRUE"
+      PERSIST_DIRECTORY: /data
+      ANONYMIZED_TELEMETRY: "FALSE"
+    # Chỉ publish trên loopback cho demo. Trong Compose đầy đủ, agent-service
+    # nên gọi chromadb:8000 qua network nội bộ và có thể bỏ hoàn toàn ports.
+    ports:
+      - "127.0.0.1:${CHROMA_PORT:-8000}:8000"
+    volumes:
+      - chroma_online_data:/data
+    networks:
+      - agent_internal
+
+volumes:
+  chroma_online_data:
+
+networks:
+  agent_internal:
+    name: odoo_agent_internal

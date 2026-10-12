@@ -51,7 +51,27 @@ New-Item -ItemType Directory -Force D:\AI_Cache\ollama
 [Environment]::SetEnvironmentVariable("OLLAMA_MODELS", "D:\AI_Cache\ollama", "User")
 ```
 
-## 4. Tạo vector database
+## 4. Cấu hình Odoo và chạy dịch vụ RAG
+
+Trong Odoo, tạo API key cho tài khoản worker/user, rồi điền vào `.env`:
+
+```dotenv
+RAG_CHROMA_MODE=http
+ODOO_URL=http://127.0.0.1:1818
+ODOO_DATABASE=odoo18_ai_demo
+ODOO_LOGIN=your-odoo-login
+ODOO_API_KEY=your-odoo-api-key
+```
+
+Khởi động Chroma HTTP và worker tự động (không cần Docker):
+
+```powershell
+.\scripts\start_rag_local.ps1
+```
+
+Vector được giữ trong `chroma_server_data/`; thư mục này bị Git bỏ qua.
+
+## 5. Tạo vector database standalone (tùy chọn)
 
 ```powershell
 .\.venv\Scripts\python.exe -m rag.ingest --reset
@@ -61,7 +81,11 @@ Lần đầu tiên lệnh này tự tải `BAAI/bge-m3` từ Hugging Face. Model
 trong `.cache/huggingface`; ChromaDB được tạo trong `chroma_data`. Cả hai thư
 mục đều được Git bỏ qua và có thể tái tạo.
 
-## 5. Kiểm tra
+Thiết lập trên chỉ dành cho demo local. Môi trường tích hợp Odoo/MCP dùng
+ChromaDB server và ingest attachment dạng bytes; xem
+[ODOO_RAG_INTEGRATION.md](ODOO_RAG_INTEGRATION.md).
+
+## 6. Kiểm tra
 
 ```powershell
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
@@ -93,6 +117,23 @@ LLM_MODEL=nvidia/nemotron-3-ultra-550b-a55b
 
 Không ghi API key thật vào `.env.example`, source code hoặc lịch sử Git.
 
+## Odoo Community upload
+
+Đảm bảo `custom_addons` của repository nằm trong `addons_path`, sau đó cài module:
+
+```powershell
+& "D:\Downloads\Postgre\Odoo18\.venv-odoo\Scripts\python.exe" `
+  "D:\Downloads\Postgre\Odoo18\odoo\odoo-bin" `
+  -c "D:\Downloads\Postgre\Odoo18\odoo18.local.conf" `
+  -d odoo18_ai_demo -i ai_rag_document --stop-after-init
+```
+
+Khởi động lại Odoo và mở **AI Agent → Knowledge Documents**. Upload tạo job
+`pending`; worker do `start_rag_local.ps1` khởi động sẽ tự chuyển thành
+`processing` rồi `indexed`. Mở **AI Agent → Indexed Chunks** để xem preview và
+chạy `python -m rag.inspect_store` để kiểm tra vector thật trong Chroma. Không
+cài sentence-transformers hoặc ChromaDB vào virtual environment của Odoo.
+
 ## Nội dung được commit và được tái tạo
 
 | Thành phần | Commit | Cách tạo trên máy mới |
@@ -105,3 +146,4 @@ Không ghi API key thật vào `.env.example`, source code hoặc lịch sử Gi
 | `.cache/` và BGE-M3 | Không | Tự tải ở lần ingest đầu |
 | Model Ollama | Không | `ollama pull qwen2.5:3b` |
 | `chroma_data/` | Không | `python -m rag.ingest --reset` |
+| `chroma_server_data/` | Không | `scripts/start_rag_local.ps1` |
