@@ -4,11 +4,11 @@ import hashlib
 from dataclasses import asdict, dataclass
 from typing import Callable
 
-from .chunking import chunk_units
-from .config import settings
-from .embeddings import EmbeddingModel
-from .loaders import MetadataValue, load_document_bytes
-from .vector_store import VectorStore
+from ..chunking import chunk_units
+from ..config import settings
+from ..embeddings import EmbeddingModel
+from ..loaders import MetadataValue, load_document_bytes
+from ..vector_store import VectorStore
 
 
 @dataclass(frozen=True)

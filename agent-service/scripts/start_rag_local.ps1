@@ -38,18 +38,22 @@ if (-not (Test-LocalPort 8000)) {
 }
 
 $WorkerExists = Get-CimInstance Win32_Process | Where-Object {
-    $_.CommandLine -like "*rag.mcp_worker*" -and $_.ProcessId -ne $PID
+    $_.CommandLine -match "rag\.(odoo\.worker|mcp_worker)" -and $_.ProcessId -ne $PID
 }
 if (-not $WorkerExists) {
-    Start-Process -FilePath $Python -ArgumentList @("-m", "rag.mcp_worker") `
+    $WorkerProcess = Start-Process -FilePath $Python -ArgumentList @("-m", "rag.odoo.worker") `
         -WorkingDirectory $AgentDir -WindowStyle Hidden `
         -RedirectStandardOutput (Join-Path $LogDir "rag-worker.out.log") `
-        -RedirectStandardError (Join-Path $LogDir "rag-worker.err.log")
+        -RedirectStandardError (Join-Path $LogDir "rag-worker.err.log") -PassThru
+    Start-Sleep -Seconds 1
+    if ($WorkerProcess.HasExited) {
+        throw "RAG worker không khởi động được. Xem agent-service\logs\rag-worker.err.log."
+    }
 }
 
 if (-not (Test-LocalPort 8010)) {
     Start-Process -FilePath $Python `
-        -ArgumentList @("-m", "rag.odoo_mcp_server", "--transport", "streamable-http") `
+        -ArgumentList @("-m", "rag.odoo.mcp_server", "--transport", "streamable-http") `
         -WorkingDirectory $AgentDir -WindowStyle Hidden `
         -RedirectStandardOutput (Join-Path $LogDir "mcp-server.out.log") `
         -RedirectStandardError (Join-Path $LogDir "mcp-server.err.log")

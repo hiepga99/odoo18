@@ -10,7 +10,7 @@ BASE_DIR = Path(__file__).resolve().parents[1]
 if str(BASE_DIR) not in sys.path:
     sys.path.insert(0, str(BASE_DIR))
 
-from rag.odoo_ingest import delete_odoo_document, ingest_odoo_document
+from rag.odoo.ingest import delete_odoo_document, ingest_odoo_document
 from rag.embeddings import EmbeddingModel
 from rag.retrieval import Retriever
 from rag.vector_store import VectorStore

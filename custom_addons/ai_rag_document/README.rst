@@ -21,6 +21,14 @@ Features
 * Let an authenticated user list only indexed document IDs visible through Odoo
   access control and record rules.
 
+Code layout
+-----------
+
+Review ``models/rag_document.py`` first for fields, lifecycle and user actions,
+then ``models/rag_worker.py`` for the MCP worker contract, and finally
+``models/rag_chunk.py`` for the read-only chunk preview records. Views, security
+and tests keep the standard Odoo addon layout.
+
 Processing states
 -----------------
 

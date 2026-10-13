@@ -9,17 +9,6 @@ class TestDocumentUpload(TransactionCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.Document = cls.env["ai.rag.document"]
-        cls.Service = cls.env["ai.document.upload.service"]
-
-    def _attachment(self, name, content):
-        return self.env["ir.attachment"].create(
-            {
-                "name": name,
-                "datas": base64.b64encode(content),
-                "res_model": "ai.document.multi.upload.wizard",
-                "res_id": 0,
-            }
-        )
 
     def test_create_document_calculates_safe_metadata(self):
         document = self.Document.create(
@@ -53,18 +42,6 @@ class TestDocumentUpload(TransactionCase):
                 }
             )
 
-    def test_service_creates_many_documents(self):
-        attachments = self._attachment("one.txt", b"one") | self._attachment(
-            "two.md", b"two"
-        )
-        documents = self.Service.create_from_attachments(
-            attachments,
-            company=self.env.company,
-            owner=self.env.user,
-        )
-        self.assertEqual(len(documents), 2)
-        self.assertEqual(set(documents.mapped("file_name")), {"one.txt", "two.md"})
-
     def test_wizard_presenter_uploads_many_and_returns_document_action(self):
         wizard = self.env["ai.document.multi.upload.wizard"].create({})
         first = self.env["ir.attachment"].create(
@@ -90,4 +67,8 @@ class TestDocumentUpload(TransactionCase):
         created_ids = action["domain"][0][2]
         self.assertEqual(len(created_ids), 2)
         self.assertEqual(action["res_model"], "ai.rag.document")
+        self.assertEqual(
+            set(self.Document.browse(created_ids).mapped("file_name")),
+            {"first.txt", "second.md"},
+        )
         self.assertFalse((first | second).exists())

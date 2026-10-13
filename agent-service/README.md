@@ -3,13 +3,13 @@
 Hướng dẫn dựng môi trường trên máy mới: [SETUP.md](SETUP.md).
 
 Hợp đồng tích hợp upload Odoo, MCP và ChromaDB online:
-[ODOO_RAG_INTEGRATION.md](ODOO_RAG_INTEGRATION.md).
+[docs/odoo-integration.md](docs/odoo-integration.md).
 
 Hướng dẫn backend chatbot gọi câu trả lời qua MCP:
-[CHATBOT_MCP_INTEGRATION.md](CHATBOT_MCP_INTEGRATION.md).
+[docs/chatbot-integration.md](docs/chatbot-integration.md).
 
 Ma trận đối chiếu toàn bộ yêu cầu kỹ thuật và phần việc còn thiếu:
-[TECHNICAL_REQUIREMENTS_GAP.md](TECHNICAL_REQUIREMENTS_GAP.md).
+[docs/requirements-gap.md](docs/requirements-gap.md).
 
 Pipeline này xây dựng phần trợ lý tra cứu tài liệu nội bộ:
 
@@ -20,6 +20,32 @@ PDF / DOCX / TXT / MD
         -> BGE-M3 tạo embedding
         -> ChromaDB lưu và tìm kiếm vector
         -> LLM đã cấu hình tổng hợp câu trả lời có nguồn
+```
+
+## Bắt đầu review từ đâu
+
+Đi theo luồng dữ liệu, không cần đọc theo tên file alphabet:
+
+1. `rag/config.py`: cấu hình runtime.
+2. `rag/loaders.py` → `rag/chunking.py`: đọc, làm sạch và chia tài liệu.
+3. `rag/embeddings.py` → `rag/vector_store.py` → `rag/retrieval.py`: tạo,
+   lưu và truy vấn vector.
+4. `rag/generate.py`: guardrail và sinh câu trả lời.
+5. `rag/odoo/ingest.py` → `rag/odoo/mcp_server.py` → `rag/odoo/worker.py`:
+   luồng upload Odoo chạy nền.
+6. `custom_addons/ai_document_upload` rồi `custom_addons/ai_rag_document`:
+   model, quyền và UI phía Odoo.
+
+```text
+agent-service/
+├── rag/                 # Pipeline lõi và các CLI standalone
+│   └── odoo/            # Chỉ phần tích hợp Odoo/MCP/worker
+├── tests/               # Unit test theo tên module production
+├── scripts/             # Công cụ chạy và smoke test
+├── data/                # Dữ liệu demo/evaluation được commit
+├── docs/                # Tài liệu tích hợp chuyên sâu
+├── README.md            # Điểm bắt đầu review
+└── SETUP.md             # Dựng môi trường mới
 ```
 
 ## 1. Phạm vi
@@ -190,7 +216,7 @@ Nếu đã xóa hoặc đổi tên tài liệu, nên dùng `--reset` để loạ
 
 Addon `custom_addons/ai_rag_document` cung cấp menu **AI Agent → Knowledge
 Documents**. File upload được lưu trong `ir.attachment` và chuyển sang
-`pending`. Khi `rag.mcp_worker` đang chạy, worker tự claim job qua MCP, trích
+`pending`. Khi `rag.odoo.worker` đang chạy, worker tự claim job qua MCP, trích
 text/chunk/embed, lưu vector vào Chroma HTTP rồi cập nhật `indexed` hoặc
 `error`. Không phải chạy ingest lại bằng tay sau mỗi lần upload.
 
@@ -200,7 +226,7 @@ preview, collection và vị trí storage; embedding thật vẫn chỉ nằm �
 
 ```powershell
 .\.venv\Scripts\python.exe -m rag.inspect_store
-.\.venv\Scripts\python.exe -m rag.odoo_mcp_server --transport streamable-http
+.\.venv\Scripts\python.exe -m rag.odoo.mcp_server --transport streamable-http
 ```
 
 Lệnh thứ hai mở MCP endpoint cho backend. Hai tool hỏi đáp là

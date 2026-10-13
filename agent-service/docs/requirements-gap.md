@@ -21,19 +21,19 @@
 | Upload tài liệu | Enterprise Documents đã có upload, folder, version và quyền | Trường trạng thái RAG + background sync | Odoo/backend |
 | PDF/ảnh hóa đơn | `documents_account` liên kết attachment với `account.move` | OCR và luồng duyệt kết quả OCR | Odoo/OCR |
 | RAG preprocessing | PDF/DOCX/TXT/MD, clean, chunk, BGE-M3 | OCR PDF scan, parser bảng nâng cao | RAG/OCR |
-| Ingest từ Odoo | Đã có `ingest_odoo_document(bytes, metadata)` | MCP/job lấy attachment và cập nhật trạng thái Odoo | Backend/MCP |
+| Ingest từ Odoo | Worker MCP lấy attachment, index và cập nhật trạng thái Odoo | Hardening/retry production | Backend/MCP |
 | Vector local | Embedded Chroma hoạt động | Không dùng cho môi trường dùng chung | Đã thay thế tùy cấu hình |
 | Vector online | Đã hỗ trợ Chroma HTTP + Compose fragment | Deploy, TLS/auth, backup volume | DevOps/backend |
 | Phân quyền retrieval | Đã nhận `allowed_document_ids` và `company_id` | MCP phải tính quyền từ user Odoo hiện tại | Backend/MCP |
 | Audit log | Chưa có model Odoo | `ai.agent.audit.log`, ACL append-only, masking | Odoo/backend |
-| MCP | Chưa nằm trong phần RAG | Tool search, ERP read/write, user API key context | Backend/MCP |
+| MCP | Đã có tool search/answer và worker tài liệu | User API key context và tool ERP ngoài RAG | Backend/MCP |
 | LLM | Ollama và NVIDIA đều được hỗ trợ | Chốt backend production, quota/monitoring | Agent/backend |
 | OCR | Chưa triển khai PaddleOCR | Service/pipeline OCR 3.7.0, đánh giá accuracy | OCR/ML |
 | Dự báo | Chưa triển khai | pandas, sklearn, LightGBM, Prophet, dataset/eval | ML |
 | OWL chat | Chưa triển khai | Chat UI, bảng/biểu đồ/xác nhận thao tác | Frontend |
 | Telegram | Chưa triển khai | Bot, mapping user, authorization | Backend/frontend |
 | Docker Compose | Có fragment ChromaDB | Odoo + PostgreSQL + Agent + Ollama + Chroma | DevOps |
-| CI | Unit test RAG 11 test pass | Workflow Python 3.12, Odoo test, security/eval gates | CI/team |
+| CI | Unit test RAG 17 test pass | Workflow Python 3.12, Odoo test, security/eval gates | CI/team |
 
 ## Câu mô tả lớp dữ liệu đề xuất
 

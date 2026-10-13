@@ -19,7 +19,7 @@
 
 ### Hai chế độ trong source
 
-- **Runtime tích hợp Odoo:** `rag.odoo_ingest`, `rag.mcp_worker`, MCP server và
+- **Runtime tích hợp Odoo:** `rag.odoo.ingest`, `rag.odoo.worker`, MCP server và
   `VectorStore` HTTP. Đây là đường chạy production cần giữ.
 - **Công cụ phát triển:** `rag.ingest`, `data/raw`, embedded ChromaDB và
   `scripts/start_rag_local.ps1`. Chúng phục vụ demo, evaluation, CI và khả năng
@@ -52,9 +52,9 @@ method dành cho MCP worker để claim job, đọc payload và cập nhật k�
 1. Người dùng upload một hoặc nhiều file trong **AI Agent → Kho tài liệu**.
 2. Odoo lưu binary trong `ir.attachment`, metadata/quyền trong
    `ai.rag.document`, và đặt `rag_status=pending`.
-3. `rag.mcp_worker` tự polling và đọc attachment qua MCP bằng API key của
+3. `rag.odoo.worker` tự polling và đọc attachment qua MCP bằng API key của
    user/service được ủy quyền.
-4. Backend gọi `rag.odoo_ingest.ingest_odoo_document` với bytes và metadata.
+4. Backend gọi `rag.odoo.ingest.ingest_odoo_document` với bytes và metadata.
 5. RAG trích xuất text, chunk, embed rồi thay toàn bộ vector cũ của document.
 6. Backend cập nhật `rag_status=indexed`, `rag_indexed_at`, `rag_chunk_count`,
    số trang, số ký tự sạch và cấu hình chunk; hoặc
@@ -71,7 +71,7 @@ Không chạy embedding đồng bộ trong HTTP request upload của Odoo.
 ## Hàm backend/MCP sử dụng
 
 ```python
-from rag.odoo_ingest import ingest_odoo_document
+from rag.odoo.ingest import ingest_odoo_document
 
 result = ingest_odoo_document(
     content=attachment_bytes,
@@ -219,7 +219,7 @@ PostgreSQL.
 MCP endpoint cho backend:
 
 ```powershell
-.\.venv\Scripts\python.exe -m rag.odoo_mcp_server --transport streamable-http
+.\.venv\Scripts\python.exe -m rag.odoo.mcp_server --transport streamable-http
 ```
 
 Các tool `search_internal_documents` và `answer_internal_documents` chỉ dùng

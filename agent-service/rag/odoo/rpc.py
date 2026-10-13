@@ -3,7 +3,7 @@ from __future__ import annotations
 import xmlrpc.client
 from typing import Any
 
-from .config import settings
+from ..config import settings
 
 
 class OdooRpcClient:
