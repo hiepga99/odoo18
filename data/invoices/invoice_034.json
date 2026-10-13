@@ -1,0 +1,67 @@
+{
+  "invoice_number": "HD2026-0034",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2026-06-24",
+  "lookup_code": "VNP16282991",
+  "payment_method": "Tiền mặt / Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Công ty TNHH Chuỗi Cung ứng Toàn Cầu V-Logistics",
+    "tax_code": "3603456789",
+    "address": "Đường 2A, KCN Biên Hòa 2, Long Bình Tân, Đồng Nai",
+    "contact_person": "Lê Văn Thịnh"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0056",
+      "product_name": "Router Wifi 6 TP-Link Archer AX73 AX5400",
+      "unit": "Chiếc",
+      "quantity": 10,
+      "unit_price": 2250000,
+      "amount": 22500000,
+      "vat_rate_percent": 8,
+      "vat_amount": 1800000,
+      "total_line_amount": 24300000
+    },
+    {
+      "line_number": 2,
+      "product_code": "SP0030",
+      "product_name": "Ổ cứng di động SSD SanDisk Extreme E61 1TB Chống nước",
+      "unit": "Chiếc",
+      "quantity": 10,
+      "unit_price": 2950000,
+      "amount": 29500000,
+      "vat_rate_percent": 10,
+      "vat_amount": 2950000,
+      "total_line_amount": 32450000
+    },
+    {
+      "line_number": 3,
+      "product_code": "SP0104",
+      "product_name": "Bàn nâng hạ thông minh tự động điều chỉnh độ cao 2 motor",
+      "unit": "Chiếc",
+      "quantity": 3,
+      "unit_price": 6900000,
+      "amount": 20700000,
+      "vat_rate_percent": 8,
+      "vat_amount": 1656000,
+      "total_line_amount": 22356000
+    }
+  ],
+  "subtotal_amount": 72700000,
+  "vat_amount": 6406000,
+  "total_amount": 79106000,
+  "total_amount_in_words": "79 triệu 106 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2026-06-24 17:30:00"
+}

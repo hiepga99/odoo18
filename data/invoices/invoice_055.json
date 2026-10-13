@@ -1,0 +1,55 @@
+{
+  "invoice_number": "HD2026-0055",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2026-04-22",
+  "lookup_code": "VNP15177299",
+  "payment_method": "Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Trung tâm Đào tạo Tin học & Ngoại ngữ Tân Tiến",
+    "tax_code": "0402112233",
+    "address": "254 Nguyễn Văn Linh, Thạc Gián, Thanh Khê, Đà Nẵng",
+    "contact_person": "Nguyễn Hoàng Oanh"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0030",
+      "product_name": "Ổ cứng di động SSD SanDisk Extreme E61 1TB Chống nước",
+      "unit": "Chiếc",
+      "quantity": 2,
+      "unit_price": 2950000,
+      "amount": 5900000,
+      "vat_rate_percent": 10,
+      "vat_amount": 590000,
+      "total_line_amount": 6490000
+    },
+    {
+      "line_number": 2,
+      "product_code": "SP0064",
+      "product_name": "Switch mạng quản trị Cisco CBS110-24T-EU 24 Port Gigabit",
+      "unit": "Chiếc",
+      "quantity": 2,
+      "unit_price": 3950000,
+      "amount": 7900000,
+      "vat_rate_percent": 8,
+      "vat_amount": 632000,
+      "total_line_amount": 8532000
+    }
+  ],
+  "subtotal_amount": 13800000,
+  "vat_amount": 1222000,
+  "total_amount": 15022000,
+  "total_amount_in_words": "15 triệu 22 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2026-04-22 17:30:00"
+}

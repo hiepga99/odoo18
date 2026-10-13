@@ -1,0 +1,79 @@
+{
+  "invoice_number": "HD2026-0071",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2026-01-31",
+  "lookup_code": "VNP25710984",
+  "payment_method": "Tiền mặt / Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Công ty TNHH Dịch vụ Truyền thông & Quảng cáo Sen Vàng",
+    "tax_code": "0318901234",
+    "address": "10 Mai Chí Thọ, An Phú, TP. Thủ Đức, TP. Hồ Chí Minh",
+    "contact_person": "Đinh Hoàng Yến"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0011",
+      "product_name": "Laptop Apple MacBook Air 13 inch M2 (8GB/256GB)",
+      "unit": "Chiếc",
+      "quantity": 2,
+      "unit_price": 24900000,
+      "amount": 49800000,
+      "vat_rate_percent": 8,
+      "vat_amount": 3984000,
+      "total_line_amount": 53784000
+    },
+    {
+      "line_number": 2,
+      "product_code": "SP0056",
+      "product_name": "Router Wifi 6 TP-Link Archer AX73 AX5400",
+      "unit": "Chiếc",
+      "quantity": 2,
+      "unit_price": 2250000,
+      "amount": 4500000,
+      "vat_rate_percent": 8,
+      "vat_amount": 360000,
+      "total_line_amount": 4860000
+    },
+    {
+      "line_number": 3,
+      "product_code": "SP0101",
+      "product_name": "Ghế công thái học Ergonomic Sihoo M57 Lưới thoáng khí",
+      "unit": "Chiếc",
+      "quantity": 10,
+      "unit_price": 3850000,
+      "amount": 38500000,
+      "vat_rate_percent": 10,
+      "vat_amount": 3850000,
+      "total_line_amount": 42350000
+    },
+    {
+      "line_number": 4,
+      "product_code": "SP0080",
+      "product_name": "Nồi chiên không dầu Philips HD9650/91 dung tích XXL 1.4kg",
+      "unit": "Chiếc",
+      "quantity": 2,
+      "unit_price": 5490000,
+      "amount": 10980000,
+      "vat_rate_percent": 10,
+      "vat_amount": 1098000,
+      "total_line_amount": 12078000
+    }
+  ],
+  "subtotal_amount": 103780000,
+  "vat_amount": 9292000,
+  "total_amount": 113072000,
+  "total_amount_in_words": "113 triệu 72 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2026-01-31 17:30:00"
+}

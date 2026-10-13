@@ -1,0 +1,67 @@
+{
+  "invoice_number": "HD2026-0056",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2026-02-28",
+  "lookup_code": "VNP72864121",
+  "payment_method": "Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Công ty CP Xây dựng & Nội thất Vinadesign",
+    "tax_code": "0201998877",
+    "address": "18 Võ Thị Sáu, Máy Tơ, Ngô Quyền, Hải Phòng",
+    "contact_person": "Trương Minh Đạt"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0031",
+      "product_name": "Chuột không dây Logitech MX Master 3S",
+      "unit": "Chiếc",
+      "quantity": 3,
+      "unit_price": 2350000,
+      "amount": 7050000,
+      "vat_rate_percent": 10,
+      "vat_amount": 705000,
+      "total_line_amount": 7755000
+    },
+    {
+      "line_number": 2,
+      "product_code": "SP0080",
+      "product_name": "Nồi chiên không dầu Philips HD9650/91 dung tích XXL 1.4kg",
+      "unit": "Chiếc",
+      "quantity": 5,
+      "unit_price": 5490000,
+      "amount": 27450000,
+      "vat_rate_percent": 10,
+      "vat_amount": 2745000,
+      "total_line_amount": 30195000
+    },
+    {
+      "line_number": 3,
+      "product_code": "SP0076",
+      "product_name": "Robot hút bụi lau nhà Dreame L20 Ultra Tự giặt giẻ sấy khô",
+      "unit": "Chiếc",
+      "quantity": 3,
+      "unit_price": 18900000,
+      "amount": 56700000,
+      "vat_rate_percent": 10,
+      "vat_amount": 5670000,
+      "total_line_amount": 62370000
+    }
+  ],
+  "subtotal_amount": 91200000,
+  "vat_amount": 9120000,
+  "total_amount": 100320000,
+  "total_amount_in_words": "100 triệu 320 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2026-02-28 17:30:00"
+}

@@ -1,0 +1,55 @@
+{
+  "invoice_number": "HD2026-0027",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2026-09-12",
+  "lookup_code": "VNP69132701",
+  "payment_method": "Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Viện Nghiên cứu & Ứng dụng Công nghệ Mới",
+    "tax_code": "0101234567",
+    "address": "1 Đại Cồ Việt, Bách Khoa, Hai Bà Trưng, Hà Nội",
+    "contact_person": "TS. Trần Văn Phong"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0114",
+      "product_name": "Thùng 5 ram giấy in Double A A4 70gsm",
+      "unit": "Thùng",
+      "quantity": 5,
+      "unit_price": 345000,
+      "amount": 1725000,
+      "vat_rate_percent": 8,
+      "vat_amount": 138000,
+      "total_line_amount": 1863000
+    },
+    {
+      "line_number": 2,
+      "product_code": "SP0101",
+      "product_name": "Ghế công thái học Ergonomic Sihoo M57 Lưới thoáng khí",
+      "unit": "Chiếc",
+      "quantity": 1,
+      "unit_price": 3850000,
+      "amount": 3850000,
+      "vat_rate_percent": 10,
+      "vat_amount": 385000,
+      "total_line_amount": 4235000
+    }
+  ],
+  "subtotal_amount": 5575000,
+  "vat_amount": 523000,
+  "total_amount": 6098000,
+  "total_amount_in_words": "6 triệu 98 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2026-09-12 17:30:00"
+}

@@ -1,0 +1,43 @@
+{
+  "invoice_number": "HD2026-0099",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2026-02-19",
+  "lookup_code": "VNP24417396",
+  "payment_method": "Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Công ty TNHH Thương mại Quốc tế Hòa Phát Tech",
+    "tax_code": "0106789234",
+    "address": "Số 88 Trần Hưng Đạo, Cửa Nam, Hoàn Kiếm, Hà Nội",
+    "contact_person": "Đỗ Quang Vinh"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0004",
+      "product_name": "Laptop Asus Zenbook 14 OLED UX3405 (Ultra 7/16GB/1TB)",
+      "unit": "Chiếc",
+      "quantity": 2,
+      "unit_price": 28900000,
+      "amount": 57800000,
+      "vat_rate_percent": 10,
+      "vat_amount": 5780000,
+      "total_line_amount": 63580000
+    }
+  ],
+  "subtotal_amount": 57800000,
+  "vat_amount": 5780000,
+  "total_amount": 63580000,
+  "total_amount_in_words": "63 triệu 580 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2026-02-19 17:30:00"
+}

@@ -1,0 +1,43 @@
+{
+  "invoice_number": "HD2026-0023",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2026-08-23",
+  "lookup_code": "VNP18874266",
+  "payment_method": "Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Công ty TNHH Công nghệ Alpha Việt Nam",
+    "tax_code": "0108923412",
+    "address": "Tầng 5, Tòa Keangnam Landmark 72, Nam Từ Liêm, Hà Nội",
+    "contact_person": "Nguyễn Văn Hùng"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0078",
+      "product_name": "Máy lọc không khí Xiaomi Smart Air Purifier 4 Pro",
+      "unit": "Chiếc",
+      "quantity": 10,
+      "unit_price": 4890000,
+      "amount": 48900000,
+      "vat_rate_percent": 10,
+      "vat_amount": 4890000,
+      "total_line_amount": 53790000
+    }
+  ],
+  "subtotal_amount": 48900000,
+  "vat_amount": 4890000,
+  "total_amount": 53790000,
+  "total_amount_in_words": "53 triệu 790 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2026-08-23 17:30:00"
+}

@@ -1,0 +1,79 @@
+{
+  "invoice_number": "HD2026-0010",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2026-05-19",
+  "lookup_code": "VNP38403765",
+  "payment_method": "Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Công ty CP Xây dựng & Nội thất Vinadesign",
+    "tax_code": "0201998877",
+    "address": "18 Võ Thị Sáu, Máy Tơ, Ngô Quyền, Hải Phòng",
+    "contact_person": "Trương Minh Đạt"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0064",
+      "product_name": "Switch mạng quản trị Cisco CBS110-24T-EU 24 Port Gigabit",
+      "unit": "Chiếc",
+      "quantity": 5,
+      "unit_price": 3950000,
+      "amount": 19750000,
+      "vat_rate_percent": 10,
+      "vat_amount": 1975000,
+      "total_line_amount": 21725000
+    },
+    {
+      "line_number": 2,
+      "product_code": "SP0001",
+      "product_name": "Laptop Dell XPS 13 Plus 9320 (i7-1360P/16GB/512GB)",
+      "unit": "Chiếc",
+      "quantity": 2,
+      "unit_price": 34500000,
+      "amount": 69000000,
+      "vat_rate_percent": 10,
+      "vat_amount": 6900000,
+      "total_line_amount": 75900000
+    },
+    {
+      "line_number": 3,
+      "product_code": "SP0002",
+      "product_name": "Laptop Dell Latitude 3440 (i5-1335U/8GB/256GB)",
+      "unit": "Chiếc",
+      "quantity": 10,
+      "unit_price": 15900000,
+      "amount": 159000000,
+      "vat_rate_percent": 8,
+      "vat_amount": 12720000,
+      "total_line_amount": 171720000
+    },
+    {
+      "line_number": 4,
+      "product_code": "SP0104",
+      "product_name": "Bàn nâng hạ thông minh tự động điều chỉnh độ cao 2 motor",
+      "unit": "Chiếc",
+      "quantity": 3,
+      "unit_price": 6900000,
+      "amount": 20700000,
+      "vat_rate_percent": 8,
+      "vat_amount": 1656000,
+      "total_line_amount": 22356000
+    }
+  ],
+  "subtotal_amount": 268450000,
+  "vat_amount": 23251000,
+  "total_amount": 291701000,
+  "total_amount_in_words": "291 triệu 701 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2026-05-19 17:30:00"
+}

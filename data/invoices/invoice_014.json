@@ -1,0 +1,43 @@
+{
+  "invoice_number": "HD2026-0014",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2025-11-24",
+  "lookup_code": "VNP88476929",
+  "payment_method": "Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Công ty TNHH Công nghệ Alpha Việt Nam",
+    "tax_code": "0108923412",
+    "address": "Tầng 5, Tòa Keangnam Landmark 72, Nam Từ Liêm, Hà Nội",
+    "contact_person": "Nguyễn Văn Hùng"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0027",
+      "product_name": "Ổ cứng SSD Samsung 990 Pro 1TB M.2 PCIe 4.0",
+      "unit": "Chiếc",
+      "quantity": 3,
+      "unit_price": 2850000,
+      "amount": 8550000,
+      "vat_rate_percent": 8,
+      "vat_amount": 684000,
+      "total_line_amount": 9234000
+    }
+  ],
+  "subtotal_amount": 8550000,
+  "vat_amount": 684000,
+  "total_amount": 9234000,
+  "total_amount_in_words": "9 triệu 234 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2025-11-24 17:30:00"
+}

@@ -1,0 +1,55 @@
+{
+  "invoice_number": "HD2026-0057",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2026-01-19",
+  "lookup_code": "VNP16984407",
+  "payment_method": "Tiền mặt / Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Công ty TNHH Công nghệ Alpha Việt Nam",
+    "tax_code": "0108923412",
+    "address": "Tầng 5, Tòa Keangnam Landmark 72, Nam Từ Liêm, Hà Nội",
+    "contact_person": "Nguyễn Văn Hùng"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0056",
+      "product_name": "Router Wifi 6 TP-Link Archer AX73 AX5400",
+      "unit": "Chiếc",
+      "quantity": 3,
+      "unit_price": 2250000,
+      "amount": 6750000,
+      "vat_rate_percent": 10,
+      "vat_amount": 675000,
+      "total_line_amount": 7425000
+    },
+    {
+      "line_number": 2,
+      "product_code": "SP0035",
+      "product_name": "Bàn phím cơ không dây Keychron K2 Pro QMK/VIA",
+      "unit": "Chiếc",
+      "quantity": 2,
+      "unit_price": 2190000,
+      "amount": 4380000,
+      "vat_rate_percent": 8,
+      "vat_amount": 350400,
+      "total_line_amount": 4730400
+    }
+  ],
+  "subtotal_amount": 11130000,
+  "vat_amount": 1025400,
+  "total_amount": 12155400,
+  "total_amount_in_words": "12 triệu 155 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2026-01-19 17:30:00"
+}

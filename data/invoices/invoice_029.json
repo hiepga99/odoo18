@@ -1,0 +1,55 @@
+{
+  "invoice_number": "HD2026-0029",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2025-12-15",
+  "lookup_code": "VNP88688966",
+  "payment_method": "Tiền mặt / Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Công ty TNHH Dịch vụ Truyền thông & Quảng cáo Sen Vàng",
+    "tax_code": "0318901234",
+    "address": "10 Mai Chí Thọ, An Phú, TP. Thủ Đức, TP. Hồ Chí Minh",
+    "contact_person": "Đinh Hoàng Yến"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0101",
+      "product_name": "Ghế công thái học Ergonomic Sihoo M57 Lưới thoáng khí",
+      "unit": "Chiếc",
+      "quantity": 1,
+      "unit_price": 3850000,
+      "amount": 3850000,
+      "vat_rate_percent": 8,
+      "vat_amount": 308000,
+      "total_line_amount": 4158000
+    },
+    {
+      "line_number": 2,
+      "product_code": "SP0078",
+      "product_name": "Máy lọc không khí Xiaomi Smart Air Purifier 4 Pro",
+      "unit": "Chiếc",
+      "quantity": 10,
+      "unit_price": 4890000,
+      "amount": 48900000,
+      "vat_rate_percent": 10,
+      "vat_amount": 4890000,
+      "total_line_amount": 53790000
+    }
+  ],
+  "subtotal_amount": 52750000,
+  "vat_amount": 5198000,
+  "total_amount": 57948000,
+  "total_amount_in_words": "57 triệu 948 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2025-12-15 17:30:00"
+}

@@ -1,0 +1,67 @@
+{
+  "invoice_number": "HD2026-0068",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2026-05-26",
+  "lookup_code": "VNP69783642",
+  "payment_method": "Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Công ty CP Đầu tư & Phát triển Bất động sản An Bình",
+    "tax_code": "0315678901",
+    "address": "120 Nguyễn Thị Minh Khai, Võ Thị Sáu, Quận 3, TP. Hồ Chí Minh",
+    "contact_person": "Phạm Quốc Bảo"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0011",
+      "product_name": "Laptop Apple MacBook Air 13 inch M2 (8GB/256GB)",
+      "unit": "Chiếc",
+      "quantity": 5,
+      "unit_price": 24900000,
+      "amount": 124500000,
+      "vat_rate_percent": 8,
+      "vat_amount": 9960000,
+      "total_line_amount": 134460000
+    },
+    {
+      "line_number": 2,
+      "product_code": "SP0030",
+      "product_name": "Ổ cứng di động SSD SanDisk Extreme E61 1TB Chống nước",
+      "unit": "Chiếc",
+      "quantity": 1,
+      "unit_price": 2950000,
+      "amount": 2950000,
+      "vat_rate_percent": 8,
+      "vat_amount": 236000,
+      "total_line_amount": 3186000
+    },
+    {
+      "line_number": 3,
+      "product_code": "SP0001",
+      "product_name": "Laptop Dell XPS 13 Plus 9320 (i7-1360P/16GB/512GB)",
+      "unit": "Chiếc",
+      "quantity": 1,
+      "unit_price": 34500000,
+      "amount": 34500000,
+      "vat_rate_percent": 8,
+      "vat_amount": 2760000,
+      "total_line_amount": 37260000
+    }
+  ],
+  "subtotal_amount": 161950000,
+  "vat_amount": 12956000,
+  "total_amount": 174906000,
+  "total_amount_in_words": "174 triệu 906 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2026-05-26 17:30:00"
+}

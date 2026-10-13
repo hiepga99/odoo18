@@ -1,0 +1,67 @@
+{
+  "invoice_number": "HD2026-0094",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2026-04-20",
+  "lookup_code": "VNP30912838",
+  "payment_method": "Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Công ty CP Bán lẻ Kỹ thuật số Nam Á",
+    "tax_code": "0317890123",
+    "address": "64 Võ Văn Tần, Phường 6, Quận 3, TP. Hồ Chí Minh",
+    "contact_person": "Ngô Bích Ngọc"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0001",
+      "product_name": "Laptop Dell XPS 13 Plus 9320 (i7-1360P/16GB/512GB)",
+      "unit": "Chiếc",
+      "quantity": 10,
+      "unit_price": 34500000,
+      "amount": 345000000,
+      "vat_rate_percent": 8,
+      "vat_amount": 27600000,
+      "total_line_amount": 372600000
+    },
+    {
+      "line_number": 2,
+      "product_code": "SP0040",
+      "product_name": "Tai nghe chụp tai chống ồn Sony WH-1000XM5",
+      "unit": "Chiếc",
+      "quantity": 10,
+      "unit_price": 7990000,
+      "amount": 79900000,
+      "vat_rate_percent": 8,
+      "vat_amount": 6392000,
+      "total_line_amount": 86292000
+    },
+    {
+      "line_number": 3,
+      "product_code": "SP0011",
+      "product_name": "Laptop Apple MacBook Air 13 inch M2 (8GB/256GB)",
+      "unit": "Chiếc",
+      "quantity": 3,
+      "unit_price": 24900000,
+      "amount": 74700000,
+      "vat_rate_percent": 8,
+      "vat_amount": 5976000,
+      "total_line_amount": 80676000
+    }
+  ],
+  "subtotal_amount": 499600000,
+  "vat_amount": 39968000,
+  "total_amount": 539568000,
+  "total_amount_in_words": "539 triệu 568 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2026-04-20 17:30:00"
+}

@@ -1,0 +1,43 @@
+{
+  "invoice_number": "HD2026-0087",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2026-06-30",
+  "lookup_code": "VNP12942462",
+  "payment_method": "Tiền mặt / Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Công ty TNHH Giải pháp Phần mềm F-Tech",
+    "tax_code": "0107891234",
+    "address": "Tòa nhà FPT, Phố Duy Tân, Dịch Vọng Hậu, Cầu Giấy, Hà Nội",
+    "contact_person": "Lê Tuấn Anh"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0056",
+      "product_name": "Router Wifi 6 TP-Link Archer AX73 AX5400",
+      "unit": "Chiếc",
+      "quantity": 10,
+      "unit_price": 2250000,
+      "amount": 22500000,
+      "vat_rate_percent": 10,
+      "vat_amount": 2250000,
+      "total_line_amount": 24750000
+    }
+  ],
+  "subtotal_amount": 22500000,
+  "vat_amount": 2250000,
+  "total_amount": 24750000,
+  "total_amount_in_words": "24 triệu 750 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2026-06-30 17:30:00"
+}

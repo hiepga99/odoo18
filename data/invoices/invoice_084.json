@@ -1,0 +1,43 @@
+{
+  "invoice_number": "HD2026-0084",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2026-05-05",
+  "lookup_code": "VNP68481076",
+  "payment_method": "Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Công ty TNHH Chuỗi Cung ứng Toàn Cầu V-Logistics",
+    "tax_code": "3603456789",
+    "address": "Đường 2A, KCN Biên Hòa 2, Long Bình Tân, Đồng Nai",
+    "contact_person": "Lê Văn Thịnh"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0031",
+      "product_name": "Chuột không dây Logitech MX Master 3S",
+      "unit": "Chiếc",
+      "quantity": 1,
+      "unit_price": 2350000,
+      "amount": 2350000,
+      "vat_rate_percent": 8,
+      "vat_amount": 188000,
+      "total_line_amount": 2538000
+    }
+  ],
+  "subtotal_amount": 2350000,
+  "vat_amount": 188000,
+  "total_amount": 2538000,
+  "total_amount_in_words": "2 triệu 538 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2026-05-05 17:30:00"
+}

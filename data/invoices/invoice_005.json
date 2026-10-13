@@ -1,0 +1,79 @@
+{
+  "invoice_number": "HD2026-0005",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2026-07-13",
+  "lookup_code": "VNP95312236",
+  "payment_method": "Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Công ty TNHH LogiTech Solution Đà Nẵng",
+    "tax_code": "0401889922",
+    "address": "Số 15 Quang Trung, Thạch Thang, Hải Châu, Đà Nẵng",
+    "contact_person": "Hoàng Minh Trí"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0076",
+      "product_name": "Robot hút bụi lau nhà Dreame L20 Ultra Tự giặt giẻ sấy khô",
+      "unit": "Chiếc",
+      "quantity": 2,
+      "unit_price": 18900000,
+      "amount": 37800000,
+      "vat_rate_percent": 10,
+      "vat_amount": 3780000,
+      "total_line_amount": 41580000
+    },
+    {
+      "line_number": 2,
+      "product_code": "SP0001",
+      "product_name": "Laptop Dell XPS 13 Plus 9320 (i7-1360P/16GB/512GB)",
+      "unit": "Chiếc",
+      "quantity": 1,
+      "unit_price": 34500000,
+      "amount": 34500000,
+      "vat_rate_percent": 10,
+      "vat_amount": 3450000,
+      "total_line_amount": 37950000
+    },
+    {
+      "line_number": 3,
+      "product_code": "SP0080",
+      "product_name": "Nồi chiên không dầu Philips HD9650/91 dung tích XXL 1.4kg",
+      "unit": "Chiếc",
+      "quantity": 1,
+      "unit_price": 5490000,
+      "amount": 5490000,
+      "vat_rate_percent": 8,
+      "vat_amount": 439200,
+      "total_line_amount": 5929200
+    },
+    {
+      "line_number": 4,
+      "product_code": "SP0056",
+      "product_name": "Router Wifi 6 TP-Link Archer AX73 AX5400",
+      "unit": "Chiếc",
+      "quantity": 3,
+      "unit_price": 2250000,
+      "amount": 6750000,
+      "vat_rate_percent": 8,
+      "vat_amount": 540000,
+      "total_line_amount": 7290000
+    }
+  ],
+  "subtotal_amount": 84540000,
+  "vat_amount": 8209200,
+  "total_amount": 92749200,
+  "total_amount_in_words": "92 triệu 749 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2026-07-13 17:30:00"
+}

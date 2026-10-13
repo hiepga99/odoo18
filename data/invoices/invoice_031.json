@@ -1,0 +1,55 @@
+{
+  "invoice_number": "HD2026-0031",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2026-08-12",
+  "lookup_code": "VNP28299830",
+  "payment_method": "Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Công ty CP Xây dựng & Nội thất Vinadesign",
+    "tax_code": "0201998877",
+    "address": "18 Võ Thị Sáu, Máy Tơ, Ngô Quyền, Hải Phòng",
+    "contact_person": "Trương Minh Đạt"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0078",
+      "product_name": "Máy lọc không khí Xiaomi Smart Air Purifier 4 Pro",
+      "unit": "Chiếc",
+      "quantity": 10,
+      "unit_price": 4890000,
+      "amount": 48900000,
+      "vat_rate_percent": 10,
+      "vat_amount": 4890000,
+      "total_line_amount": 53790000
+    },
+    {
+      "line_number": 2,
+      "product_code": "SP0064",
+      "product_name": "Switch mạng quản trị Cisco CBS110-24T-EU 24 Port Gigabit",
+      "unit": "Chiếc",
+      "quantity": 10,
+      "unit_price": 3950000,
+      "amount": 39500000,
+      "vat_rate_percent": 10,
+      "vat_amount": 3950000,
+      "total_line_amount": 43450000
+    }
+  ],
+  "subtotal_amount": 88400000,
+  "vat_amount": 8840000,
+  "total_amount": 97240000,
+  "total_amount_in_words": "97 triệu 240 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2026-08-12 17:30:00"
+}

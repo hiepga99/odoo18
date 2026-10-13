@@ -1,0 +1,55 @@
+{
+  "invoice_number": "HD2026-0018",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2026-06-15",
+  "lookup_code": "VNP60937922",
+  "payment_method": "Tiền mặt / Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Công ty TNHH Chuỗi Cung ứng Toàn Cầu V-Logistics",
+    "tax_code": "3603456789",
+    "address": "Đường 2A, KCN Biên Hòa 2, Long Bình Tân, Đồng Nai",
+    "contact_person": "Lê Văn Thịnh"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0064",
+      "product_name": "Switch mạng quản trị Cisco CBS110-24T-EU 24 Port Gigabit",
+      "unit": "Chiếc",
+      "quantity": 3,
+      "unit_price": 3950000,
+      "amount": 11850000,
+      "vat_rate_percent": 10,
+      "vat_amount": 1185000,
+      "total_line_amount": 13035000
+    },
+    {
+      "line_number": 2,
+      "product_code": "SP0004",
+      "product_name": "Laptop Asus Zenbook 14 OLED UX3405 (Ultra 7/16GB/1TB)",
+      "unit": "Chiếc",
+      "quantity": 5,
+      "unit_price": 28900000,
+      "amount": 144500000,
+      "vat_rate_percent": 10,
+      "vat_amount": 14450000,
+      "total_line_amount": 158950000
+    }
+  ],
+  "subtotal_amount": 156350000,
+  "vat_amount": 15635000,
+  "total_amount": 171985000,
+  "total_amount_in_words": "171 triệu 985 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2026-06-15 17:30:00"
+}

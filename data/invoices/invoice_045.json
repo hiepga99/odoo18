@@ -1,0 +1,79 @@
+{
+  "invoice_number": "HD2026-0045",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2026-05-17",
+  "lookup_code": "VNP41532291",
+  "payment_method": "Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Công ty TNHH Sản xuất & Thương mại Gia dụng Sunhouse Mart",
+    "tax_code": "2300998877",
+    "address": "Khu công nghiệp Tiên Sơn, Đồng Nguyên, Từ Sơn, Bắc Ninh",
+    "contact_person": "Phan Đình Trọng"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0015",
+      "product_name": "Màn hình Dell P2422H 23.8 inch FHD IPS",
+      "unit": "Chiếc",
+      "quantity": 1,
+      "unit_price": 3990000,
+      "amount": 3990000,
+      "vat_rate_percent": 8,
+      "vat_amount": 319200,
+      "total_line_amount": 4309200
+    },
+    {
+      "line_number": 2,
+      "product_code": "SP0035",
+      "product_name": "Bàn phím cơ không dây Keychron K2 Pro QMK/VIA",
+      "unit": "Chiếc",
+      "quantity": 3,
+      "unit_price": 2190000,
+      "amount": 6570000,
+      "vat_rate_percent": 8,
+      "vat_amount": 525600,
+      "total_line_amount": 7095600
+    },
+    {
+      "line_number": 3,
+      "product_code": "SP0040",
+      "product_name": "Tai nghe chụp tai chống ồn Sony WH-1000XM5",
+      "unit": "Chiếc",
+      "quantity": 3,
+      "unit_price": 7990000,
+      "amount": 23970000,
+      "vat_rate_percent": 10,
+      "vat_amount": 2397000,
+      "total_line_amount": 26367000
+    },
+    {
+      "line_number": 4,
+      "product_code": "SP0048",
+      "product_name": "Webcam Logitech C920 Pro HD 1080p",
+      "unit": "Chiếc",
+      "quantity": 2,
+      "unit_price": 1650000,
+      "amount": 3300000,
+      "vat_rate_percent": 10,
+      "vat_amount": 330000,
+      "total_line_amount": 3630000
+    }
+  ],
+  "subtotal_amount": 37830000,
+  "vat_amount": 3571800,
+  "total_amount": 41401800,
+  "total_amount_in_words": "41 triệu 401 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2026-05-17 17:30:00"
+}

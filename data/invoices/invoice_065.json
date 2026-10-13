@@ -1,0 +1,79 @@
+{
+  "invoice_number": "HD2026-0065",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2026-04-06",
+  "lookup_code": "VNP39174558",
+  "payment_method": "Tiền mặt / Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Công ty CP Xây dựng & Nội thất Vinadesign",
+    "tax_code": "0201998877",
+    "address": "18 Võ Thị Sáu, Máy Tơ, Ngô Quyền, Hải Phòng",
+    "contact_person": "Trương Minh Đạt"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0031",
+      "product_name": "Chuột không dây Logitech MX Master 3S",
+      "unit": "Chiếc",
+      "quantity": 5,
+      "unit_price": 2350000,
+      "amount": 11750000,
+      "vat_rate_percent": 8,
+      "vat_amount": 940000,
+      "total_line_amount": 12690000
+    },
+    {
+      "line_number": 2,
+      "product_code": "SP0076",
+      "product_name": "Robot hút bụi lau nhà Dreame L20 Ultra Tự giặt giẻ sấy khô",
+      "unit": "Chiếc",
+      "quantity": 10,
+      "unit_price": 18900000,
+      "amount": 189000000,
+      "vat_rate_percent": 8,
+      "vat_amount": 15120000,
+      "total_line_amount": 204120000
+    },
+    {
+      "line_number": 3,
+      "product_code": "SP0104",
+      "product_name": "Bàn nâng hạ thông minh tự động điều chỉnh độ cao 2 motor",
+      "unit": "Chiếc",
+      "quantity": 10,
+      "unit_price": 6900000,
+      "amount": 69000000,
+      "vat_rate_percent": 8,
+      "vat_amount": 5520000,
+      "total_line_amount": 74520000
+    },
+    {
+      "line_number": 4,
+      "product_code": "SP0030",
+      "product_name": "Ổ cứng di động SSD SanDisk Extreme E61 1TB Chống nước",
+      "unit": "Chiếc",
+      "quantity": 3,
+      "unit_price": 2950000,
+      "amount": 8850000,
+      "vat_rate_percent": 8,
+      "vat_amount": 708000,
+      "total_line_amount": 9558000
+    }
+  ],
+  "subtotal_amount": 278600000,
+  "vat_amount": 22288000,
+  "total_amount": 300888000,
+  "total_amount_in_words": "300 triệu 888 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2026-04-06 17:30:00"
+}

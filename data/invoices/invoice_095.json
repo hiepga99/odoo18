@@ -1,0 +1,67 @@
+{
+  "invoice_number": "HD2026-0095",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2026-03-18",
+  "lookup_code": "VNP80761174",
+  "payment_method": "Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Công ty CP Thiết bị Văn phòng Hiện Đại M-Office",
+    "tax_code": "0105678901",
+    "address": "Số 204 Hoàng Quốc Việt, Cổ Nhuế 1, Cầu Giấy, Hà Nội",
+    "contact_person": "Bùi Văn Nam"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0004",
+      "product_name": "Laptop Asus Zenbook 14 OLED UX3405 (Ultra 7/16GB/1TB)",
+      "unit": "Chiếc",
+      "quantity": 2,
+      "unit_price": 28900000,
+      "amount": 57800000,
+      "vat_rate_percent": 10,
+      "vat_amount": 5780000,
+      "total_line_amount": 63580000
+    },
+    {
+      "line_number": 2,
+      "product_code": "SP0104",
+      "product_name": "Bàn nâng hạ thông minh tự động điều chỉnh độ cao 2 motor",
+      "unit": "Chiếc",
+      "quantity": 10,
+      "unit_price": 6900000,
+      "amount": 69000000,
+      "vat_rate_percent": 10,
+      "vat_amount": 6900000,
+      "total_line_amount": 75900000
+    },
+    {
+      "line_number": 3,
+      "product_code": "SP0080",
+      "product_name": "Nồi chiên không dầu Philips HD9650/91 dung tích XXL 1.4kg",
+      "unit": "Chiếc",
+      "quantity": 2,
+      "unit_price": 5490000,
+      "amount": 10980000,
+      "vat_rate_percent": 10,
+      "vat_amount": 1098000,
+      "total_line_amount": 12078000
+    }
+  ],
+  "subtotal_amount": 137780000,
+  "vat_amount": 13778000,
+  "total_amount": 151558000,
+  "total_amount_in_words": "151 triệu 558 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2026-03-18 17:30:00"
+}

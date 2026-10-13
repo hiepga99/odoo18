@@ -1,0 +1,55 @@
+{
+  "invoice_number": "HD2026-0070",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2026-09-05",
+  "lookup_code": "VNP75216165",
+  "payment_method": "Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Công ty CP Xây dựng & Nội thất Vinadesign",
+    "tax_code": "0201998877",
+    "address": "18 Võ Thị Sáu, Máy Tơ, Ngô Quyền, Hải Phòng",
+    "contact_person": "Trương Minh Đạt"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0002",
+      "product_name": "Laptop Dell Latitude 3440 (i5-1335U/8GB/256GB)",
+      "unit": "Chiếc",
+      "quantity": 5,
+      "unit_price": 15900000,
+      "amount": 79500000,
+      "vat_rate_percent": 10,
+      "vat_amount": 7950000,
+      "total_line_amount": 87450000
+    },
+    {
+      "line_number": 2,
+      "product_code": "SP0014",
+      "product_name": "Màn hình Dell UltraSharp 27 inch 4K U2723QE",
+      "unit": "Chiếc",
+      "quantity": 5,
+      "unit_price": 13200000,
+      "amount": 66000000,
+      "vat_rate_percent": 8,
+      "vat_amount": 5280000,
+      "total_line_amount": 71280000
+    }
+  ],
+  "subtotal_amount": 145500000,
+  "vat_amount": 13230000,
+  "total_amount": 158730000,
+  "total_amount_in_words": "158 triệu 730 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2026-09-05 17:30:00"
+}

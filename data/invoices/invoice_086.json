@@ -1,0 +1,67 @@
+{
+  "invoice_number": "HD2026-0086",
+  "invoice_series": "1C26TBB",
+  "invoice_date": "2026-01-18",
+  "lookup_code": "VNP66772268",
+  "payment_method": "Tiền mặt / Chuyển khoản",
+  "currency": "VND",
+  "seller": {
+    "name": "CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ VÀ THƯƠNG MẠI VIỆT NAM",
+    "tax_code": "0109988776",
+    "address": "Số 18 Duy Tân, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội",
+    "phone": "0243 789 9999",
+    "email": "hoadon@congnghevietnam.com.vn",
+    "bank_account": "19038899220018 tại Ngân hàng TMCP Kỹ Thương Việt Nam (Techcombank) - CN Cầu Giấy"
+  },
+  "buyer": {
+    "company_name": "Trung tâm Đào tạo Tin học & Ngoại ngữ Tân Tiến",
+    "tax_code": "0402112233",
+    "address": "254 Nguyễn Văn Linh, Thạc Gián, Thanh Khê, Đà Nẵng",
+    "contact_person": "Nguyễn Hoàng Oanh"
+  },
+  "items": [
+    {
+      "line_number": 1,
+      "product_code": "SP0031",
+      "product_name": "Chuột không dây Logitech MX Master 3S",
+      "unit": "Chiếc",
+      "quantity": 10,
+      "unit_price": 2350000,
+      "amount": 23500000,
+      "vat_rate_percent": 8,
+      "vat_amount": 1880000,
+      "total_line_amount": 25380000
+    },
+    {
+      "line_number": 2,
+      "product_code": "SP0016",
+      "product_name": "Màn hình LG 27UP850N-W 27 inch 4K Type-C",
+      "unit": "Chiếc",
+      "quantity": 2,
+      "unit_price": 8900000,
+      "amount": 17800000,
+      "vat_rate_percent": 8,
+      "vat_amount": 1424000,
+      "total_line_amount": 19224000
+    },
+    {
+      "line_number": 3,
+      "product_code": "SP0030",
+      "product_name": "Ổ cứng di động SSD SanDisk Extreme E61 1TB Chống nước",
+      "unit": "Chiếc",
+      "quantity": 10,
+      "unit_price": 2950000,
+      "amount": 29500000,
+      "vat_rate_percent": 10,
+      "vat_amount": 2950000,
+      "total_line_amount": 32450000
+    }
+  ],
+  "subtotal_amount": 70800000,
+  "vat_amount": 6254000,
+  "total_amount": 77054000,
+  "total_amount_in_words": "77 triệu 54 nghìn đồng",
+  "status": "Đã ký số",
+  "signer": "Nguyễn Văn Giám Đốc",
+  "signature_date": "2026-01-18 17:30:00"
+}
