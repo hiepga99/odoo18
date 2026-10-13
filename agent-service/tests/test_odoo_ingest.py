@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from rag.odoo_ingest import delete_odoo_document, ingest_odoo_document
+from rag.odoo.ingest import delete_odoo_document, ingest_odoo_document
 from rag.vector_store import VectorStore
 
 

@@ -81,9 +81,9 @@ Lần đầu tiên lệnh này tự tải `BAAI/bge-m3` từ Hugging Face. Model
 trong `.cache/huggingface`; ChromaDB được tạo trong `chroma_data`. Cả hai thư
 mục đều được Git bỏ qua và có thể tái tạo.
 
-Thiết lập trên chỉ dành cho demo local. Môi trường tích hợp Odoo/MCP dùng
+Thiết lập trên chỉ dành cho demo local. Môi trường tích hợp Odoo dùng
 ChromaDB server và ingest attachment dạng bytes; xem
-[ODOO_RAG_INTEGRATION.md](ODOO_RAG_INTEGRATION.md).
+[docs/odoo-integration.md](docs/odoo-integration.md).
 
 ## 6. Kiểm tra
 

@@ -3,11 +3,11 @@ from __future__ import annotations
 import xmlrpc.client
 from typing import Any
 
-from .config import settings
+from ..config import settings
 
 
 class OdooRpcClient:
-    """Small Odoo XML-RPC adapter used behind the MCP tool boundary."""
+    """Small Odoo XML-RPC adapter used by the background RAG worker."""
 
     def __init__(
         self,

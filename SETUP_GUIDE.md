@@ -55,7 +55,7 @@ Odoo18/
 ├── custom_addons/             # Team-owned Odoo modules
 │   ├── ai_document_upload/    # Document upload and storage
 │   └── ai_rag_document/       # RAG processing integration
-├── agent-service/             # Embedding, ChromaDB, MCP and LLM
+├── agent-service/             # Embedding, ChromaDB, retrieval and LLM
 ├── venv/                      # Virtual environment
 ├── odoo18.conf               # Configuration file (Enterprise enabled)
 ├── start_odoo18.sh           # Startup script
