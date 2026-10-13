@@ -10,11 +10,13 @@ venv/
 *.sql
 *.zip
 *.dump
+backups/
 
 # Logs & temp
 *.log
 .system_generated/
 *.docx
+scripts/
 
 # Odoo Enterprise addons (proprietary - do not push)
 enterprise/

@@ -5,7 +5,10 @@ import os
 if hasattr(sys.stdout, 'reconfigure'):
     sys.stdout.reconfigure(encoding='utf-8')
 
-sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
+addons_mcp_dir = os.path.abspath(os.path.dirname(__file__))
+root_dir = os.path.abspath(os.path.join(addons_mcp_dir, '..'))
+sys.path.insert(0, addons_mcp_dir)
+sys.path.insert(0, root_dir)
 
 from agent_core.agent import HermesAgent
 
@@ -29,13 +32,12 @@ def main():
 
             response = agent.chat(user_input)
             
-            # Neu Agent thuc hien Tool Call
+            # Nếu Agent thực hiện Tool Call
             if response.get("type") == "tool_call":
-                print(f"[*] [Agent Core] -> Quyet dinh goi Tool: {response.get('tool_name')}")
-                print(f"[+] [Tham so]: {response.get('arguments')}")
-                print(f"[+] [Du lieu ERP]: {response.get('tool_result')}")
-            else:
-                print(f"[>] [Agent Core] -> Tra loi truc tiep: {response.get('final_answer')}")
+                print(f"\n⚙️  [Hệ thống ERP] Đã định tuyến công cụ: '{response.get('tool_name')}' | Tham số: {response.get('arguments')}")
+            
+            print(f"\n🤖 [Chuyên viên Phân tích ERP]:\n{response.get('final_answer')}\n")
+            print("-" * 70)
 
         except KeyboardInterrupt:
             print("\nĐã dừng chương trình.")

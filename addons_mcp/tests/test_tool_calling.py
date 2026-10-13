@@ -6,8 +6,11 @@ import sys
 if hasattr(sys.stdout, 'reconfigure'):
     sys.stdout.reconfigure(encoding='utf-8')
 
-# Thêm thư mục gốc vào PYTHONPATH
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# Thêm addons_mcp và root vào PYTHONPATH
+addons_mcp_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+root_dir = os.path.abspath(os.path.join(addons_mcp_dir, '..'))
+sys.path.insert(0, addons_mcp_dir)
+sys.path.insert(0, root_dir)
 
 from agent_core.agent import HermesAgent
 

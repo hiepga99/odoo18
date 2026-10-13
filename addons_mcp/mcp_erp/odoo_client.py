@@ -1,37 +1,54 @@
 # -*- coding: utf-8 -*-
 import xmlrpc.client
+import http.client
 from typing import Dict, Any, List, Optional
+
+class TimeoutTransport(xmlrpc.client.Transport):
+    """Transport XML-RPC với cơ chế timeout kết nối nhanh (tránh treo socket)"""
+    def __init__(self, timeout: float = 1.0, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.timeout = timeout
+
+    def make_connection(self, host):
+        return http.client.HTTPConnection(host, timeout=self.timeout)
 
 class OdooClient:
     """
     Client kết nối trực tiếp Odoo 18 ERP qua XML-RPC API.
-    Quản lý xác thực, tự động kết nối lại và xử lý lỗi.
+    Hỗ trợ timeout nhanh, tự động ngắt (circuit breaker) khi Odoo offline để tránh làm chậm Agent.
     """
     def __init__(
         self,
         url: str = "http://localhost:8069",
         db: str = "odoo18",
         username: str = "binhphung19112003@gmail.com",
-        password: str = "admin"
+        password: str = "admin",
+        timeout: float = 1.0
     ):
         self.url = url
         self.db = db
         self.username = username
         self.password = password
+        self.timeout = timeout
         self.uid = None
         self.common = None
         self.models = None
+        self.is_offline = False
         self._authenticate()
 
     def _authenticate(self) -> bool:
+        if self.is_offline:
+            return False
         try:
-            self.common = xmlrpc.client.ServerProxy(f"{self.url}/xmlrpc/2/common")
+            transport = TimeoutTransport(timeout=self.timeout)
+            self.common = xmlrpc.client.ServerProxy(f"{self.url}/xmlrpc/2/common", transport=transport)
             self.uid = self.common.authenticate(self.db, self.username, self.password, {})
             if self.uid:
-                self.models = xmlrpc.client.ServerProxy(f"{self.url}/xmlrpc/2/object")
+                self.models = xmlrpc.client.ServerProxy(f"{self.url}/xmlrpc/2/object", transport=transport)
+                self.is_offline = False
                 return True
         except Exception:
-            pass
+            self.is_offline = True
         return False
 
     def is_connected(self) -> bool:
@@ -43,3 +60,4 @@ class OdooClient:
                 raise ConnectionError("Không thể kết nối đến Odoo 18 ERP.")
         kwargs = kwargs or {}
         return self.models.execute_kw(self.db, self.uid, self.password, model, method, args, kwargs)
+

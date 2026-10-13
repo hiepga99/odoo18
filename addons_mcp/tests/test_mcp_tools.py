@@ -9,7 +9,10 @@ if hasattr(sys.stdout, 'reconfigure'):
 if hasattr(sys.stderr, 'reconfigure'):
     sys.stderr.reconfigure(encoding='utf-8')
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+addons_mcp_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+root_dir = os.path.abspath(os.path.join(addons_mcp_dir, '..'))
+sys.path.insert(0, addons_mcp_dir)
+sys.path.insert(0, root_dir)
 
 from mcp_erp.server import MCPServer
 from mcp_erp.tools import (
