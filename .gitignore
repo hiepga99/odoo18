@@ -21,8 +21,10 @@ scripts/
 # Odoo Enterprise addons (proprietary - do not push)
 enterprise/
 
-# Config with credentials
-config/odoo.conf
+# Local data & docs
+data/
+docs/
+config/
 
 # IDE
 .vscode/
