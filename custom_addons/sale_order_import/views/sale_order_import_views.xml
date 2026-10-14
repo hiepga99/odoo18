@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_order_import_list_view" model="ir.ui.view">
+        <field name="name">sale.order.import.list</field>
+        <field name="model">sale.order.import</field>
+        <field name="arch" type="xml">
+            <list string="Sale Order Imports">
+                <field name="name"/>
+                <field name="date_create"/>
+                <field name="date_confirmed"/>
+                <field name="user_id"/>
+                <field name="company_id"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="sale_order_import_form_view" model="ir.ui.view">
+        <field name="name">sale.order.import.form</field>
+        <field name="model">sale.order.import</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_confirm" class="oe_highlight" string="Confirm" type="object"
+                            invisible="state != 'draft'"/>
+                    <button name="action_read_file" class="oe_highlight" string="Read File" type="object"
+                            invisible="import_type == 'excel' or state != 'draft'"/>
+                    <button name="action_cancel" string="Cancel" type="object"
+                            invisible="state != 'confirmed'"/>
+                    <button name="action_back_to_draft" string="Back to draft" type="object"
+                            invisible="state != 'cancel'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,cancel"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button type="object" name="action_view_sale_order" class="oe_stat_button" icon="fa-dollar"
+                                invisible="so_count == 0">
+                            <field name="so_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" required="1" readonly="state != 'draft'"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id" invisible="import_type == 'excel'"
+                                   required="import_type != 'excel'" readonly="state != 'draft'"/>
+                            <field name="date_create" readonly="1"/>
+                            <field name="date_confirmed" readonly="1"/>
+                            <field name="import_type" readonly="state != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="user_id" readonly="1"/>
+                            <field name="company_id" readonly="1"/>
+                            <field name="create_sale_order_type" required="1"
+                                   invisible="import_type == 'excel'" readonly="state != 'draft'"/>
+                            <field name="is_order_consignment" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Import File" name="import_file" invisible="import_type == 'excel'">
+                            <field name="attachment_ids" widget="many2many_binary" readonly="state != 'draft'"/>
+                        </page>
+                        <page string="Import Order" name="import_so">
+                            <field name="file_name" invisible="1"/>
+                            <field name="file_upload" filename="file_name" invisible="import_type != 'excel'"/>
+                            <button name="download_import_SO_template" string="Download Template" type="object"
+                                    invisible="import_type != 'excel' or is_order_consignment"/>
+                            <button name="download_import_SO_consignment_template" string="Download Template"
+                                    type="object" invisible="import_type != 'excel' or not is_order_consignment"/>
+                            <button name="action_import_SO_excel" string="Import" type="object" class="oe_highlight"
+                                    invisible="not file_upload or state != 'draft' or import_type != 'excel'"/>
+                            <field name="line_ids" readonly="1">
+                                <list create="0">
+                                    <field name="attachment_id" column_invisible="parent.import_type == 'excel'"/>
+                                    <field name="po_location_code"/>
+                                    <field name="po_name"/>
+                                    <field name="product_code"/>
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="delivery_date" column_invisible="parent.import_type != 'winmart'"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sale_order_import" model="ir.actions.act_window">
+        <field name="name">Import Sale Orders</field>
+        <field name="res_model">sale.order.import</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'default_is_order_consignment': False}</field>
+        <field name="domain">[('is_order_consignment', '=', False)]</field>
+    </record>
+
+    <record id="action_sale_order_import_consignment" model="ir.actions.act_window">
+        <field name="name">Import Sale Orders (Consignment)</field>
+        <field name="res_model">sale.order.import</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'default_is_order_consignment': True}</field>
+        <field name="domain">[('is_order_consignment', '=', True)]</field>
+    </record>
+
+    <menuitem id="menu_sale_order_import" name="Import Sale Orders" parent="sale.sale_order_menu"
+              action="action_sale_order_import" sequence="2"/>
+    <menuitem id="menu_sale_order_import_consignment" name="Import Sale Orders (Consignment)" parent="sale.sale_order_menu"
+              action="action_sale_order_import_consignment" sequence="3"/>
+</odoo>
