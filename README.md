@@ -1,102 +1,194 @@
-# AI Agent ERP (Odoo 18) - Natural Language Chatbot
+# 🤖 ERP Chat Agent — AI Agent tích hợp Odoo 18
 
-> **Đề tài:** Hệ thống AI Agent tích hợp ERP hỗ trợ quản lý bán hàng và kho bằng ngôn ngữ tự nhiên tiếng Việt cho doanh nghiệp SME.  
-> **Kiến trúc:** Skill-Based Agent Core (Hermes / Llama 3.3) kết hợp Model Context Protocol (MCP) kết nối trực tiếp Odoo 18 ERP qua XML-RPC.
+> **Đề tài:** Hệ thống AI Agent sử dụng ngôn ngữ tự nhiên tiếng Việt để tra cứu, phân tích và tạo báo giá trực tiếp từ dữ liệu Odoo 18 ERP.
 
 ---
 
-## 🏛️ Kiến trúc Hệ thống (Skill-Based Architecture)
+## 📐 Kiến trúc tổng quan
 
-Hệ thống được tổ chức theo mô hình **Kỹ năng (Skill Pattern)** tinh gọn, toàn bộ phân hệ AI Agent & MCP ERP do Bình phụ trách được đóng gói trọn vẹn trong folder `addons_mcp/`:
+```
+Người dùng (chat tiếng Việt)
+        │
+        ▼
+┌─────────────────────────────────────┐
+│         Hermes Agent Core           │  ← addons_mcp/agent_core/
+│  - Hiểu ý định (LLM / Gemini /     │
+│    Groq / Ollama)                   │
+│  - Phân quyền RBAC (sales/manager) │
+│  - Skill Dispatcher                 │
+└───────────┬─────────────────────────┘
+            │ gọi tool
+    ┌────────┴────────┐
+    │                 │
+    ▼                 ▼
+┌────────┐     ┌─────────────┐
+│  MCP   │     │  RAG Skill  │  ← policy_skill.py
+│  ERP   │     │  (ChromaDB) │  ← agent-service/rag/
+│ 12 tool│     └─────────────┘
+└───┬────┘
+    │ XML-RPC / MCP HTTP
+    ▼
+┌──────────────┐
+│  Odoo 18 ERP │  ← localhost:8069 hoặc ngrok URL
+└──────────────┘
+```
+
+---
+
+## 📁 Cấu trúc thư mục
 
 ```text
 odoojob/
-├── addons_mcp/             # Toàn bộ phân hệ AI Agent Core & MCP Server
-│   ├── agent_core/         # Lõi điều phối AI Agent
-│   │   ├── skills/         # 4 Module Kỹ năng nghiệp vụ độc lập
-│   │   │   ├── base_skill.py       # BaseSkill & SkillRegistry (Auto-dispatching)
-│   │   │   ├── inventory_skill.py  # Quản lý kho, giá bán, tồn kho, xuất kho
-│   │   │   ├── sales_skill.py      # Bán hàng, đơn hàng, tạo báo giá nháp
-│   │   │   ├── analytics_skill.py  # Báo cáo doanh thu, AOV, top sản phẩm
-│   │   │   └── policy_skill.py     # Tra cứu quy trình, chính sách công ty (RAG)
-│   │   ├── agent.py        # Hermes ReAct Agent Controller
-│   │   ├── synthesizer.py  # Bộ chuẩn hóa phản hồi Chuyên viên ERP
-│   │   └── llm_client.py   # Tích hợp Groq (Llama 3.3) / Ollama / Fallback
-│   ├── mcp_erp/            # MCP Server kết nối Odoo 18 qua XML-RPC (12 tools)
-│   ├── tests/              # Bộ kiểm thử tự động (Unit Test & Tool Calling Benchmark)
-│   └── chat_demo.py        # Giao diện chạy thử nghiệm tương tác
-├── data/                   # Bộ dữ liệu chuẩn (100 hóa đơn + 20 tài liệu quy trình)
-├── docker-compose.yml      # Hạ tầng Odoo 18 CE & PostgreSQL 16
-└── README.md
+├── addons_mcp/                 # ← Bình phụ trách (AI Agent + MCP)
+│   ├── agent_core/
+│   │   ├── skills/
+│   │   │   ├── base_skill.py         # BaseSkill, SkillRegistry, RBAC
+│   │   │   ├── inventory_skill.py    # Giá, tồn kho, xuất kho
+│   │   │   ├── sales_skill.py        # Đơn hàng, báo giá, khách hàng
+│   │   │   ├── analytics_skill.py    # Doanh thu, công nợ (chỉ manager)
+│   │   │   └── policy_skill.py       # Quy trình nội bộ (RAG-powered)
+│   │   ├── agent.py                  # ReAct Agent điều phối
+│   │   ├── synthesizer.py            # Chuẩn hóa câu trả lời ERP
+│   │   └── llm_client.py             # Gemini / Groq / Ollama / Mock
+│   ├── mcp_erp/
+│   │   ├── odoo_client.py            # HTTP MCP + XML-RPC fallback
+│   │   └── tools.py                  # 12 MCP tools Odoo
+│   ├── tests/
+│   │   ├── test_tool_calling.py      # Benchmark TN1 (30 câu)
+│   │   ├── test_quotation_extraction.py  # Benchmark TN2 (30 tin nhắn)
+│   │   ├── test_mcp_tools.py         # Unit test 12 MCP tools
+│   │   ├── test_odoo_client_mcp.py   # Unit test MCP envelope unwrap
+│   │   └── test_rag_skill_integration.py # Unit test RAG + fallback
+│   └── chat_demo.py                  # CLI chat agent
+│
+├── agent-service/              # ← Tùng phụ trách (RAG Pipeline)
+│   ├── rag/                    # ChromaDB, embeddings, retrieval
+│   └── data/raw/               # PDF tài liệu chính sách Coolmate demo
+│
+├── custom_addons/              # ← Hiệp phụ trách (Odoo Addons)
+│   ├── ai_mcp/                 # MCP server tích hợp Odoo
+│   ├── ai_rag_document/        # Upload tài liệu RAG từ Odoo
+│   └── sale_order_import/      # Import đơn hàng từ PDF
+│
+├── .env                        # ⚠️ KHÔNG COMMIT — cấu hình local
+├── TESTER_GUIDE.md             # Hướng dẫn kết nối cho tester
+└── SETUP_GUIDE.md              # Hướng dẫn cài đặt toàn bộ
 ```
 
 ---
 
-## ⚡ Hướng dẫn Khởi chạy Nhanh
+## ⚙️ Cài đặt & Chạy
 
-### 1. Khởi động hạ tầng ERP (Docker)
-```bash
-docker compose up -d
-```
-* Odoo 18: `http://localhost:8069` (Database: `odoo18`, User: `admin` hoặc cấu hình qua `.env`)
-* PostgreSQL 16: Cổng `5432`
+### 1. Yêu cầu
+- Python 3.13+
+- Git
 
-### 2. Cấu hình LLM Engine (Tùy chọn)
-Hệ thống mặc định có sẵn Offline Rule Engine chạy tức thì (< 0.01s). Để đạt tốc độ siêu tốc ~300 token/s với mô hình Llama-3.3-70B, thêm biến môi trường:
+### 2. Clone & checkout nhánh
 ```bash
-export GROQ_API_KEY="gsk_..."
+git clone https://gitlab.com/binhpthe173173/erpchatagent.git
+cd erpchatagent
+git checkout dev
 ```
 
-### 3. Trải nghiệm Hội thoại Tương tác
+### 3. Cài thư viện
+```bash
+pip install openai python-dotenv requests
+```
+
+### 4. Tạo file `.env`
+```ini
+# LLM Engine (chọn 1 trong 3)
+GEMINI_API_KEY=AIzaSy...          # Google Gemini (khuyến nghị)
+# GROQ_API_KEY=gsk_...            # Groq Cloud (nhanh nhất, miễn phí)
+# LLM_PROVIDER=ollama             # Chạy local hoàn toàn
+
+# Kết nối Odoo ERP
+ODOO_URL=https://<ngrok-url-của-nhóm>
+ODOO_DB=odoo18
+ODOO_USER=admin
+ODOO_PASSWORD=<mật khẩu nhóm>
+```
+
+> 📘 Xem [TESTER_GUIDE.md](TESTER_GUIDE.md) để biết URL và mật khẩu test.
+
+---
+
+## 🚀 Khởi chạy
+
+### Chat agent (CLI)
 ```bash
 python addons_mcp/chat_demo.py
 ```
 
-### 4. Chạy Bộ Kiểm thử Nghiệm thu (Benchmarks)
-* **Kiểm thử Tool Calling tiếng Việt (KPI Tuần 4 - Đạt 100% / 30 câu):**
-  ```bash
-  python addons_mcp/tests/test_tool_calling.py
-  ```
-* **Kiểm thử 12 MCP Tools kết nối Odoo 18 (Unit test 13/13 Pass):**
-  ```bash
-  python -m unittest addons_mcp/tests/test_mcp_tools.py
-  ```
-* **Kiểm thử TN2: Bóc tách tạo báo giá từ tin nhắn (Đạt 100% / 30 tin nhắn):**
-  ```bash
-  python addons_mcp/tests/test_quotation_extraction.py
-  ```
+**Ví dụ câu hỏi:**
+| Loại nghiệp vụ | Câu hỏi mẫu |
+|---|---|
+| Tra giá | `Laptop Dell XPS 13 giá bao nhiêu?` |
+| Tồn kho | `Kho còn bàn phím cơ Keychron K2 không?` |
+| Đơn hàng | `Xem đơn hàng của Công ty Sao Mai` |
+| Tạo báo giá | `Tạo báo giá cho anh Nguyễn Văn An: 2 chuột Logitech MX Master 3` |
+| Chính sách | `Chính sách đổi trả hàng bị lỗi như thế nào?` |
+| Doanh thu *(cần quyền manager)* | Gõ `tôi là sếp` → `Doanh thu tháng này bao nhiêu?` |
 
 ---
 
-## 🎯 Chỉ tiêu Nghiệm thu Đồ án (KPIs)
-* **Dữ liệu mẫu ERP:** 160 sản phẩm, 348 đơn hàng bán, 100 hóa đơn GTGT, 20 quy trình doanh nghiệp.
-* **Tích hợp MCP:** 12 tools nghiệp vụ hai chiều với Odoo 18 (Pass 100%).
-* **TN1 (Agent Core):** Gọi đúng tool đạt **100%** trên bộ test 30 tình huống tiếng Việt thực tế (KPI $\ge$ 80%).
-* **TN2 (Tạo báo giá tin nhắn):** Bóc tách chính xác khách hàng & sản phẩm đạt **100%** trên 30 tin nhắn mẫu (KPI $\ge$ 85%).
+## ✅ Kết quả Kiểm thử (KPI Nghiệm thu)
 
-
----
-
-Các module do nhóm phát triển được đặt chung trong
-[`custom_addons/`](custom_addons/README.md), không đặt trực tiếp vào `odoo/`
-hoặc `enterprise/`. Mỗi tính năng Odoo mới là một addon con độc lập trong thư
-mục này để các thành viên có thể cùng bổ sung module mà không sửa source lõi.
-
-Phần Agent Service cho RAG, ChromaDB, retrieval và LLM nằm trong
-[`agent-service/`](agent-service/README.md).
-
-MCP được cấu hình và vận hành bởi module tích hợp riêng. `agent-service` chỉ
-cung cấp contract search/answer để module đó gọi, không tự mở MCP endpoint.
-
-## Cấu trúc phần nhóm phát triển
-
-```text
-odoo18/
-├── custom_addons/
-│   ├── ai_document_upload/
-│   └── ai_rag_document/
-└── agent-service/
+### Chạy toàn bộ test
+```bash
+python -m unittest discover -s addons_mcp/tests -p "test_*.py"
 ```
 
-Xem [SETUP_GUIDE.md](SETUP_GUIDE.md) để chạy Odoo và
-[agent-service/SETUP.md](agent-service/SETUP.md) để dựng pipeline RAG.
+### Kết quả đạt được
+
+| Bộ kiểm thử | Mục tiêu | Thực tế |
+|---|---|---|
+| TN1 — Tool Calling (30 câu) | ≥ 80% | **100% (30/30)** |
+| TN2 — Tạo báo giá từ tin nhắn (30 tin nhắn) | ≥ 85% | **100% (30/30)** |
+| Unit test MCP 12 tools | Pass | **13/13 Pass** |
+| Unit test RAG integration | Pass | **2/2 Pass** |
+
+### Chạy riêng từng bộ test
+```bash
+# TN1
+python addons_mcp/tests/test_tool_calling.py
+
+# TN2
+python addons_mcp/tests/test_quotation_extraction.py
+
+# Unit tests
+python -m unittest addons_mcp/tests/test_mcp_tools.py
+python -m unittest addons_mcp/tests/test_odoo_client_mcp.py
+python -m unittest addons_mcp/tests/test_rag_skill_integration.py
+```
+
+---
+
+## 🔐 Phân quyền RBAC
+
+| Vai trò | Kích hoạt | Quyền truy cập |
+|---|---|---|
+| `sales_user` | Mặc định | Giá, tồn kho, đơn hàng, tra cứu chính sách |
+| `manager` | Gõ `tôi là sếp` | Thêm: doanh thu, tài chính, công nợ toàn công ty |
+
+Nhân viên Sale **tuyệt đối không thể** xem báo cáo tài chính dù hỏi trực tiếp — bị chặn tại cả tầng Agent lẫn tầng Odoo Record Rules.
+
+---
+
+## 👥 Phân công nhóm
+
+| Module | Người phụ trách |
+|---|---|
+| AI Agent Core + MCP + Tests | Phùng Thanh Bình |
+| RAG Pipeline (ChromaDB + Embeddings) | Tùng |
+| Odoo Addons (ai_mcp, ai_rag_document) | Hoàng Hiệp |
+
+---
+
+## 🔗 Liên kết
+
+- **GitHub (upstream):** https://github.com/hiepga99/odoo18
+- **GitLab (Bình):** https://gitlab.com/binhpthe173173/erpchatagent
+- **Nhánh tích hợp:** `dev`
+- **Hướng dẫn cài RAG:** [agent-service/SETUP.md](agent-service/SETUP.md)
+- **Hướng dẫn cài Odoo:** [SETUP_GUIDE.md](SETUP_GUIDE.md)
