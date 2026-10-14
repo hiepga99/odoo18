@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ai_document_company_rule" model="ir.rule">
+        <field name="name">Tài liệu AI theo công ty</field>
+        <field name="model_id" ref="model_ai_rag_document"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+</odoo>

@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ai_rag_document_view_list" model="ir.ui.view">
+        <field name="name">ai.rag.document.rag.list</field>
+        <field name="model">ai.rag.document</field>
+        <field name="inherit_id" ref="ai_document_upload.ai_document_view_list"/>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <xpath expr="//list" position="attributes">
+                <attribute name="decoration-success">rag_status == 'indexed'</attribute>
+                <attribute name="decoration-warning">rag_status in ('pending', 'processing', 'delete_pending')</attribute>
+                <attribute name="decoration-danger">rag_status == 'error'</attribute>
+            </xpath>
+            <field name="owner_id" position="after">
+                <field name="rag_status" widget="badge"/>
+                <field name="rag_progress" widget="rag_processing_progress"
+                       string="Tiến độ" optional="show"
+                       options="{'status_field': 'rag_status', 'stage_field': 'rag_progress_stage'}"/>
+                <field name="rag_progress_stage" column_invisible="True"/>
+                <field name="rag_chunk_count"/>
+                <field name="rag_indexed_at" optional="show"/>
+                <field name="rag_enabled" optional="hide"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="ai_rag_document_view_form" model="ir.ui.view">
+        <field name="name">ai.rag.document.rag.form</field>
+        <field name="model">ai.rag.document</field>
+        <field name="inherit_id" ref="ai_document_upload.ai_document_view_form"/>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <button name="action_request_reindex" type="object"
+                            string="Xử lý lại" class="btn-primary"
+                            invisible="not file_data or rag_status in ('pending', 'processing')"/>
+                    <button name="action_disable_rag" type="object"
+                            string="Tắt tra cứu AI" invisible="not rag_enabled"/>
+                    <button name="action_enable_rag" type="object"
+                            string="Bật tra cứu AI" class="btn-primary"
+                            invisible="rag_enabled"/>
+                    <field name="rag_status" widget="statusbar"
+                           statusbar_visible="pending,processing,indexed,error,delete_pending,disabled"/>
+                </header>
+            </xpath>
+
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_chunks" type="object"
+                        class="oe_stat_button" icon="fa-align-left"
+                        invisible="rag_chunk_count == 0">
+                    <field name="rag_chunk_count" widget="statinfo" string="Đoạn đã xử lý"/>
+                </button>
+            </xpath>
+
+            <xpath expr="//sheet/notebook" position="before">
+                <div class="alert alert-info mt-3" role="alert"
+                     invisible="rag_status not in ('pending', 'processing')">
+                    <strong>Tài liệu đang được chuẩn bị cho AI.</strong>
+                    Hệ thống đọc tệp, chuẩn hóa khoảng trắng và ngắt dòng, chia thành
+                    các đoạn có chồng lặp, rồi tạo vector để tìm kiếm ngữ nghĩa.
+                    <div class="mt-3">
+                        <field name="rag_progress" widget="rag_processing_progress"
+                               readonly="1" nolabel="1"
+                               options="{'status_field': 'rag_status', 'stage_field': 'rag_progress_stage'}"/>
+                        <field name="rag_progress_stage" invisible="1"/>
+                    </div>
+                </div>
+                <div class="alert alert-success mt-3" role="alert"
+                     invisible="rag_status != 'indexed'">
+                    <strong>Đã sẵn sàng để AI tra cứu.</strong>
+                    Bản gốc vẫn được giữ nguyên. Phần “Nội dung đã làm sạch” bên dưới
+                    là dữ liệu văn bản mà hệ thống thực sự dùng để tìm câu trả lời.
+                </div>
+                <div class="alert alert-danger mt-3" role="alert"
+                     invisible="rag_status != 'error'">
+                    <strong>Không thể xử lý tài liệu.</strong>
+                    <field name="rag_error_message" readonly="1" nolabel="1"/>
+                </div>
+            </xpath>
+
+            <xpath expr="//sheet/notebook" position="inside">
+                    <page string="Tổng quan xử lý" name="rag_processing_overview">
+                        <group>
+                            <group string="Kết quả dễ đọc">
+                                <field name="rag_enabled"/>
+                                <field name="rag_progress" widget="progressbar"/>
+                                <field name="rag_progress_stage"/>
+                                <field name="rag_page_count"/>
+                                <field name="rag_chunk_count"/>
+                                <field name="rag_clean_char_count"/>
+                                <field name="rag_indexed_at"/>
+                            </group>
+                            <group string="Cách hệ thống xử lý">
+                                <field name="rag_chunk_size"/>
+                                <field name="rag_chunk_overlap"/>
+                                <field name="rag_embedding_model"/>
+                                <div class="text-muted">
+                                    Các đoạn chồng lặp giúp câu ở ranh giới hai đoạn
+                                    không bị mất ngữ cảnh.
+                                </div>
+                            </group>
+                        </group>
+                        <div class="alert alert-light border mt-2" role="alert">
+                            <strong>Quy trình làm sạch:</strong>
+                            bỏ khoảng trắng thừa, chuẩn hóa xuống dòng, nối lại nội dung
+                            bị ngắt không cần thiết và loại các khối rỗng. Hệ thống không
+                            thay đổi tệp gốc đã tải lên.
+                        </div>
+                    </page>
+
+                    <page string="Bản tiền xử lý" name="rag_clean_content"
+                          invisible="rag_chunk_count == 0">
+                        <div class="alert alert-light border" role="alert">
+                            <strong>Cách đọc bản tiền xử lý:</strong>
+                            mỗi thẻ là một đoạn được gửi vào mô hình embedding.
+                            Nhãn trang cho biết vị trí trong file gốc; số ký tự cho biết
+                            kích thước thực tế sau khi làm sạch.
+                        </div>
+                        <field name="rag_clean_preview_html" widget="html"
+                               readonly="1" nolabel="1"/>
+                    </page>
+
+                    <page string="Lưu trữ kỹ thuật" groups="base.group_system">
+                        <group>
+                            <field name="rag_checksum"/>
+                            <field name="rag_collection"/>
+                            <field name="rag_storage_backend"/>
+                            <field name="rag_storage_location"/>
+                            <field name="rag_processing_started_at"/>
+                        </group>
+                    </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="ai_rag_document_view_search" model="ir.ui.view">
+        <field name="name">ai.rag.document.rag.search</field>
+        <field name="model">ai.rag.document</field>
+        <field name="inherit_id" ref="ai_document_upload.ai_document_view_search"/>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <filter name="my_documents" position="before">
+                <filter name="pending" string="Chờ xử lý"
+                        domain="[('rag_status', '=', 'pending')]"/>
+                <filter name="processing" string="Đang xử lý"
+                        domain="[('rag_status', '=', 'processing')]"/>
+                <filter name="indexed" string="Sẵn sàng tra cứu"
+                        domain="[('rag_status', '=', 'indexed')]"/>
+                <filter name="errors" string="Có lỗi"
+                        domain="[('rag_status', '=', 'error')]"/>
+                <separator/>
+            </filter>
+            <filter name="group_owner" position="before">
+                <filter name="group_status" string="Trạng thái AI"
+                        context="{'group_by': 'rag_status'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="ai_rag_chunk_view_kanban" model="ir.ui.view">
+        <field name="name">ai.rag.chunk.kanban</field>
+        <field name="model">ai.rag.chunk</field>
+        <field name="arch" type="xml">
+            <kanban string="Nội dung đã làm sạch" create="0" edit="0" delete="0">
+                <field name="document_id"/>
+                <field name="chunk_number"/>
+                <field name="page_label"/>
+                <field name="char_count"/>
+                <field name="text_preview"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <strong><field name="document_id"/></strong>
+                            <span class="badge text-bg-primary">Đoạn <field name="chunk_number"/></span>
+                        </div>
+                        <div class="text-muted small mb-2">
+                            <field name="page_label"/> · <field name="char_count"/> ký tự
+                        </div>
+                        <div style="white-space: pre-wrap; line-height: 1.5;">
+                            <field name="text_preview"/>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="ai_rag_chunk_view_list" model="ir.ui.view">
+        <field name="name">ai.rag.chunk.list</field>
+        <field name="model">ai.rag.chunk</field>
+        <field name="arch" type="xml">
+            <list string="Nội dung đã làm sạch" create="0" edit="0" delete="0">
+                <field name="document_id"/>
+                <field name="chunk_number"/>
+                <field name="page_label"/>
+                <field name="char_count"/>
+                <field name="text_preview"/>
+                <field name="vector_id" optional="hide" groups="base.group_system"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="ai_rag_chunk_view_form" model="ir.ui.view">
+        <field name="name">ai.rag.chunk.form</field>
+        <field name="model">ai.rag.chunk</field>
+        <field name="arch" type="xml">
+            <form string="Đoạn văn bản đã làm sạch" create="0" edit="0" delete="0">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="display_name"/></h1>
+                    </div>
+                    <group>
+                        <field name="document_id"/>
+                        <field name="chunk_number"/>
+                        <field name="page_label"/>
+                        <field name="char_count"/>
+                        <field name="source_name"/>
+                        <field name="vector_id" groups="base.group_system"/>
+                    </group>
+                    <separator string="Nội dung hệ thống dùng để tìm kiếm"/>
+                    <field name="text_preview" widget="text" nolabel="1"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="ai_rag_chunk_view_search" model="ir.ui.view">
+        <field name="name">ai.rag.chunk.search</field>
+        <field name="model">ai.rag.chunk</field>
+        <field name="arch" type="xml">
+            <search string="Tìm nội dung đã làm sạch">
+                <field name="document_id"/>
+                <field name="source_name"/>
+                <field name="text_preview"/>
+                <group expand="0" string="Nhóm theo">
+                    <filter name="group_document" string="Tài liệu"
+                            context="{'group_by': 'document_id'}"/>
+                    <filter name="group_page" string="Trang nguồn"
+                            context="{'group_by': 'page'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="ai_rag_chunk_action" model="ir.actions.act_window">
+        <field name="name">Nội dung đã làm sạch</field>
+        <field name="res_model">ai.rag.chunk</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="search_view_id" ref="ai_rag_chunk_view_search"/>
+        <field name="context">{'create': False, 'edit': False, 'delete': False}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Chưa có nội dung đã xử lý</p>
+            <p>Tải tài liệu lên và chờ trạng thái “Sẵn sàng tra cứu”.</p>
+        </field>
+    </record>
+
+    <!-- Compatibility records for databases that used the old combined addon. -->
+    <record id="ai_rag_document_action" model="ir.actions.act_window">
+        <field name="name">Kho tài liệu (cũ)</field>
+        <field name="res_model">ai.rag.document</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="ai_rag_root_menu" model="ir.ui.menu">
+        <field name="name">AI Agent (cũ)</field>
+        <field name="active" eval="False"/>
+    </record>
+    <record id="ai_rag_document_menu" model="ir.ui.menu">
+        <field name="name">Kho tài liệu (cũ)</field>
+        <field name="active" eval="False"/>
+    </record>
+
+    <menuitem id="ai_rag_chunk_menu" name="Nội dung đã làm sạch"
+              parent="ai_document_upload.ai_document_root_menu"
+              action="ai_rag_chunk_action" sequence="20"
+              groups="base.group_user"/>
+</odoo>

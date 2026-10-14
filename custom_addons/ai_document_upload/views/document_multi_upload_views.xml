@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ai_document_multi_upload_view_form" model="ir.ui.view">
+        <field name="name">ai.document.multi.upload.wizard.form</field>
+        <field name="model">ai.document.multi.upload.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Tải nhiều tài liệu">
+                <sheet>
+                    <div class="alert alert-info" role="alert">
+                        <strong>Có thể chọn nhiều tệp trong một lần.</strong>
+                        Mỗi tệp sẽ trở thành một tài liệu riêng và tự động được đưa vào
+                        hàng đợi xử lý RAG sau khi tải lên.
+                    </div>
+                    <group>
+                        <field name="attachment_ids"
+                               widget="many2many_binary"
+                               options="{'accepted_file_extensions': '.pdf,.docx,.txt,.md'}"/>
+                        <field name="file_count" readonly="1"/>
+                    </group>
+                    <group string="Quyền sở hữu">
+                        <field name="company_id" groups="base.group_multi_company"/>
+                        <field name="owner_id" widget="many2one_avatar_user"/>
+                    </group>
+                    <p class="text-muted">
+                        Định dạng hỗ trợ: PDF, DOCX, TXT, MD. Tối đa 20 MB mỗi tệp và
+                        50 tệp mỗi lần.
+                    </p>
+                </sheet>
+                <footer>
+                    <button name="action_upload_documents" type="object"
+                            string="Tải lên và xử lý" class="btn-primary"/>
+                    <button string="Hủy" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="ai_document_multi_upload_action" model="ir.actions.act_window">
+        <field name="name">Tải nhiều tài liệu</field>
+        <field name="res_model">ai.document.multi.upload.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

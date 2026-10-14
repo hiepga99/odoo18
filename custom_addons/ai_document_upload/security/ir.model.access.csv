@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ai_document_user,ai.rag.document user,model_ai_rag_document,base.group_user,1,1,1,0
+access_ai_document_admin,ai.rag.document admin,model_ai_rag_document,base.group_system,1,1,1,1
+access_ai_document_multi_upload_user,ai.document.multi.upload.wizard user,model_ai_document_multi_upload_wizard,base.group_user,1,1,1,1

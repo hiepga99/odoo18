@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ai_document_view_list" model="ir.ui.view">
+        <field name="name">ai.rag.document.upload.list</field>
+        <field name="model">ai.rag.document</field>
+        <field name="arch" type="xml">
+            <list string="Kho tài liệu" default_order="id desc">
+                <header>
+                    <button name="%(ai_document_multi_upload_action)d" type="action"
+                            string="Tải nhiều tài liệu" class="btn-primary"
+                            display="always"/>
+                </header>
+                <field name="name"/>
+                <field name="file_name"/>
+                <field name="file_size_display"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="owner_id" widget="many2one_avatar_user"/>
+                <field name="create_date" string="Ngày tải lên"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="ai_document_view_form" model="ir.ui.view">
+        <field name="name">ai.rag.document.upload.form</field>
+        <field name="model">ai.rag.document</field>
+        <field name="arch" type="xml">
+            <form string="Tài liệu nội bộ">
+                <sheet>
+                    <div class="oe_button_box" name="button_box"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="Ví dụ: Chính sách đổi trả"/></h1>
+                    </div>
+                    <group>
+                        <group string="Tệp gốc">
+                            <field name="file_data" filename="file_name"/>
+                            <field name="file_name" invisible="1"/>
+                            <field name="mimetype" readonly="1"/>
+                            <field name="file_size_display" readonly="1"/>
+                        </group>
+                        <group string="Quản lý">
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="owner_id" widget="many2one_avatar_user"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                    </group>
+                    <group string="Thông tin kỹ thuật" groups="base.group_system">
+                        <field name="content_checksum" readonly="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Xem tài liệu gốc" name="original_document_preview">
+                            <field name="file_is_pdf" invisible="1"/>
+                            <div class="alert alert-info" role="alert"
+                                 invisible="file_is_pdf">
+                                Odoo hỗ trợ xem trực tiếp file PDF. Với DOCX, TXT hoặc
+                                Markdown, hãy tải file gốc xuống hoặc xem nội dung đã
+                                được trích xuất trong tab “Bản tiền xử lý”.
+                            </div>
+                            <field name="file_data" filename="file_name" readonly="1"
+                                   invisible="file_is_pdf"/>
+                            <field name="file_data" filename="file_name"
+                                   widget="pdf_viewer" readonly="1" nolabel="1"
+                                   invisible="not file_is_pdf"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="ai_document_view_search" model="ir.ui.view">
+        <field name="name">ai.rag.document.upload.search</field>
+        <field name="model">ai.rag.document</field>
+        <field name="arch" type="xml">
+            <search string="Tìm tài liệu">
+                <field name="name"/>
+                <field name="file_name"/>
+                <field name="owner_id"/>
+                <filter name="my_documents" string="Tài liệu của tôi"
+                        domain="[('owner_id', '=', uid)]"/>
+                <group expand="0" string="Nhóm theo">
+                    <filter name="group_owner" string="Người quản lý"
+                            context="{'group_by': 'owner_id'}"/>
+                    <filter name="group_company" string="Công ty"
+                            context="{'group_by': 'company_id'}"
+                            groups="base.group_multi_company"/>
+                    <filter name="group_upload_month" string="Tháng tải lên"
+                            context="{'group_by': 'create_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="ai_document_action" model="ir.actions.act_window">
+        <field name="name">Kho tài liệu</field>
+        <field name="res_model">ai.rag.document</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="ai_document_view_search"/>
+        <field name="context">{'search_default_my_documents': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Tải tài liệu nội bộ đầu tiên</p>
+            <p>Hỗ trợ PDF, DOCX, TXT và Markdown. Có thể tải nhiều tệp cùng lúc.</p>
+        </field>
+    </record>
+
+    <menuitem id="ai_document_root_menu" name="AI Agent" sequence="70"
+              groups="base.group_user"/>
+    <menuitem id="ai_document_menu" name="Kho tài liệu"
+              parent="ai_document_root_menu" action="ai_document_action"
+              sequence="10" groups="base.group_user"/>
+</odoo>

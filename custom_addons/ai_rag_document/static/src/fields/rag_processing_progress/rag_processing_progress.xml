@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="ai_rag_document.RagProcessingProgress">
+        <div class="o_rag_processing_progress w-100" t-att-title="stage">
+            <div class="d-flex justify-content-between align-items-center gap-2 mb-1">
+                <span class="text-truncate small" t-esc="stage"/>
+                <strong class="small text-nowrap"><t t-esc="progress"/>%</strong>
+            </div>
+            <div class="progress" style="height: 0.75rem; min-width: 8rem;">
+                <div role="progressbar"
+                     t-att-class="'progress-bar ' + barClass"
+                     t-att-style="'width: ' + progress + '%'"
+                     t-att-aria-valuenow="progress"
+                     aria-valuemin="0" aria-valuemax="100"/>
+            </div>
+            <div t-if="shouldPoll" class="text-muted mt-1" style="font-size: 0.75rem;">
+                <i class="fa fa-refresh fa-spin me-1"/>Tự cập nhật mỗi 2 giây
+            </div>
+        </div>
+    </t>
+</templates>
