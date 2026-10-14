@@ -9,6 +9,6 @@ from .skills import default_registry
 # Danh sách Schemas chuẩn OpenAI Tool Calling trích xuất tự động từ các Skills
 TOOL_DEFINITIONS: List[Dict[str, Any]] = default_registry.get_tool_definitions()
 
-def execute_tool(tool_name: str, args: Dict[str, Any]) -> str:
-    """Định tuyến và thực thi Tool thông qua Skill Registry (Không sử dụng if-else thủ công)"""
-    return default_registry.execute(tool_name, args)
+def execute_tool(tool_name: str, args: Dict[str, Any], user_role: str = "sales_user") -> str:
+    """Định tuyến và thực thi Tool thông qua Skill Registry kèm kiểm tra phân quyền vai trò (RBAC)"""
+    return default_registry.execute(tool_name, args, user_role=user_role)

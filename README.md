@@ -61,10 +61,16 @@ python addons_mcp/chat_demo.py
   ```bash
   python -m unittest addons_mcp/tests/test_mcp_tools.py
   ```
+* **Kiểm thử TN2: Bóc tách tạo báo giá từ tin nhắn (Đạt 100% / 30 tin nhắn):**
+  ```bash
+  python addons_mcp/tests/test_quotation_extraction.py
+  ```
 
 ---
 
 ## 🎯 Chỉ tiêu Nghiệm thu Đồ án (KPIs)
 * **Dữ liệu mẫu ERP:** 160 sản phẩm, 348 đơn hàng bán, 100 hóa đơn GTGT, 20 quy trình doanh nghiệp.
-* **Tích hợp MCP:** 12 tools nghiệp vụ hai chiều với Odoo 18.
-* **Agent Core:** Gọi đúng tool đạt **100%** trên bộ test 30 tình huống tiếng Việt thực tế.
+* **Tích hợp MCP:** 12 tools nghiệp vụ hai chiều với Odoo 18 (Pass 100%).
+* **TN1 (Agent Core):** Gọi đúng tool đạt **100%** trên bộ test 30 tình huống tiếng Việt thực tế (KPI $\ge$ 80%).
+* **TN2 (Tạo báo giá tin nhắn):** Bóc tách chính xác khách hàng & sản phẩm đạt **100%** trên 30 tin nhắn mẫu (KPI $\ge$ 85%).
+

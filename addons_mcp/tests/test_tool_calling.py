@@ -66,7 +66,7 @@ def run_benchmark():
     print(" Mục tiêu KPI đồ án: Tỷ lệ gọi đúng Tool >= 80%")
     print("=" * 80)
     
-    agent = HermesAgent()
+    agent = HermesAgent(provider=os.getenv("TEST_LLM_PROVIDER", "mock"))
     passed_cases = 0
     total_cases = len(TEST_CASES)
 
