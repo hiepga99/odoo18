@@ -38,7 +38,7 @@ odoojob/
 ```bash
 docker compose up -d
 ```
-* Odoo 18: `http://localhost:8069` (Database: `odoo18`, User: `binhphung19112003@gmail.com`)
+* Odoo 18: `http://localhost:8069` (Database: `odoo18`, User: `admin` hoặc cấu hình qua `.env`)
 * PostgreSQL 16: Cổng `5432`
 
 ### 2. Cấu hình LLM Engine (Tùy chọn)

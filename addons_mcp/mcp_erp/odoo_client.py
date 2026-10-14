@@ -1,7 +1,13 @@
 # -*- coding: utf-8 -*-
+import os
 import xmlrpc.client
 import http.client
 from typing import Dict, Any, List, Optional
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
 
 class TimeoutTransport(xmlrpc.client.Transport):
     """Transport XML-RPC với cơ chế timeout kết nối nhanh (tránh treo socket)"""
@@ -19,16 +25,16 @@ class OdooClient:
     """
     def __init__(
         self,
-        url: str = "http://localhost:8069",
-        db: str = "odoo18",
-        username: str = "binhphung19112003@gmail.com",
-        password: str = "admin",
+        url: Optional[str] = None,
+        db: Optional[str] = None,
+        username: Optional[str] = None,
+        password: Optional[str] = None,
         timeout: float = 1.0
     ):
-        self.url = url
-        self.db = db
-        self.username = username
-        self.password = password
+        self.url = url or os.getenv("ODOO_URL", "http://localhost:8069")
+        self.db = db or os.getenv("ODOO_DB", "odoo18")
+        self.username = username or os.getenv("ODOO_USER", "admin")
+        self.password = password or os.getenv("ODOO_PASSWORD", "admin")
         self.timeout = timeout
         self.uid = None
         self.common = None

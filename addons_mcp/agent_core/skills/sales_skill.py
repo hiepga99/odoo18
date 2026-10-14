@@ -250,7 +250,7 @@ class SalesSkill(BaseSkill):
             "properties": {
                 "recipient_email": {
                     "type": "string",
-                    "description": "Địa chỉ email người nhận (Ví dụ: binhphung19112003@gmail.com)"
+                    "description": "Địa chỉ email người nhận (Ví dụ: contact@saomai.vn)"
                 },
                 "order_name": {
                     "type": "string",
