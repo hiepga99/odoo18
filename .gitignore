@@ -8,6 +8,7 @@ venv/
 
 # Database dumps (quá nặng để đưa lên git)
 *.sql
+*.sql.gz
 *.zip
 *.dump
 backups/
