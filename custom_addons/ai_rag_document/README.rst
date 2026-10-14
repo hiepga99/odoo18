@@ -13,7 +13,7 @@ Features
 * Keep processing state and human-readable cleaning metrics in PostgreSQL.
 * Mark new or changed files as ``pending`` instead of running embeddings inside
   the upload request.
-* Provide model methods for an authenticated MCP worker to claim jobs, fetch
+* Provide model methods for an authenticated RAG worker to claim jobs, fetch
   content and report indexing results.
 * Show a manager-friendly processing summary and sanitized HTML cards for the
   cleaned chunks directly on the document detail form.
@@ -25,7 +25,7 @@ Code layout
 -----------
 
 Review ``models/rag_document.py`` first for fields, lifecycle and user actions,
-then ``models/rag_worker.py`` for the MCP worker contract, and finally
+then ``models/rag_worker.py`` for the worker contract, and finally
 ``models/rag_chunk.py`` for the read-only chunk preview records. Views, security
 and tests keep the standard Odoo addon layout.
 
@@ -42,20 +42,20 @@ The user no longer has to disable RAG manually before deleting.
 
 The addon does not import sentence-transformers or ChromaDB into the Odoo
 process. Run ``agent-service/scripts/start_rag_local.ps1`` to start Chroma HTTP
-and the automatic MCP worker. New uploads are then indexed without another
+and the automatic RAG worker. New uploads are then indexed without another
 manual ingest command.
 
-MCP-facing model methods
-------------------------
+Worker-facing model methods
+---------------------------
 
 Worker methods require an Odoo administrator or service account:
 
-* ``mcp_claim_pending_documents(limit=10)``
-* ``mcp_get_document_payload(document_id)``
-* ``mcp_mark_document_indexed(...)`` including storage metadata and previews
-* ``mcp_mark_document_error(document_id, error_message)``
-* ``mcp_mark_document_vectors_deleted(document_id)``
+* ``worker_claim_pending_documents(limit=10)``
+* ``worker_get_document_payload(document_id)``
+* ``worker_mark_document_indexed(...)`` including storage metadata and previews
+* ``worker_mark_document_error(document_id, error_message)``
+* ``worker_mark_document_vectors_deleted(document_id)``
 
-The per-user query path calls ``mcp_list_readable_document_ids()``. The backend
+The per-user query path calls ``list_readable_document_ids()``. The backend
 must preserve the current Odoo user identity and must never trust an allowed-ID
 list supplied directly by a browser.

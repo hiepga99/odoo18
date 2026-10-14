@@ -76,8 +76,11 @@ Các module do nhóm phát triển được đặt chung trong
 hoặc `enterprise/`. Mỗi tính năng Odoo mới là một addon con độc lập trong thư
 mục này để các thành viên có thể cùng bổ sung module mà không sửa source lõi.
 
-Phần Agent Service cho RAG, ChromaDB, MCP và LLM nằm trong
+Phần Agent Service cho RAG, ChromaDB, retrieval và LLM nằm trong
 [`agent-service/`](agent-service/README.md).
+
+MCP được cấu hình và vận hành bởi module tích hợp riêng. `agent-service` chỉ
+cung cấp contract search/answer để module đó gọi, không tự mở MCP endpoint.
 
 ## Cấu trúc phần nhóm phát triển
 

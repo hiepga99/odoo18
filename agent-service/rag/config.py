@@ -99,9 +99,6 @@ class Settings:
     odoo_api_key: str = os.getenv("ODOO_API_KEY", "").strip()
     rag_worker_interval: float = _env_float("RAG_WORKER_INTERVAL", 3.0)
     rag_worker_batch_size: int = int(os.getenv("RAG_WORKER_BATCH_SIZE", "10"))
-    mcp_host: str = os.getenv("MCP_HOST", "127.0.0.1").strip()
-    mcp_port: int = int(os.getenv("MCP_PORT", "8010"))
-
     llm_provider: str = _llm_provider()
     llm_api_key: str = _env_with_legacy("LLM_API_KEY", "NVIDIA_API_KEY", "")
     llm_base_url: str = _env_with_legacy(

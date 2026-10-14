@@ -1,99 +1,62 @@
-# Tích hợp chatbot với RAG qua MCP
+# Contract RAG cho module MCP/chatbot
 
-## Điểm vào dành cho backend chatbot
+`agent-service` chỉ cung cấp pipeline và hàm Python. Việc khai báo MCP server,
+transport, URL, tool và xác thực người dùng thuộc module tích hợp trung tâm.
 
-- MCP URL: `http://127.0.0.1:8010/mcp`
-- Tool đầy đủ: `answer_internal_documents(question, top_k=4)`
-- Tool chỉ tìm kiếm, không gọi LLM: `search_internal_documents(question, top_k=4)`
-
-Frontend OWL hoặc Telegram **không gọi NVIDIA, ChromaDB hay MCP trực tiếp**.
-Frontend gửi câu hỏi tới backend chatbot; backend dùng MCP client gọi tool và trả
-`answer`/`sources` về giao diện.
-
-## Luồng xử lý câu hỏi
-
-```text
-OWL/Telegram
-  -> backend chatbot
-  -> MCP answer_internal_documents
-  -> Odoo: lấy company + danh sách tài liệu được phép đọc
-  -> BGE-M3: embedding câu hỏi
-  -> ChromaDB: tìm chunk phù hợp, có filter quyền
-  -> ngưỡng RAG_MIN_SIMILARITY
-  -> NVIDIA Nemotron: tổng hợp câu trả lời chỉ từ context
-  -> MCP trả answer + sources
-  -> backend trả kết quả cho giao diện
-```
-
-Nemotron không đọc trực tiếp PDF và không tìm vector. BGE-M3 + ChromaDB đảm nhận
-retrieval; Nemotron chỉ tổng hợp câu trả lời từ các chunk đã tìm thấy.
-
-## Ví dụ Python
-
-Trong thư mục `agent-service`:
-
-```powershell
-.\.venv\Scripts\python.exe scripts\demo_mcp_chat.py `
-  "Khách hàng được đổi trả trong bao nhiêu ngày?" `
-  --top-k 4
-```
-
-Code tối thiểu cho backend:
+## Tìm kiếm tài liệu
 
 ```python
-from mcp import Client
+from rag.retrieval import Retriever
 
-async with Client("http://127.0.0.1:8010/mcp") as client:
-    result = await client.call_tool(
-        "answer_internal_documents",
-        {"question": question, "top_k": 4},
-    )
+results = Retriever().search(
+    question,
+    top_k=4,
+    allowed_document_ids=allowed_document_ids,
+    company_id=current_company_id,
+)
+payload = [result.to_dict() for result in results]
 ```
 
-Dùng helper `_read_tool_result` trong `scripts/demo_mcp_chat.py` để hỗ trợ cả
-structured content và JSON text của các phiên bản MCP SDK khác nhau.
+## Trả lời bằng RAG
 
-## Response contract
+```python
+from rag.generate import answer_from_odoo_documents
+
+answer, results = answer_from_odoo_documents(
+    question,
+    top_k=4,
+    allowed_document_ids=allowed_document_ids,
+    company_id=current_company_id,
+)
+payload = {
+    "answer": answer,
+    "sources": [result.to_dict() for result in results],
+}
+```
+
+`allowed_document_ids` và `current_company_id` phải được module tích hợp lấy
+từ phiên người dùng Odoo đã xác thực. Không nhận trực tiếp các giá trị này từ
+trình duyệt hoặc từ arguments do LLM tự tạo.
+
+Nếu module MCP chạy ở process hoặc repository khác, nhóm tích hợp có thể đóng
+gói contract trên thành internal API. Phần RAG không tự chọn transport để tránh
+trùng cấu hình.
+
+## Response tối thiểu
 
 ```json
 {
-  "answer": "Khách hàng được đổi hoặc trả sản phẩm trong vòng 60 ngày [1].",
+  "answer": "Nội dung trả lời có trích dẫn [1].",
   "sources": [
     {
-      "rank": 1,
-      "citation": "01_policy.pdf, trang 1",
-      "source_name": "01_policy.pdf",
-      "page": 1,
-      "similarity": 0.7169,
-      "odoo_document_id": 9,
-      "text": "Đoạn nội dung được retrieval..."
+      "citation": "policy.pdf, trang 2",
+      "odoo_document_id": 42,
+      "similarity": 0.81,
+      "text": "Đoạn nội dung được truy xuất"
     }
   ]
 }
 ```
 
-Giao diện nên hiển thị `answer`, sau đó render nguồn bằng `citation`. Có thể dùng
-`odoo_document_id` để mở form tài liệu trong Odoo. Không hiển thị checksum,
-attachment ID hoặc toàn bộ chunk nếu người dùng không yêu cầu xem chi tiết.
-
-## Cấu hình trên máy dev khác
-
-```powershell
-Copy-Item .env.example .env
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\scripts\start_rag_local.ps1
-```
-
-Trong `.env`, cấu hình NVIDIA và Odoo API key ở backend. Tuyệt đối không đưa hai
-API key này vào OWL JavaScript, Telegram client, Git hoặc response gửi về browser.
-
-## Giới hạn phân quyền hiện tại
-
-MCP server hiện dùng một cặp `ODOO_LOGIN`/`ODOO_API_KEY` từ `.env`, nên mọi câu
-hỏi chạy theo quyền của tài khoản service đó. Cách này dùng được cho demo một
-công ty nhưng chưa đáp ứng hoàn toàn yêu cầu “API key theo từng người dùng”.
-
-Trước khi triển khai nhiều người dùng, backend cần xác thực phiên Odoo rồi truyền
-identity tới MCP bằng cơ chế server-side an toàn (connection token/signed token),
-để MCP tạo Odoo client theo người dùng. Không truyền API key Odoo trong prompt,
-tool arguments do LLM tạo hoặc dữ liệu frontend có thể đọc được.
+Frontend chỉ gọi backend chatbot. Không để frontend gọi trực tiếp ChromaDB,
+LLM hoặc truyền API key Odoo.

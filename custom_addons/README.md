@@ -8,7 +8,7 @@ Không thêm module tùy chỉnh trực tiếp vào source `odoo/` hoặc `enter
 - `ai_document_upload`: lớp upload, kiểm tra file, lưu file gốc bằng
   `ir.attachment` và giao diện quản lý tài liệu.
 - `ai_rag_document`: mở rộng tài liệu với trạng thái pipeline, preview nội dung
-  đã làm sạch và hợp đồng MCP cho RAG worker.
+  đã làm sạch và contract cho RAG worker.
 
 Hai module được tách riêng theo MVP: module upload không phụ thuộc thư viện AI;
 module RAG phụ thuộc `ai_document_upload` và Agent Service chạy ở process riêng.

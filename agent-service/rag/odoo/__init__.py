@@ -1,1 +1,1 @@
-"""Odoo upload, MCP, and worker integration for the RAG pipeline."""
+"""Odoo upload and background-worker integration for the RAG pipeline."""

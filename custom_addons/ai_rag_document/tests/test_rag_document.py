@@ -34,24 +34,24 @@ class TestAiRagDocument(TransactionCase):
 
     def test_worker_contract_and_access_list(self):
         document = self._create_document()
-        jobs = self.Document.mcp_claim_pending_documents()
+        jobs = self.Document.worker_claim_pending_documents()
         job = next(item for item in jobs if item["document_id"] == document.id)
         self.assertEqual(job["operation"], "index")
         self.assertEqual(document.rag_status, "processing")
         self.assertEqual(document.rag_progress, 5)
 
-        progress_result = self.Document.mcp_update_document_progress(
+        progress_result = self.Document.worker_update_document_progress(
             document.id, 55, "Đang tạo embedding"
         )
         self.assertTrue(progress_result["updated"])
         self.assertEqual(document.rag_progress, 55)
         self.assertEqual(document.rag_progress_stage, "Đang tạo embedding")
 
-        payload = self.Document.mcp_get_document_payload(document.id)
+        payload = self.Document.worker_get_document_payload(document.id)
         self.assertEqual(base64.b64decode(payload["content_base64"]), b"Return period is 60 days.")
         self.assertTrue(payload["attachment_id"])
 
-        result = self.Document.mcp_mark_document_indexed(
+        result = self.Document.worker_mark_document_indexed(
             document.id,
             2,
             document.content_checksum,
@@ -85,8 +85,8 @@ class TestAiRagDocument(TransactionCase):
         self.assertEqual(len(document.chunk_preview_ids), 1)
         self.assertIn("Đoạn 1", document.rag_clean_preview_html)
         self.assertIn("Return period is 60 days", document.rag_clean_preview_html)
-        self.assertIn(document.id, self.Document.mcp_list_readable_document_ids())
-        scope = self.Document.mcp_get_current_user_rag_scope()
+        self.assertIn(document.id, self.Document.list_readable_document_ids())
+        scope = self.Document.get_current_rag_scope()
         self.assertEqual(scope["company_id"], self.env.company.id)
         self.assertIn(document.id, scope["allowed_document_ids"])
 
@@ -103,11 +103,11 @@ class TestAiRagDocument(TransactionCase):
         self.assertEqual(queued.rag_status, "delete_pending")
         self.assertTrue(queued.delete_after_vector_cleanup)
 
-        jobs = self.Document.mcp_claim_pending_documents()
+        jobs = self.Document.worker_claim_pending_documents()
         job = next(item for item in jobs if item["document_id"] == document_id)
         self.assertEqual(job["operation"], "delete")
 
-        late_index_result = self.Document.mcp_mark_document_indexed(
+        late_index_result = self.Document.worker_mark_document_indexed(
             document_id,
             1,
             queued.content_checksum,
@@ -117,7 +117,7 @@ class TestAiRagDocument(TransactionCase):
         self.assertEqual(late_index_result["reason"], "delete_requested")
         self.assertEqual(queued.rag_status, "delete_pending")
 
-        self.Document.mcp_mark_document_vectors_deleted(document_id)
+        self.Document.worker_mark_document_vectors_deleted(document_id)
         self.assertFalse(
             self.Document.with_context(active_test=False).browse(document_id).exists()
         )

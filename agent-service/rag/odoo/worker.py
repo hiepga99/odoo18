@@ -1,19 +1,15 @@
 from __future__ import annotations
 
 import argparse
-import asyncio
 import base64
-import json
+import time
 from dataclasses import asdict, dataclass
-from typing import Any
-
-from mcp.client import Client
 
 from ..config import settings
 from ..embeddings import EmbeddingModel
 from ..vector_store import VectorStore
 from .ingest import delete_odoo_document, ingest_odoo_document
-from .mcp_server import mcp
+from .rpc import OdooRpcClient
 
 
 @dataclass(frozen=True)
@@ -24,80 +20,41 @@ class WorkerSummary:
     errors: int = 0
 
 
-async def _call_json(client: Client, name: str, arguments: dict | None = None) -> Any:
-    result = await client.call_tool(name, arguments or {})
-    if result.is_error:
-        message = "\n".join(
-            getattr(item, "text", str(item)) for item in result.content
-        )
-        raise RuntimeError(message or f"MCP tool {name} failed")
-    structured = getattr(result, "structured_content", None)
-    if structured is not None:
-        if set(structured) == {"result"}:
-            return structured["result"]
-        return structured
-    for item in result.content:
-        text = getattr(item, "text", None)
-        if text is not None:
-            return json.loads(text)
-    return None
-
-
-async def process_once(
-    client: Client,
+def process_once(
+    client: OdooRpcClient,
     *,
     limit: int,
     embedding_model: EmbeddingModel,
     vector_store: VectorStore,
 ) -> WorkerSummary:
-    jobs = await _call_json(client, "claim_pending_rag_documents", {"limit": limit})
+    jobs = client.call("worker_claim_pending_documents", limit)
     indexed = deleted = errors = 0
     for job in jobs or []:
         document_id = int(job["document_id"])
         try:
             if job.get("operation") == "delete":
                 delete_odoo_document(document_id, vector_store=vector_store)
-                await _call_json(
-                    client,
-                    "mark_rag_document_vectors_deleted",
-                    {"document_id": document_id},
-                )
+                client.call("worker_mark_document_vectors_deleted", document_id)
                 deleted += 1
                 continue
 
-            await _call_json(
-                client,
-                "update_rag_document_progress",
-                {
-                    "document_id": document_id,
-                    "progress": 10,
-                    "stage": "Đang tải tệp gốc từ Odoo",
-                },
+            client.call(
+                "worker_update_document_progress",
+                document_id,
+                10,
+                "Đang tải tệp gốc từ Odoo",
             )
-            payload = await _call_json(
-                client,
-                "get_rag_document_payload",
-                {"document_id": document_id},
-            )
-            loop = asyncio.get_running_loop()
+            payload = client.call("worker_get_document_payload", document_id)
 
             def report_progress(progress: int, stage: str) -> None:
-                future = asyncio.run_coroutine_threadsafe(
-                    _call_json(
-                        client,
-                        "update_rag_document_progress",
-                        {
-                            "document_id": document_id,
-                            "progress": progress,
-                            "stage": stage,
-                        },
-                    ),
-                    loop,
+                client.call(
+                    "worker_update_document_progress",
+                    document_id,
+                    progress,
+                    stage,
                 )
-                future.result(timeout=30)
 
-            result = await asyncio.to_thread(
-                ingest_odoo_document,
+            result = ingest_odoo_document(
                 content=base64.b64decode(payload["content_base64"]),
                 filename=payload["file_name"],
                 odoo_document_id=document_id,
@@ -108,23 +65,20 @@ async def process_once(
                 vector_store=vector_store,
                 progress_callback=report_progress,
             )
-            await _call_json(
-                client,
-                "mark_rag_document_indexed",
-                {
-                    "document_id": document_id,
-                    "chunk_count": result.chunk_count,
-                    "checksum": result.checksum,
-                    "collection": result.collection,
-                    "storage_backend": result.storage_backend,
-                    "storage_location": result.storage_location,
-                    "chunk_previews": list(result.chunk_previews),
-                    "page_count": result.page_count,
-                    "clean_char_count": result.clean_char_count,
-                    "chunk_size": result.chunk_size,
-                    "chunk_overlap": result.chunk_overlap,
-                    "embedding_model": result.embedding_model,
-                },
+            client.call(
+                "worker_mark_document_indexed",
+                document_id,
+                result.chunk_count,
+                result.checksum,
+                result.collection,
+                result.storage_backend,
+                result.storage_location,
+                list(result.chunk_previews),
+                result.page_count,
+                result.clean_char_count,
+                result.chunk_size,
+                result.chunk_overlap,
+                result.embedding_model,
             )
             indexed += 1
             print(
@@ -134,10 +88,8 @@ async def process_once(
         except Exception as exc:
             errors += 1
             try:
-                await _call_json(
-                    client,
-                    "mark_rag_document_error",
-                    {"document_id": document_id, "error_message": str(exc)[:2000]},
+                client.call(
+                    "worker_mark_document_error", document_id, str(exc)[:2000]
                 )
             except Exception as report_error:
                 print(f"[ERROR] Không thể ghi lỗi document_id={document_id}: {report_error}")
@@ -145,29 +97,29 @@ async def process_once(
     return WorkerSummary(len(jobs or []), indexed, deleted, errors)
 
 
-async def run_worker(*, once: bool, interval: float, limit: int) -> None:
+def run_worker(*, once: bool, interval: float, limit: int) -> None:
     print("Đang kết nối ChromaDB và nạp embedding model...")
     store = VectorStore()
     store.get_or_create_collection()
     model = EmbeddingModel()
-    async with Client(mcp, raise_exceptions=True) as client:
-        while True:
-            try:
-                summary = await process_once(
-                    client,
-                    limit=limit,
-                    embedding_model=model,
-                    vector_store=store,
-                )
-                if summary.claimed:
-                    print("[BATCH]", asdict(summary))
-            except Exception as exc:
-                print(f"[WORKER ERROR] {exc}")
-                if once:
-                    raise
+    client = OdooRpcClient()
+    while True:
+        try:
+            summary = process_once(
+                client,
+                limit=limit,
+                embedding_model=model,
+                vector_store=store,
+            )
+            if summary.claimed:
+                print("[BATCH]", asdict(summary))
+        except Exception as exc:
+            print(f"[WORKER ERROR] {exc}")
             if once:
-                return
-            await asyncio.sleep(max(0.5, interval))
+                raise
+        if once:
+            return
+        time.sleep(max(0.5, interval))
 
 
 def main() -> None:
@@ -176,7 +128,7 @@ def main() -> None:
     parser.add_argument("--interval", type=float, default=settings.rag_worker_interval)
     parser.add_argument("--limit", type=int, default=settings.rag_worker_batch_size)
     args = parser.parse_args()
-    asyncio.run(run_worker(once=args.once, interval=args.interval, limit=args.limit))
+    run_worker(once=args.once, interval=args.interval, limit=args.limit)
 
 
 if __name__ == "__main__":

@@ -2,10 +2,10 @@
 
 Hướng dẫn dựng môi trường trên máy mới: [SETUP.md](SETUP.md).
 
-Hợp đồng tích hợp upload Odoo, MCP và ChromaDB online:
+Hợp đồng tích hợp upload Odoo và ChromaDB online:
 [docs/odoo-integration.md](docs/odoo-integration.md).
 
-Hướng dẫn backend chatbot gọi câu trả lời qua MCP:
+Contract RAG dành cho module MCP/chatbot trung tâm:
 [docs/chatbot-integration.md](docs/chatbot-integration.md).
 
 Ma trận đối chiếu toàn bộ yêu cầu kỹ thuật và phần việc còn thiếu:
@@ -31,7 +31,7 @@ PDF / DOCX / TXT / MD
 3. `rag/embeddings.py` → `rag/vector_store.py` → `rag/retrieval.py`: tạo,
    lưu và truy vấn vector.
 4. `rag/generate.py`: guardrail và sinh câu trả lời.
-5. `rag/odoo/ingest.py` → `rag/odoo/mcp_server.py` → `rag/odoo/worker.py`:
+5. `rag/odoo/rpc.py` → `rag/odoo/ingest.py` → `rag/odoo/worker.py`:
    luồng upload Odoo chạy nền.
 6. `custom_addons/ai_document_upload` rồi `custom_addons/ai_rag_document`:
    model, quyền và UI phía Odoo.
@@ -39,7 +39,7 @@ PDF / DOCX / TXT / MD
 ```text
 agent-service/
 ├── rag/                 # Pipeline lõi và các CLI standalone
-│   └── odoo/            # Chỉ phần tích hợp Odoo/MCP/worker
+│   └── odoo/            # Chỉ phần tích hợp Odoo/worker
 ├── tests/               # Unit test theo tên module production
 ├── scripts/             # Công cụ chạy và smoke test
 ├── data/                # Dữ liệu demo/evaluation được commit
@@ -56,7 +56,7 @@ agent-service/
 - `rag.generate`: lấy ngữ cảnh từ ChromaDB rồi gọi Qwen qua Ollama mặc định;
   cũng hỗ trợ NVIDIA Build hoặc endpoint tương thích OpenAI.
 
-RAG chỉ dùng cho tài liệu như chính sách, quy trình và hướng dẫn. Câu hỏi dữ liệu thời gian thực như tồn kho hiện tại, doanh thu hay công nợ phải gọi Odoo/MCP, không đưa vào RAG.
+RAG chỉ dùng cho tài liệu như chính sách, quy trình và hướng dẫn. Câu hỏi dữ liệu thời gian thực như tồn kho hiện tại, doanh thu hay công nợ phải do module ERP/MCP trung tâm xử lý, không đưa vào RAG.
 
 ## 2. Chuẩn bị môi trường
 
@@ -216,7 +216,7 @@ Nếu đã xóa hoặc đổi tên tài liệu, nên dùng `--reset` để loạ
 
 Addon `custom_addons/ai_rag_document` cung cấp menu **AI Agent → Knowledge
 Documents**. File upload được lưu trong `ir.attachment` và chuyển sang
-`pending`. Khi `rag.odoo.worker` đang chạy, worker tự claim job qua MCP, trích
+`pending`. Khi `rag.odoo.worker` đang chạy, worker tự claim job qua XML-RPC, trích
 text/chunk/embed, lưu vector vào Chroma HTTP rồi cập nhật `indexed` hoặc
 `error`. Không phải chạy ingest lại bằng tay sau mỗi lần upload.
 
@@ -226,14 +226,9 @@ preview, collection và vị trí storage; embedding thật vẫn chỉ nằm �
 
 ```powershell
 .\.venv\Scripts\python.exe -m rag.inspect_store
-.\.venv\Scripts\python.exe -m rag.odoo.mcp_server --transport streamable-http
 ```
 
-Lệnh thứ hai mở MCP endpoint cho backend. Hai tool hỏi đáp là
-`search_internal_documents` và `answer_internal_documents`; phạm vi tài liệu
-được lấy từ quyền của user gắn với `ODOO_API_KEY`.
-
-Luồng hỏi đáp tích hợp Odoo phải dùng
+Module MCP/chatbot bên ngoài có thể dùng `Retriever.search` hoặc
 `rag.generate.answer_from_odoo_documents`; hàm yêu cầu danh sách document Odoo
 đã kiểm tra quyền và từ chối gọi LLM khi không có nguồn đủ liên quan.
 
@@ -249,7 +244,7 @@ Có thể chỉnh trong `.env`:
 | `RAG_TOP_K` | `5` | Số chunk retrieval mặc định |
 | `RAG_MIN_SIMILARITY` | `0.45` | Ngưỡng tối thiểu trước khi cho phép LLM trả lời |
 | `RAG_CHROMA_MODE` | `http` khi tích hợp | Chroma server dùng chung giữa các process |
-| `ODOO_API_KEY` | trống | API key của Odoo user mà MCP đại diện |
+| `ODOO_API_KEY` | trống | API key của tài khoản RAG worker |
 | `RAG_WORKER_INTERVAL` | `3` | Số giây giữa hai lần kiểm tra upload |
 | `LLM_PROVIDER` | `ollama` | Backend sinh câu trả lời (`ollama`, `nvidia`, `openai-compatible`) |
 | `LLM_BASE_URL` | `http://localhost:11434/v1` | Endpoint tương thích OpenAI |

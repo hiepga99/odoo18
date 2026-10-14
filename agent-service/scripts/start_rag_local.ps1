@@ -38,7 +38,7 @@ if (-not (Test-LocalPort 8000)) {
 }
 
 $WorkerExists = Get-CimInstance Win32_Process | Where-Object {
-    $_.CommandLine -match "rag\.(odoo\.worker|mcp_worker)" -and $_.ProcessId -ne $PID
+    $_.CommandLine -match "rag\.odoo\.worker" -and $_.ProcessId -ne $PID
 }
 if (-not $WorkerExists) {
     $WorkerProcess = Start-Process -FilePath $Python -ArgumentList @("-m", "rag.odoo.worker") `
@@ -51,19 +51,7 @@ if (-not $WorkerExists) {
     }
 }
 
-if (-not (Test-LocalPort 8010)) {
-    Start-Process -FilePath $Python `
-        -ArgumentList @("-m", "rag.odoo.mcp_server", "--transport", "streamable-http") `
-        -WorkingDirectory $AgentDir -WindowStyle Hidden `
-        -RedirectStandardOutput (Join-Path $LogDir "mcp-server.out.log") `
-        -RedirectStandardError (Join-Path $LogDir "mcp-server.err.log")
-    for ($attempt = 0; $attempt -lt 20 -and -not (Test-LocalPort 8010); $attempt++) {
-        Start-Sleep -Milliseconds 250
-    }
-}
-
 Write-Host "RAG local stack đã chạy."
 Write-Host "- ChromaDB HTTP: http://127.0.0.1:8000"
 Write-Host "- Worker log: $LogDir\rag-worker.out.log"
-Write-Host "- MCP endpoint: http://127.0.0.1:8010/mcp"
 Write-Host "- Trong Odoo: AI Agent > Kho tài liệu / Nội dung đã làm sạch"

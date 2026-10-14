@@ -27,7 +27,7 @@ DEFAULT_FILE = (
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Mô phỏng Odoo/MCP gửi attachment bytes vào RAG."
+        description="Mô phỏng Odoo worker gửi attachment bytes vào RAG."
     )
     parser.add_argument("--file", type=Path, default=DEFAULT_FILE)
     parser.add_argument("--document-id", type=int, default=900001)

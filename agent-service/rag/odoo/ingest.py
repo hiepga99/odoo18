@@ -46,7 +46,7 @@ def ingest_odoo_document(
     vector_store: VectorStore | None = None,
     progress_callback: Callable[[int, str], None] | None = None,
 ) -> OdooIngestResult:
-    """Index bytes fetched from Odoo by the MCP/backend integration layer.
+    """Index bytes fetched from Odoo by the background worker.
 
     The source binary remains in ``ir.attachment``. ChromaDB only receives text
     chunks, embeddings and identifiers needed to enforce Odoo access decisions.

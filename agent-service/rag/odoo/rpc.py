@@ -7,7 +7,7 @@ from ..config import settings
 
 
 class OdooRpcClient:
-    """Small Odoo XML-RPC adapter used behind the MCP tool boundary."""
+    """Small Odoo XML-RPC adapter used by the background RAG worker."""
 
     def __init__(
         self,

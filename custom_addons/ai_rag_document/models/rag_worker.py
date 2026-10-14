@@ -26,7 +26,7 @@ class AiRagDocumentWorker(models.Model):
         return document
 
     @api.model
-    def mcp_claim_pending_documents(self, limit=10):
+    def worker_claim_pending_documents(self, limit=10):
         self._ensure_worker_access()
         limit = max(1, min(int(limit), 100))
         documents = self.with_context(active_test=False).search(
@@ -66,7 +66,7 @@ class AiRagDocumentWorker(models.Model):
         return jobs
 
     @api.model
-    def mcp_update_document_progress(self, document_id, progress, stage=""):
+    def worker_update_document_progress(self, document_id, progress, stage=""):
         """Receive coarse-grained pipeline progress from the authorized RAG worker."""
         document = self._get_worker_document(document_id)
         if document.delete_after_vector_cleanup or document.rag_status != "processing":
@@ -80,7 +80,7 @@ class AiRagDocumentWorker(models.Model):
         return {"updated": True}
 
     @api.model
-    def mcp_get_document_payload(self, document_id):
+    def worker_get_document_payload(self, document_id):
         document = self._get_worker_document(
             document_id, (("rag_enabled", "=", True),)
         )
@@ -99,7 +99,7 @@ class AiRagDocumentWorker(models.Model):
         }
 
     @api.model
-    def mcp_mark_document_indexed(
+    def worker_mark_document_indexed(
         self,
         document_id,
         chunk_count,
@@ -166,7 +166,7 @@ class AiRagDocumentWorker(models.Model):
         return {"updated": True}
 
     @api.model
-    def mcp_mark_document_error(self, document_id, error_message):
+    def worker_mark_document_error(self, document_id, error_message):
         document = self._get_worker_document(document_id)
         if document.delete_after_vector_cleanup:
             document.with_context(rag_worker_update=True).write(
@@ -190,7 +190,7 @@ class AiRagDocumentWorker(models.Model):
         return True
 
     @api.model
-    def mcp_mark_document_vectors_deleted(self, document_id):
+    def worker_mark_document_vectors_deleted(self, document_id):
         document = self._get_worker_document(document_id)
         delete_document = document.delete_after_vector_cleanup
         document.with_context(rag_worker_update=True).write(
@@ -206,13 +206,13 @@ class AiRagDocumentWorker(models.Model):
         return True
 
     @api.model
-    def mcp_list_readable_document_ids(self):
+    def list_readable_document_ids(self):
         return self.search([("rag_enabled", "=", True), ("rag_status", "=", "indexed")]).ids
 
     @api.model
-    def mcp_get_current_user_rag_scope(self):
+    def get_current_rag_scope(self):
         return {
             "user_id": self.env.user.id,
             "company_id": self.env.company.id,
-            "allowed_document_ids": self.mcp_list_readable_document_ids(),
+            "allowed_document_ids": self.list_readable_document_ids(),
         }
