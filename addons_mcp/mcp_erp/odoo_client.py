@@ -80,10 +80,12 @@ class OdooClient:
             )
             with urllib.request.urlopen(req, timeout=self.timeout) as resp:
                 if resp.status == 200:
-                    res_data = json.loads(resp.read().decode("utf-8"))
-                    return res_data.get("result")
+                    result = json.loads(resp.read().decode("utf-8")).get("result") or {}
+                    # MCP tools/call wraps the tool payload as JSON text in result.content[0].text
+                    if not result.get("isError") and result.get("content"):
+                        return json.loads(result["content"][0].get("text") or "{}")
         except Exception:
-            # Nếu POST /mcp chưa bật hoặc key sai, trả về None để fallback sang XML-RPC
+            # Nếu POST /mcp chưa bật, key sai hoặc tool từ chối, trả về None để fallback sang XML-RPC
             pass
         return None
 
