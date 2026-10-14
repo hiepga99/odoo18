@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ai_mcp_audit_list" model="ir.ui.view">
+        <field name="name">ai.mcp.audit.list</field>
+        <field name="model">ai.mcp.audit</field>
+        <field name="arch" type="xml">
+            <list create="false" edit="false">
+                <field name="create_date"/>
+                <field name="user_id"/>
+                <field name="client"/>
+                <field name="tool"/>
+                <field name="model"/>
+                <field name="status"/>
+                <field name="duration_ms"/>
+                <field name="record_count"/>
+            </list>
+        </field>
+    </record>
+    <record id="action_ai_mcp_audit" model="ir.actions.act_window">
+        <field name="name">MCP Audit</field>
+        <field name="res_model">ai.mcp.audit</field>
+        <field name="view_mode">list</field>
+    </record>
+    <menuitem id="menu_ai_mcp_audit" name="MCP Audit"
+              parent="base.menu_administration"
+              action="action_ai_mcp_audit" groups="base.group_system"/>
+</odoo>

@@ -1,0 +1,12 @@
+<odoo noupdate="1">
+    <record id="action_mcp_create_partner_demo" model="ir.actions.server">
+        <field name="name">Create contact</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="state">code</field>
+        <field name="code">partner = env['res.partner'].create({'name': mcp_args['name'], 'email': mcp_args.get('email')})
+mcp_result.update(id=partner.id, name=partner.name)</field>
+        <field name="help" type="html"><p>values: name (required), email (optional). Use when the user asks to add a customer/contact.</p></field>
+        <field name="groups_id" eval="[Command.set([ref('base.group_partner_manager')])]"/>
+        <field name="used_in_mcp" eval="True"/>
+    </record>
+</odoo>

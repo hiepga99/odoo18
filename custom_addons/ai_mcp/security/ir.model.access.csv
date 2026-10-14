@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ai_mcp_audit_system,ai.mcp.audit system,model_ai_mcp_audit,base.group_system,1,0,0,1
+"access_ai_mcp_model_user","ai.mcp.model user","model_ai_mcp_model","base.group_user",1,0,0,0
+"access_ai_mcp_model_system","ai.mcp.model system","model_ai_mcp_model","base.group_system",1,1,1,1

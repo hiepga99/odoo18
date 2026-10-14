@@ -1,0 +1,8 @@
+<odoo noupdate="1">
+    <!-- Default pilot: chỉ res.partner (có trong base). Module nghiệp vụ ship record của mình
+         qua bridge auto_install (vd ai_mcp_policy_sale: sale.order + deny margin). -->
+    <record id="mcp_model_res_partner" model="ai.mcp.model">
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="description">Contacts: customers, vendors, employees' partner records. Use for names, emails, phones, addresses.</field>
+    </record>
+</odoo>
