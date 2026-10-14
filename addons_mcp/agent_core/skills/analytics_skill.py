@@ -33,7 +33,8 @@ class AnalyticsSkill(BaseSkill):
                 }
             },
             "required": ["period"]
-        }
+        },
+        allowed_roles=["manager", "accountant", "director", "admin"]
     )
     def get_revenue_report(self, args: Dict[str, Any]) -> str:
         period = args.get("period", "toàn thời gian")

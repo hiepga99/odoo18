@@ -141,3 +141,52 @@ class InventorySkill(BaseSkill):
             "delivery_state": "Sẵn sàng giao vận (Ready)",
             "message": "Phiếu xuất kho đã hoàn tất chuẩn bị hàng."
         }, ensure_ascii=False)
+
+    @skill_tool(
+        name="get_top_products",
+        description="Tra cứu danh mục sản phẩm theo bảng giá: tìm sản phẩm đắt nhất ('highest_price'), rẻ nhất ('lowest_price'), hoặc toàn bộ danh mục sản phẩm ('catalog')",
+        parameters={
+            "type": "object",
+            "properties": {
+                "criterion": {
+                    "type": "string",
+                    "enum": ["highest_price", "lowest_price", "catalog", "top_selling"],
+                    "description": "Tiêu chí xếp hạng: highest_price (sản phẩm đắt nhất / giá cao nhất), lowest_price (sản phẩm rẻ nhất / giá tốt nhất), catalog (toàn bộ danh mục)"
+                },
+                "limit": {
+                    "type": "integer",
+                    "description": "Số lượng sản phẩm muốn hiển thị (mặc định 5)"
+                }
+            }
+        }
+    )
+    def get_top_products(self, args: Dict[str, Any]) -> str:
+        criterion = args.get("criterion", "highest_price")
+        limit = int(args.get("limit", 5))
+        from .quotation_extractor import STANDARD_CATALOG
+        
+        # Sắp xếp danh mục theo giá
+        if criterion == "lowest_price":
+            sorted_items = sorted(STANDARD_CATALOG, key=lambda x: x["list_price"])[:limit]
+            title = "Sản phẩm có giá thấp nhất (Giá tốt nhất)"
+        else:
+            sorted_items = sorted(STANDARD_CATALOG, key=lambda x: x["list_price"], reverse=True)[:limit]
+            title = "Sản phẩm có giá cao nhất (Phân khúc Cao cấp)"
+
+        items_data = []
+        for it in sorted_items:
+            items_data.append({
+                "name": it["name"],
+                "list_price": it["list_price"],
+                "uom": it["uom"],
+                "stock": 15
+            })
+
+        return json.dumps({
+            "status": "success",
+            "criterion": criterion,
+            "title": title,
+            "count": len(items_data),
+            "top_product": items_data[0] if items_data else None,
+            "products": items_data
+        }, ensure_ascii=False)
