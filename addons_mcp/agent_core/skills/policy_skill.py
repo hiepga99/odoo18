@@ -2,6 +2,7 @@
 import json
 import os
 import glob
+import sys
 from typing import Dict, Any
 from .base_skill import BaseSkill, skill_tool
 
@@ -32,8 +33,28 @@ class PolicyRAGSkill(BaseSkill):
     )
     def get_company_policy(self, args: Dict[str, Any]) -> str:
         topic = args.get("topic", "").lower()
-        
-        # Thử tìm file markdown quy trình thực tế trong data/company_documents
+
+        # 1. Tra cứu RAG từ agent-service nếu ChromaDB đã sẵn sàng
+        try:
+            rag_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../agent-service"))
+            if rag_dir not in sys.path:
+                sys.path.insert(0, rag_dir)
+            from rag.retrieval import Retriever
+            results = Retriever().search(topic, top_k=2)
+            if results:
+                summary_text = "\n\n".join(r.text for r in results)
+                citation = results[0].citation if hasattr(results[0], "citation") else "agent-service/rag"
+                return json.dumps({
+                    "status": "success",
+                    "topic": topic,
+                    "source": "rag_chromadb",
+                    "citation": citation,
+                    "summary": summary_text
+                }, ensure_ascii=False)
+        except Exception:
+            pass
+
+        # 2. Dự phòng (Fallback): Thử tìm file markdown quy trình thực tế trong data/company_documents
         matched_doc = None
         if os.path.isdir(self.docs_dir):
             for filepath in glob.glob(os.path.join(self.docs_dir, "*.md")):

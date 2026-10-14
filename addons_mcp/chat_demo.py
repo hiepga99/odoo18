@@ -21,8 +21,8 @@ def main():
     print("=" * 70)
 
     agent = HermesAgent()
-    current_role = "sales_user"
-    role_name_vn = "Nhân viên Kinh doanh (sales_user)"
+    current_role = os.getenv("USER_ROLE", "sales_user")
+    role_name_vn = "Ban Giám đốc / Quản lý (manager)" if current_role in ["manager", "admin"] else "Nhân viên Kinh doanh (sales_user)"
 
     print(f"🤖 Đang sử dụng Model LLM: {agent.llm_client.provider.upper()} ({agent.llm_client.model_name})")
     print(f"🔐 [Bảo mật RBAC] Đang đăng nhập với vai trò: {role_name_vn}")
@@ -36,17 +36,22 @@ def main():
                 print("Tạm biệt bạn!")
                 break
             
-            # Lệnh chuyển đổi vai trò người dùng (RBAC test)
-            if user_input.lower().startswith("/role"):
-                parts = user_input.split()
-                if len(parts) > 1 and parts[1].lower() in ["manager", "admin", "director", "accountant"]:
-                    current_role = "manager"
-                    role_name_vn = "Ban Giám đốc / Quản lý (manager)"
-                    print(f"🔄 Đã chuyển vai trò sang: {role_name_vn}")
-                else:
+            # Lệnh chuyển đổi vai trò người dùng (RBAC test) - Hỗ trợ cả lệnh /role và câu nói tiếng Việt tự nhiên
+            lower_input = user_input.lower().strip()
+            if lower_input.startswith("/role") or any(kw in lower_input for kw in ["tôi là sếp", "tôi là giám đốc", "quyền giám đốc", "đổi sang sếp", "đổi sang giám đốc", "tài khoản quản lý"]):
+                if any(w in lower_input for w in ["sales", "nhân viên", "sale"]):
                     current_role = "sales_user"
                     role_name_vn = "Nhân viên Kinh doanh (sales_user)"
                     print(f"🔄 Đã chuyển vai trò sang: {role_name_vn}")
+                else:
+                    current_role = "manager"
+                    role_name_vn = "Ban Giám đốc / Quản lý (manager)"
+                    print(f"🔄 Đã chuyển vai trò sang: {role_name_vn} (Được phép xem doanh thu, tài chính)")
+                continue
+            elif any(kw in lower_input for kw in ["tôi là nhân viên", "quyền nhân viên", "đổi sang nhân viên", "đổi sang sale", "tài khoản sale"]):
+                current_role = "sales_user"
+                role_name_vn = "Nhân viên Kinh doanh (sales_user)"
+                print(f"🔄 Đã chuyển vai trò sang: {role_name_vn} (Giới hạn: không xem được doanh thu)")
                 continue
 
             response = agent.chat(user_input, user_role=current_role)
