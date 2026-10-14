@@ -37,8 +37,7 @@ class OdooClient:
         self._authenticate()
 
     def _authenticate(self) -> bool:
-        if self.is_offline:
-            return False
+        # No early return on is_offline: a server started before Odoo must recover on the next call.
         try:
             transport = TimeoutTransport(timeout=self.timeout)
             self.common = xmlrpc.client.ServerProxy(f"{self.url}/xmlrpc/2/common", transport=transport)

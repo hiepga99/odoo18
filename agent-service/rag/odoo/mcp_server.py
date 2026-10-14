@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import sys
 
 from mcp.server import MCPServer
 
@@ -13,8 +14,9 @@ from .rpc import OdooRpcClient
 mcp = MCPServer(
     name="odoo-rag",
     instructions=(
-        "Expose only the Odoo RAG document operations required by the agent. "
-        "Odoo authentication and record rules remain authoritative."
+        "Odoo RAG document search plus ERP lookup tools (products, stock, partners, "
+        "sales, purchases) on one endpoint. Odoo authentication and record rules "
+        "remain authoritative."
     ),
 )
 _rpc: OdooRpcClient | None = None
@@ -128,6 +130,30 @@ def answer_internal_documents(question: str, top_k: int = 4) -> dict:
         "answer": answer,
         "sources": [result.to_dict() for result in results],
     }
+
+
+def _register_erp_tools() -> list[str]:
+    """Expose addons_mcp's 12 ERP tools here so one MCP endpoint serves documents and ERP data."""
+    repo_root = str(settings.base_dir.parent)
+    if repo_root not in sys.path:
+        sys.path.insert(0, repo_root)
+    from addons_mcp.mcp_erp import tools as erp_tools
+    from addons_mcp.mcp_erp.odoo_client import OdooClient
+
+    # Replace its hard-coded login with the worker's Odoo credentials from .env.
+    erp_tools.odoo = OdooClient(
+        url=settings.odoo_url,
+        db=settings.odoo_database,
+        username=settings.odoo_login,
+        password=settings.odoo_api_key,
+        timeout=10.0,
+    )
+    for func in erp_tools.MCP_TOOL_MAP.values():
+        mcp.tool()(func)
+    return list(erp_tools.MCP_TOOL_MAP)
+
+
+ERP_TOOL_NAMES = _register_erp_tools()
 
 
 def main() -> None:
