@@ -16,15 +16,15 @@ backups/
 *.log
 .system_generated/
 *.docx
-scripts/
+/scripts/
 
 # Odoo Enterprise addons (proprietary - do not push)
 enterprise/
 
 # Local data & docs
-data/
-docs/
-config/
+/data/
+/docs/
+/config/
 
 # IDE
 .vscode/
