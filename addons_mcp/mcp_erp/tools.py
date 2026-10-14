@@ -78,10 +78,10 @@ def search_customers(query: str, limit: int = 5) -> Dict[str, Any]:
 def get_customer_debt(customer_name: str) -> Dict[str, Any]:
     """Tra cứu tổng công nợ phải thu của khách hàng"""
     try:
-        partner_records = odoo.execute_kw('res.partner', 'search_read', [[('name', 'ilike', customer_name)]], {'fields': ['id', 'name', 'total_due', 'credit'], 'limit': 1})
+        partner_records = odoo.execute_kw('res.partner', 'search_read', [[('name', 'ilike', customer_name)]], {'fields': ['id', 'name', 'credit'], 'limit': 1})
         if partner_records:
             p = partner_records[0]
-            debt = p.get('credit', 0) or p.get('total_due', 0)
+            debt = p.get('credit', 0) or 0
             return {
                 "status": "success",
                 "customer": p['name'],
