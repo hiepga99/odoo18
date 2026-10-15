@@ -1,70 +1,69 @@
-# Translation of ERPVIET Server.
+# Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* sale_order_import
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ERPVIET Server 6.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-24 09:58+0000\n"
-"PO-Revision-Date: 2023-02-24 09:58+0000\n"
+"POT-Creation-Date: 2026-10-15 01:31+0000\n"
+"PO-Revision-Date: 2026-10-15 01:31+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #. module: sale_order_import
-#: model:ir.model.fields.selection,name:sale_order_import.selection__import_order__create_sale_order_type__all2one
+#: model:ir.model.fields.selection,name:sale_order_import.selection__sale_order_import__create_sale_order_type__all2one
 msgid "All to one"
-msgstr "Một đơn hàng cho tất cả file"
+msgstr "Gộp thành một đơn"
 
 #. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order_line__attachment_id
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import_line__attachment_id
 msgid "Attachment"
-msgstr "File"
+msgstr "Tệp đính kèm"
 
 #. module: sale_order_import
-#: model:ir.model.fields.selection,name:sale_order_import.selection__import_order__import_type__brg
+#: model:ir.model.fields.selection,name:sale_order_import.selection__sale_order_import__import_type__brg
 msgid "BRG"
-msgstr ""
+msgstr "BRG"
 
 #. module: sale_order_import
-#: model:ir.model.fields.selection,name:sale_order_import.selection__import_order__import_type__bach_hoa_xanh
+#: model:ir.model.fields.selection,name:sale_order_import.selection__sale_order_import__import_type__bach_hoa_xanh
 msgid "Bach Hoa Xanh"
-msgstr "Bách hóa xanh"
+msgstr "Bách Hóa Xanh"
 
 #. module: sale_order_import
 #: model_terms:ir.ui.view,arch_db:sale_order_import.sale_order_import_form_view
 msgid "Back to draft"
-msgstr "Trở về dự thảo"
+msgstr "Về dự thảo"
 
 #. module: sale_order_import
-#: model:ir.model.fields.selection,name:sale_order_import.selection__import_order__import_type__2_bigc
+#: model:ir.model.fields.selection,name:sale_order_import.selection__sale_order_import__import_type__2_bigc
 msgid "Big C"
-msgstr ""
+msgstr "Big C"
 
 #. module: sale_order_import
-#: model:ir.model.fields.selection,name:sale_order_import.selection__import_order__import_type__coopmart
+#: model:ir.model.fields.selection,name:sale_order_import.selection__sale_order_import__import_type__coopmart
 msgid "COOPMART"
-msgstr ""
+msgstr "Co.opMart"
 
 #. module: sale_order_import
-#: model:ir.model.fields.selection,name:sale_order_import.selection__import_order__state__cancel
+#: model:ir.model.fields.selection,name:sale_order_import.selection__sale_order_import__state__cancel
 #: model_terms:ir.ui.view,arch_db:sale_order_import.sale_order_import_form_view
 msgid "Cancel"
 msgstr "Hủy"
 
 #. module: sale_order_import
-#: code:addons/sale_order_import/models/import_order.py:0
-#, python-format
+#. odoo-python
+#: code:addons/sale_order_import/models/sale_order_import.py:0
 msgid "Cannot delete Sale Orders have state not in draft, cancel!!"
-msgstr ""
-"Không thể xóa Đơn bán hàng có trạng thái không phải là bản nháp, hủy !!"
+msgstr "Không thể xóa đơn bán hàng không ở trạng thái dự thảo hoặc đã hủy!"
 
 #. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order__company_id
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import__company_id
 msgid "Company"
 msgstr "Công ty"
 
@@ -74,243 +73,246 @@ msgid "Confirm"
 msgstr "Xác nhận"
 
 #. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order__date_confirmed
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import__date_confirmed
 msgid "Confirm Date"
 msgstr "Ngày xác nhận"
 
 #. module: sale_order_import
-#: model:ir.model.fields.selection,name:sale_order_import.selection__import_order__state__confirmed
+#: model:ir.model.fields.selection,name:sale_order_import.selection__sale_order_import__state__confirmed
 msgid "Confirmed"
 msgstr "Đã xác nhận"
 
 #. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order__date_create
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import__date_create
 msgid "Create Date"
 msgstr "Ngày tạo"
 
 #. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order__create_sale_order_type
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import__create_sale_order_type
 msgid "Create Sale Order Type"
-msgstr "Loại tạo đơn hàng"
+msgstr "Cách tạo đơn bán hàng"
 
 #. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order__create_uid
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order_line__create_uid
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import__create_uid
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import_line__create_uid
 msgid "Created by"
 msgstr "Tạo bởi"
 
 #. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order__create_date
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order_line__create_date
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import__create_date
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import_line__create_date
 msgid "Created on"
-msgstr "Tạo vào"
+msgstr "Tạo lúc"
 
 #. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order_line__partner_id
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import_line__partner_id
 msgid "Customer"
-msgstr ""
+msgstr "Khách hàng"
 
 #. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order_line__delivery_date
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import_line__delivery_date
 msgid "Delivery Date"
-msgstr "Ngày giao hàng dự kiến"
+msgstr "Ngày giao"
 
 #. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order_line__description
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import_line__description
 msgid "Description"
 msgstr "Diễn giải"
 
 #. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order_line__discount
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import_line__discount
 msgid "Discount(%)"
-msgstr "Giảm giá(%)"
+msgstr "Chiết khấu (%)"
 
 #. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order__display_name
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order_line__display_name
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import__display_name
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import_line__display_name
 msgid "Display Name"
 msgstr "Tên hiển thị"
 
 #. module: sale_order_import
 #: model_terms:ir.ui.view,arch_db:sale_order_import.sale_order_import_form_view
 msgid "Download Template"
-msgstr "Tải mẫu"
+msgstr "Tải file mẫu"
 
 #. module: sale_order_import
-#: model:ir.model.fields.selection,name:sale_order_import.selection__import_order__state__draft
+#: model:ir.model.fields.selection,name:sale_order_import.selection__sale_order_import__state__draft
 msgid "Draft"
 msgstr "Dự thảo"
 
 #. module: sale_order_import
-#: model:ir.model.fields.selection,name:sale_order_import.selection__import_order__import_type__excel
+#: model:ir.model.fields.selection,name:sale_order_import.selection__sale_order_import__import_type__excel
 msgid "Excel"
-msgstr ""
+msgstr "Excel"
 
 #. module: sale_order_import
-#: code:addons/sale_order_import/models/import_order.py:0
-#, python-format
+#. odoo-python
+#: code:addons/sale_order_import/models/sale_order_import.py:0
 msgid "File is not empty"
-msgstr "File không được bỏ trống"
+msgstr "Chưa chọn tệp để import"
 
 #. module: sale_order_import
-#: code:addons/sale_order_import/models/import_order.py:0
-#, python-format
-msgid "File must be 'xlsx' or 'xlsb' or 'xls'"
-msgstr "Định dạng file phải lài 'xlsx' hoặc 'xlsb' hoặc 'xls'"
+#. odoo-python
+#: code:addons/sale_order_import/models/sale_order_import.py:0
+msgid "File must be 'xlsx' or 'xls'"
+msgstr "Tệp phải có định dạng 'xlsx' hoặc 'xls'"
 
 #. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order__file_name
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import__file_name
 msgid "File name"
-msgstr ""
+msgstr "Tên tệp"
 
 #. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order__file_upload
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import__file_upload
 msgid "File upload"
-msgstr ""
+msgstr "Tệp tải lên"
 
 #. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order__attachment_ids
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import__attachment_ids
 msgid "Files"
-msgstr ""
+msgstr "Tệp"
 
 #. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order__id
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order_line__id
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import__id
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import_line__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: sale_order_import
 #: model_terms:ir.ui.view,arch_db:sale_order_import.sale_order_import_form_view
 msgid "Import"
-msgstr "Nhập file"
+msgstr "Import"
 
 #. module: sale_order_import
 #: model_terms:ir.ui.view,arch_db:sale_order_import.sale_order_import_form_view
 msgid "Import File"
-msgstr "Nhập file"
+msgstr "Tệp import"
+
+#. module: sale_order_import
+#: model_terms:ir.ui.view,arch_db:sale_order_import.sale_order_import_form_view
+msgid "Import Order"
+msgstr "Import đơn hàng"
+
+#. module: sale_order_import
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import__line_ids
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import_line__import_id
+msgid "Import Sale Order"
+msgstr "Import đơn bán hàng"
 
 #. module: sale_order_import
 #: model:ir.actions.act_window,name:sale_order_import.action_sale_order_import
-#: model:ir.model,name:sale_order_import.model_sale_order_import
 #: model:ir.ui.menu,name:sale_order_import.menu_sale_order_import
-#: model_terms:ir.ui.view,arch_db:sale_order_import.sale_order_import_form_view
-#: model_terms:ir.ui.view,arch_db:sale_order_import.sale_order_import_list_view
-msgid "Import Order"
-msgstr "Import Đơn hàng bán"
+msgid "Import Sale Orders"
+msgstr "Import đơn bán hàng"
 
 #. module: sale_order_import
 #: model:ir.actions.act_window,name:sale_order_import.action_sale_order_import_consignment
 #: model:ir.ui.menu,name:sale_order_import.menu_sale_order_import_consignment
-msgid "Import Order Consignment"
-msgstr "Import đơn hàng ký gửi"
+msgid "Import Sale Orders (Consignment)"
+msgstr "Import đơn bán hàng (ký gửi)"
 
 #. module: sale_order_import
-#: model:ir.model,name:sale_order_import.model_sale_order_import_line
-msgid "Import Order Line"
-msgstr ""
-
-#. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order__line_ids
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order_line__import_id
-msgid "Import Sale Order"
-msgstr ""
-
-#. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order__import_type
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import__import_type
 msgid "Import Type"
-msgstr "Loại Import"
+msgstr "Loại import"
 
 #. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order__is_order_consignment
+#. odoo-python
+#: code:addons/sale_order_import/models/sale_order_import.py:0
+msgid "Import file error: %s"
+msgstr "Lỗi đọc tệp import: %s"
+
+#. module: sale_order_import
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import__is_order_consignment
 msgid "Is order consignment"
-msgstr "Tạo đơn hàng ký gửi"
+msgstr "Đơn ký gửi"
 
 #. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order____last_update
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order_line____last_update
-msgid "Last Modified on"
-msgstr "Sửa lần cuối"
-
-#. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order__write_uid
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order_line__write_uid
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import__write_uid
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import_line__write_uid
 msgid "Last Updated by"
 msgstr "Cập nhật lần cuối bởi"
 
 #. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order__write_date
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order_line__write_date
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import__write_date
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import_line__write_date
 msgid "Last Updated on"
-msgstr "Cập nhật lần cuối vào"
+msgstr "Cập nhật lần cuối lúc"
 
 #. module: sale_order_import
-#: model:ir.model.fields.selection,name:sale_order_import.selection__import_order__import_type__lotte
+#: model:ir.model.fields.selection,name:sale_order_import.selection__sale_order_import__import_type__lotte
 msgid "Lotte"
-msgstr ""
+msgstr "Lotte"
 
 #. module: sale_order_import
-#: model:ir.model.fields.selection,name:sale_order_import.selection__import_order__import_type__medicare
+#: model:ir.model.fields.selection,name:sale_order_import.selection__sale_order_import__import_type__medicare
 msgid "MEDICARE"
-msgstr ""
+msgstr "Medicare"
 
 #. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order__name
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import__name
 msgid "Name"
 msgstr "Tên"
 
 #. module: sale_order_import
-#: code:addons/sale_order_import/models/import_order.py:0
-#, python-format
+#. odoo-python
+#: code:addons/sale_order_import/models/sale_order_import.py:0
 msgid "No data in import SO lines"
-msgstr "Không có dữ liệu ở dòng Import đơn bán hàng"
+msgstr "Chưa có dòng dữ liệu import"
 
 #. module: sale_order_import
-#: model:ir.model.fields.selection,name:sale_order_import.selection__import_order__create_sale_order_type__one2one
+#: model:ir.model.fields.selection,name:sale_order_import.selection__sale_order_import__create_sale_order_type__one2one
 msgid "One to one"
-msgstr "Mỗi file một đơn hàng"
+msgstr "Mỗi file một đơn"
 
 #. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order_line__order_date
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import_line__order_date
 msgid "Order Date"
-msgstr ""
+msgstr "Ngày đặt hàng"
 
 #. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order_line__po_location_code
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import_line__po_location_code
 msgid "P/O Location"
-msgstr "Điểm bán"
+msgstr "Mã điểm giao (P/O Location)"
 
 #. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order_line__po_name
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import_line__po_name
 msgid "PO Name"
-msgstr "Mã đơn hàng PO"
+msgstr "Số PO"
 
 #. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order__partner_id
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import__partner_id
 msgid "Partner System"
-msgstr ""
+msgstr "Hệ thống đối tác"
 
 #. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order_line__payment_term_id
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import_line__payment_term_id
 msgid "Payment Term"
 msgstr "Điều khoản thanh toán"
 
 #. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order_line__price_unit
+#. odoo-python
+#: code:addons/sale_order_import/models/sale_order_import.py:0
+msgid "Please attach at least one file."
+msgstr "Vui lòng đính kèm ít nhất một tệp."
+
+#. module: sale_order_import
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import_line__price_unit
 msgid "Price Unit"
 msgstr "Đơn giá"
 
 #. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order_line__product_id
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import_line__product_id
 msgid "Product"
 msgstr "Sản phẩm"
 
 #. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order_line__product_code
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import_line__product_code
 msgid "Product Code"
-msgstr "Mã SP trên file"
+msgstr "Mã sản phẩm"
 
 #. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order_line__quantity
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import_line__quantity
 msgid "Quantity"
 msgstr "Số lượng"
 
@@ -320,66 +322,74 @@ msgid "Read File"
 msgstr "Đọc file"
 
 #. module: sale_order_import
-#: model:ir.model.fields.selection,name:sale_order_import.selection__import_order__import_type__satra
+#: model:ir.model.fields.selection,name:sale_order_import.selection__sale_order_import__import_type__satra
 msgid "SATRA"
-msgstr ""
+msgstr "SATRA"
 
 #. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order__sale_order_ids
+#: model:ir.model,name:sale_order_import.model_sale_order_import
+msgid "Sale Order Import"
+msgstr "Import đơn bán hàng"
+
+#. module: sale_order_import
+#: model:ir.model,name:sale_order_import.model_sale_order_import_line
+msgid "Sale Order Import Line"
+msgstr "Dòng import đơn bán hàng"
+
+#. module: sale_order_import
+#: model_terms:ir.ui.view,arch_db:sale_order_import.sale_order_import_list_view
+msgid "Sale Order Imports"
+msgstr "Import đơn bán hàng"
+
+#. module: sale_order_import
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import__sale_order_ids
 msgid "Sale Orders"
-msgstr ""
-
-#. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order__so_count
-msgid "So Count"
 msgstr "Đơn bán hàng"
 
 #. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order_line__so_number
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import__so_count
+msgid "So Count"
+msgstr "Số đơn bán"
+
+#. module: sale_order_import
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import_line__so_number
 msgid "So Number"
-msgstr ""
+msgstr "Mã đơn hàng"
 
 #. module: sale_order_import
-#: code:addons/sale_order_import/models/import_order.py:0
-#, python-format
+#. odoo-python
+#: code:addons/sale_order_import/models/sale_order_import.py:0
 msgid "State is not 'Draft'. Please Back to Draft for importing again"
-msgstr "Không phải trạng thái dự thảo. Vui lòng trở về dự thảo để nhập file"
+msgstr "Trạng thái không phải Dự thảo. Hãy đưa về Dự thảo để import lại"
 
 #. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order__state
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import__state
 msgid "Status"
-msgstr ""
+msgstr "Trạng thái"
 
 #. module: sale_order_import
-#: code:addons/sale_order_import/models/import_order.py:0
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order__summary_order_id
-#: model_terms:ir.ui.view,arch_db:sale_order_import.sale_order_import_form_view
-#, python-format
-msgid "Summary Sale Order"
-msgstr "Tổng hợp đơn hàng"
-
-#. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order_line__tax_ids
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import_line__tax_ids
 msgid "Tax"
 msgstr "Thuế"
 
 #. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order__user_id
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import__user_id
 msgid "User Create"
 msgstr "Người tạo"
 
 #. module: sale_order_import
-#: model:ir.model.fields,field_description:sale_order_import.field_import_order_line__warehouse_id
+#: model:ir.model.fields,field_description:sale_order_import.field_sale_order_import_line__warehouse_id
 msgid "Warehouse"
 msgstr "Kho"
 
 #. module: sale_order_import
-#: model:ir.model.fields.selection,name:sale_order_import.selection__import_order__import_type__winmart
+#: model:ir.model.fields.selection,name:sale_order_import.selection__sale_order_import__import_type__winmart
 msgid "Winmart"
-msgstr ""
+msgstr "WinMart"
 
 #. module: sale_order_import
-#: code:addons/sale_order_import/models/import_order.py:0
-#, python-format
+#. odoo-python
+#: code:addons/sale_order_import/models/sale_order_import.py:0
 msgid "You cannot delete record state that not be Draft or Cancel."
-msgstr "Bạn không thể xóa đơn tổng hợp với trạng thái khác Nháp hoặc Hủy."
+msgstr "Chỉ xóa được bản ghi ở trạng thái Dự thảo hoặc Đã hủy."
+
