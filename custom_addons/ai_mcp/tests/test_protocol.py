@@ -237,3 +237,10 @@ class TestProtocolModern(HttpCase):
             'Content-Type': 'application/json',
             'Authorization': f'Bearer {self.key}'})
         self.assertEqual(json.loads(r.content)['error']['code'], -32600)
+
+    def test_empty_body_400(self):
+        # ChatGPT thăm dò endpoint bằng POST rỗng; SDK chuẩn trả 400, 200 làm nó tưởng cần OAuth
+        r = self.opener.post(self.base_url() + '/mcp', data=b'', headers={
+            'Content-Type': 'application/octet-stream', 'Authorization': f'Bearer {self.key}'})
+        self.assertEqual(r.status_code, 400)
+        self.assertEqual(json.loads(r.content)['error']['code'], -32600)

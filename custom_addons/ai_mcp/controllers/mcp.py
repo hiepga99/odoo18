@@ -43,13 +43,14 @@ class MCPController(http.Controller):
         try:
             data = json.loads(request.httprequest.get_data(as_text=True) or '{}')
         except json.JSONDecodeError:
-            return self._error(None, -32700, 'Parse error')
+            return self._error(None, -32700, 'Parse error', status=400)
+        # body hỏng -> HTTP 400 như SDK chuẩn (ChatGPT thăm dò bằng POST rỗng, 200 làm nó tưởng cần OAuth)
         if not isinstance(data, dict) or data.get('jsonrpc') != '2.0':
-            return self._error(None, -32600, 'Invalid request')
+            return self._error(None, -32600, 'Invalid request', status=400)
 
         method, rid, params = data.get('method'), data.get('id'), data.get('params') or {}
         if not isinstance(method, str):
-            return self._error(rid, -32600, 'Invalid request')
+            return self._error(rid, -32600, 'Invalid request', status=400)
         if not isinstance(params, dict):
             params = {}   # list truthy sống sót tới .get() sẽ nổ 500 — chuẩn hoá một chỗ
         meta = params.get('_meta')

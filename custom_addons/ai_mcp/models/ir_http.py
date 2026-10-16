@@ -13,7 +13,9 @@ class IrHttp(models.AbstractModel):
     def _auth_method_ai_mcp(cls):
         header = request.httprequest.headers.get('Authorization', '')
         match = re.match(r'^bearer\s+(.+)$', header, re.IGNORECASE)
-        token = match and match.group(1).strip()
+        # shortcut: ?key= cho client không gửi được header (claude.ai Connectors, không có OAuth);
+        # key lộ trong log/proxy -> cấp key riêng để thu hồi được. Nâng cấp: OAuth 2.1 khi cần.
+        token = (match and match.group(1).strip()) or request.httprequest.args.get('key', '').strip()
         if not token:
             raise werkzeug.exceptions.Unauthorized()
         # verify key cần superuser env (bảng apikeys không có ACL đọc) — ngoại lệ sudo được khoanh vùng

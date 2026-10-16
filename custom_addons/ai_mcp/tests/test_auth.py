@@ -18,9 +18,9 @@ class TestAuth(HttpCase):
         })
         cls.key = _make_key(cls.env, cls.user)
 
-    def _post(self, headers=None):
+    def _post(self, headers=None, path='/mcp'):
         body = b'{"jsonrpc":"2.0","method":"ping","id":1}'
-        return self.url_open('/mcp', data=body,
+        return self.url_open(path, data=body,
                              headers={'Content-Type': 'application/json', **(headers or {})})
 
     def test_no_header_401(self):
@@ -40,3 +40,11 @@ class TestAuth(HttpCase):
             [('user_id', '=', self.user.id), ('name', '=', 'mcp-revoked')])._remove()
         r = self._post({'Authorization': f'Bearer {key2}'})
         self.assertEqual(r.status_code, 401)
+
+    def test_key_in_query_ok(self):
+        # claude.ai Connectors không gửi được header -> key trên URL
+        r = self._post(path=f'/mcp?key={self.key}')
+        self.assertEqual(r.status_code, 200)
+
+    def test_bad_key_in_query_401(self):
+        self.assertEqual(self._post(path='/mcp?key=deadbeef').status_code, 401)
