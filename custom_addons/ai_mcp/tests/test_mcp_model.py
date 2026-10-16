@@ -69,20 +69,21 @@ class TestPolicyData(TransactionCase):
         self.assertFalse(self.uenv['ir.model'].has_access('read'))
         self.assertIn('res.partner', self.uenv['ai.mcp.policy']._get_policy())
 
-    def test_bootstrap_seeds_installed_models_from_legacy_dict(self):
+    def test_bootstrap_seeds_installed_models_from_default_policy(self):
         # Cài module lên môi trường đang dùng dict cũ: record tự sinh cho model đã cài,
         # kèm deny fields — admin không phải cấu hình lại từ đầu.
-        from odoo.addons.ai_mcp import _bootstrap_from_legacy_policy
+        from odoo.addons.ai_mcp import _bootstrap_default_policy
         self.Config.search([]).unlink()
-        _bootstrap_from_legacy_policy(self.env)
+        _bootstrap_default_policy(self.env)
         cfgs = {c.model_name: c for c in self.Config.search([])}
         self.assertIn('res.partner', cfgs)                       # model base luôn cài
+        self.assertTrue(cfgs['res.company'].description)         # mô tả cho LLM đi kèm
         for name in cfgs:
             self.assertIn(name, self.env)                        # không sinh record cho model chưa cài
         if 'hr.employee' in self.env and 'hr.employee' in cfgs:
             self.assertIn('identification_id', cfgs['hr.employee'].deny_field_names)
         # chạy lại không tạo trùng (idempotent cho -u)
-        _bootstrap_from_legacy_policy(self.env)
+        _bootstrap_default_policy(self.env)
         self.assertEqual(len(cfgs), self.Config.search_count([]))
 
     def test_one_config_per_model(self):
@@ -91,3 +92,4 @@ class TestPolicyData(TransactionCase):
         with self.assertRaises(IntegrityError), mute_logger('odoo.sql_db'):
             with self.env.cr.savepoint():
                 self._expose('base.model_res_partner')
+

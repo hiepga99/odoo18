@@ -3,7 +3,7 @@
 MCP endpoint `/mcp` — tra cứu dữ liệu Odoo **đúng quyền từng user**, read-only, cho mọi MCP client (Cursor, Claude Code, OpenAI Agents SDK, OpenClaw, Inspector…).
 
 - Transport: Streamable HTTP (JSON-RPC 2.0) tại `POST /mcp`
-- Auth: `Authorization: Bearer <Odoo API key>` (`res.users.apikeys`, scope `rpc`)
+- Auth: `Authorization: Bearer <Odoo API key>` (`res.users.apikeys`, scope `rpc`) — hoặc `?key=<API key>` trên URL cho client không gửi được header
 - Health: `GET /mcp/health` (không cần auth)
 - 7 tool generic: `odoo_list_models`, `odoo_describe_model`, `odoo_search_read`, `odoo_read`, `odoo_search_count`, `odoo_read_group`, `odoo_get_record_url`
 - Policy: allowlist model + denylist field; rate limit 60 req/phút theo `(uid, key)`; audit `ai.mcp.audit`
@@ -32,6 +32,8 @@ Thay URL bằng host thật (dev: `http://127.0.0.1:8069/mcp`). Key qua env var.
 |--------|----------------|
 | **Cursor** | `~/.cursor/mcp.json` (hoặc per-project): `url` + `headers.Authorization` |
 | **Claude Code** | `claude mcp add --transport http odoo <url> --header "Authorization: Bearer …"` |
+| **ChatGPT (Developer mode → Thêm server MCP tùy chỉnh)** | Xác thực chọn **Không xác thực** (không chọn "OAuth hoặc không xác thực": chế độ đó bắt buộc tìm OAuth metadata) → URL `https://<host>/mcp?key=<API key>` |
+| **Claude.ai / Claude Desktop (Connectors)** | Không gửi được header, không có OAuth → URL `https://<host>/mcp?key=<API key>` (cấp key riêng, thu hồi được) |
 | **OpenAI** (Responses / Agents SDK) | MCP tool với `server_url` + `headers` |
 | **OpenClaw** | Multi-tenant tiêm `Authorization: Bearer` theo user session |
 | **MCP Inspector** | Transport Streamable HTTP, URL `/mcp`, header `Authorization` |
@@ -90,8 +92,13 @@ Server phục vụ đồng thời hai thế hệ client trên cùng `POST /mcp`:
 
 ## Policy — mở rộng từ module khác
 
-Allowlist/denylist nằm ở AbstractModel `ai.mcp.policy` (`models/policy.py`).
-Module khác thêm/sửa phạm vi mà không đụng `ai_mcp`:
+Policy là **dữ liệu**: record `ai.mcp.model` (menu Settings → Technical → AI MCP → Models): bật/tắt model,
+mô tả cho LLM, field bị ẩn. Bộ mặc định `DEFAULT_POLICY` (`models/policy.py`) gồm contacts, company, product
+(+ pricelist, category, uom), sale/purchase (+ lines), account.move (+ lines, payment), stock (quant, picking,
+move, lot, warehouse, location), hr (employee ẩn PII/ID/bank, department, job), calendar, crm, helpdesk — chỉ tạo
+record cho model đã cài (`_bootstrap_default_policy`: post_init_hook lúc cài, migration `18.0.1.1.0` khi nâng cấp;
+không ghi đè record admin đã sửa). Thêm model khác: tạo record trên UI, hoặc
+module khác thêm/sửa phạm vi bằng code mà không đụng `ai_mcp`:
 
 ```python
 class AiMcpPolicy(models.AbstractModel):

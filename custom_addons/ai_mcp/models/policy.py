@@ -2,7 +2,7 @@
 
 Nguồn policy là DATA (ai.mcp.model — admin bật/tắt trên UI, xem models/mcp_model.py);
 module khác vẫn mở rộng được bằng _inherit _get_policy().
-LEGACY_PILOT_POLICY chỉ dùng cho bootstrap lần đầu (post_init_hook / migration).
+DEFAULT_POLICY bootstrap record cho model đã cài (post_init_hook lúc cài, migration khi nâng cấp).
 """
 from odoo import models
 
@@ -18,15 +18,73 @@ READ_METHODS = frozenset({
 })
 
 
-# Allowlist/denylist pilot ban đầu — chỉ dùng để bootstrap record ai.mcp.model lần đầu.
-LEGACY_PILOT_POLICY = {
-    'res.partner':     {'fields_deny': []},
-    'sale.order':      {'fields_deny': []},
-    'crm.lead':        {'fields_deny': []},
-    'stock.quant':     {'fields_deny': []},
-    'hr.employee':     {'fields_deny': ['identification_id', 'bank_account_id']},
-    'helpdesk.ticket': {'fields_deny': []},
-    'account.move':    {'fields_deny': []},
+# Bộ model mặc định -> record ai.mcp.model (post_init_hook / migration gọi _bootstrap_default_policy).
+# Chỉ tạo cho model đã cài; admin sửa/tắt trên UI sau đó. description viết cho LLM: dữ liệu gì, field nào quan trọng.
+DEFAULT_POLICY = {
+    'res.partner': {'fields_deny': [], 'description':
+        "Contacts: customers, vendors, employees' partner records. Use for names, emails, phones, addresses."},
+    'res.company': {'fields_deny': [], 'description':
+        "Companies of this database (multi-company). Map company_id to a name/currency."},
+    'product.template': {'fields_deny': ['standard_price'], 'description':
+        "Product catalog (templates): name, default_code, list_price (sale price / giá bán), categ_id, uom_id, "
+        "type, sale_ok, purchase_ok. Variants and stock are on product.product."},
+    'product.product': {'fields_deny': ['standard_price'], 'description':
+        "Product variants: default_code (internal reference), lst_price (sale price / giá bán), qty_available "
+        "(on hand), virtual_available (forecast), product_tmpl_id. Use for 'giá', 'tồn kho' of one product."},
+    'product.category': {'fields_deny': [], 'description':
+        "Product categories (tree via parent_id)."},
+    'product.pricelist': {'fields_deny': [], 'description':
+        "Price lists (bảng giá) by customer/currency; rules are product.pricelist.item."},
+    'product.pricelist.item': {'fields_deny': [], 'description':
+        "Price list rules: pricelist_id, product_tmpl_id/product_id/categ_id, min_quantity, compute_price, "
+        "fixed_price, percent_price, date_start/date_end."},
+    'uom.uom': {'fields_deny': [], 'description': "Units of measure (đơn vị tính)."},
+    'sale.order': {'fields_deny': [], 'description':
+        "Sales quotations/orders: name, partner_id, date_order, state (draft=quotation, sale=confirmed), "
+        "amount_untaxed, amount_total, user_id (salesperson), invoice_status. Lines: sale.order.line."},
+    'sale.order.line': {'fields_deny': ['purchase_price', 'margin', 'margin_percent'], 'description':
+        "Sales order lines: order_id, product_id, product_uom_qty, price_unit, discount, price_subtotal, "
+        "qty_delivered, qty_invoiced. Use for 'customer X bought product Y', sold quantities, order details."},
+    'purchase.order': {'fields_deny': [], 'description':
+        "Purchase RFQ/orders: name, partner_id (vendor), date_order, date_approve, state, amount_total, "
+        "user_id (buyer). Lines: purchase.order.line."},
+    'purchase.order.line': {'fields_deny': [], 'description':
+        "Purchase order lines: order_id, product_id, product_qty, price_unit, price_subtotal, qty_received, "
+        "qty_invoiced, date_planned."},
+    'account.move': {'fields_deny': [], 'description':
+        "Invoices, bills, journal entries: move_type (out_invoice=customer invoice, out_refund=credit note, "
+        "in_invoice=vendor bill, entry=journal entry), name, partner_id, invoice_date, invoice_date_due, "
+        "amount_total, amount_residual (unpaid / còn nợ), payment_state, state (posted=validated)."},
+    'account.move.line': {'fields_deny': [], 'description':
+        "Invoice lines and journal items: move_id, partner_id, product_id, quantity, price_unit, price_subtotal, "
+        "account_id, debit, credit, balance, date. Filter display_type='product' for invoice lines."},
+    'account.payment': {'fields_deny': [], 'description':
+        "Customer/vendor payments: partner_id, amount, date, payment_type (inbound/outbound), state, journal_id."},
+    'stock.quant': {'fields_deny': [], 'description':
+        "Stock on hand per product/location/lot: product_id, location_id, quantity, reserved_quantity, lot_id. "
+        "Filter location_id.usage='internal' for real warehouse stock."},
+    'stock.picking': {'fields_deny': [], 'description':
+        "Transfers: receipts, deliveries, internal moves. picking_type_id, partner_id, origin (source document), "
+        "state, scheduled_date, date_done. Lines: stock.move."},
+    'stock.move': {'fields_deny': [], 'description':
+        "Stock moves: picking_id, product_id, product_uom_qty (demand), quantity (done), location_id, "
+        "location_dest_id, state, date."},
+    'stock.lot': {'fields_deny': [], 'description':
+        "Lots / serial numbers: name, product_id, expiration_date, product_qty."},
+    'stock.warehouse': {'fields_deny': [], 'description': "Warehouses: name, code, lot_stock_id."},
+    'stock.location': {'fields_deny': [], 'description':
+        "Stock locations: complete_name, usage (internal, customer, supplier, inventory), warehouse_id."},
+    'hr.employee': {'fields_deny': ['identification_id', 'bank_account_id', 'passport_id', 'ssnid', 'sinid', 'visa_no', 'permit_no', 'private_email', 'private_phone', 'private_street', 'private_street2', 'private_city', 'private_zip', 'private_state_id', 'private_country_id', 'private_car_plate', 'emergency_contact', 'emergency_phone', 'birthday', 'place_of_birth', 'country_of_birth', 'gender', 'marital', 'spouse_complete_name', 'spouse_birthdate', 'children', 'km_home_work', 'distance_home_work'], 'description':
+        "Employees: name, job_title, department_id, parent_id (manager), work_email, work_phone, company_id. "
+        "Private/ID/bank/family data is hidden."},
+    'hr.department': {'fields_deny': [], 'description': "Departments: name, manager_id, parent_id."},
+    'hr.job': {'fields_deny': [], 'description': "Job positions: name, department_id, no_of_employee."},
+    'calendar.event': {'fields_deny': [], 'description':
+        "Calendar meetings: name, start, stop, partner_ids (attendees), user_id, location."},
+    'crm.lead': {'fields_deny': [], 'description':
+        "CRM leads/opportunities: name, partner_id, stage_id, expected_revenue, probability, user_id."},
+    'helpdesk.ticket': {'fields_deny': [], 'description':
+        "Helpdesk tickets: name, partner_id, stage_id, priority, user_id, team_id."},
 }
 
 

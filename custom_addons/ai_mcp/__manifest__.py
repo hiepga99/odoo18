@@ -2,7 +2,7 @@
     'name': 'AI MCP Server',
     'summary': 'MCP endpoint /mcp - tra cứu dữ liệu Odoo đúng quyền từng user, cho mọi MCP client',
     'category': 'Productivity',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.1.0',
     'author': 'Odoo AI Agent Team',
     'depends': ['base', 'web'],
     'data': [
@@ -15,7 +15,7 @@
     'demo': [
         'demo/mcp_actions_demo.xml',
     ],
-    'post_init_hook': '_bootstrap_from_legacy_policy',
+    'post_init_hook': '_bootstrap_default_policy',
     'license': 'LGPL-3',
     'installable': True,
 }
